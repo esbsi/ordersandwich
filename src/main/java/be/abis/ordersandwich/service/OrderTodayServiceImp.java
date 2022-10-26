@@ -5,8 +5,10 @@ import be.abis.ordersandwich.exception.TooManySandwichesException;
 import be.abis.ordersandwich.model.OrderToday;
 import be.abis.ordersandwich.model.Person;
 import be.abis.ordersandwich.model.SandwichOrder;
+import be.abis.ordersandwich.repository.SandwichTypeRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,8 @@ import java.time.LocalTime;
 @Service
 public class OrderTodayServiceImp implements OrderTodayService{
     private Logger log= LogManager.getLogger("exceptionLogger") ;
+    @Autowired
+    SandwichTypeRepository sandwichTypeRepository;
 
     public void orderSandwich(int i, boolean club, boolean white, String comment, Person person, OrderToday orderToday) throws TooManySandwichesException, TooLateException {
         if (LocalTime.now().compareTo(orderToday.getClosingTime())>0 && orderToday.getDate().equals(LocalDate.now())){
@@ -25,7 +29,9 @@ public class OrderTodayServiceImp implements OrderTodayService{
             log.error(person.getName()+" already ordered");
             throw new TooManySandwichesException("you already ordered");
         }
-        SandwichOrder sandwichOrder = new SandwichOrder(orderToday.getShop().getSandwichTypeList().get(i), club,white,comment,person);
+        sandwichTypeRepository.setShop(orderToday.getShop());
+        sandwichTypeRepository.getSandwichTypes();
+        SandwichOrder sandwichOrder = new SandwichOrder(sandwichTypeRepository.getSandwichTypes().get(i), club,white,comment,person);
         orderToday.getOrder().add(sandwichOrder);
     }
 
