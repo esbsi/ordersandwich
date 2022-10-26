@@ -17,7 +17,7 @@ public class OrderToday {
     private List<SandwichOrder> order = new ArrayList<>();
     private double totalPrice;
     private Shop shop;
-    private Logger log= LogManager.getLogger("exceptionLogger") ;
+
 
     private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
     private LocalDateTime now = LocalDateTime.now();
@@ -49,51 +49,6 @@ public class OrderToday {
         } return orderStringBuilder.toString();
     }
 
-    public void orderSandwich(int i,boolean club,boolean white,String comment,Person person) throws TooManySandwichesException, TooLateException {
-        if (LocalTime.now().compareTo(closingTime)>0 && date.equals(LocalDate.now())){
-            log.error("too late, order is closed");
-            throw new TooLateException("too late, order is closed");
-        }
-        if (order.stream().filter(x->x.getPerson()==person).count()>1) {
-            log.error(person.getName()+" already ordered");
-            throw new TooManySandwichesException("you already ordered");
-        }
-        SandwichOrder sandwichOrder = new SandwichOrder(shop.getSandwichTypeList().get(i), club,white,comment,person);
-        order.add(sandwichOrder);
-    }
-
-    public void noOrder(Person person) throws TooManySandwichesException, TooLateException {
-        if(LocalTime.now().compareTo(closingTime)>0 && date.equals(LocalDate.now())){
-            log.error(person.getName()+ " too late, order is closed");
-            throw new TooLateException("too late, order is closed");
-        }
-        if(order.stream().anyMatch(x->x.getPerson()==person)) {
-            log.error(person.getName()+" already ordered");
-            throw new TooManySandwichesException("you already ordered");
-        }
-        SandwichOrder sandwichOrder = new SandwichOrder(person);
-        order.add(sandwichOrder);
-        System.out.println(sandwichOrder);
-    }
-
-    public void removeOrder(int index) throws TooLateException {
-        if(LocalTime.now().compareTo(closingTime)>0 && date.equals(LocalDate.now())){
-            log.error("too late, order is closed");
-            throw new TooLateException("too late, order is closed");
-        }
-        order.remove(index);
-    }
-
-    public double totalPrice(){
-        double sum=0;
-        for (SandwichOrder sandwich:order){
-            if(sandwich.getSandwichType()!=null && sandwich.getSandwichType().getPrice()!=null) {
-                sum += sandwich.getSandwichType().getPrice();
-            }
-        }
-        this.totalPrice=sum;
-        return sum;
-    }
 
 
     // getset
@@ -111,7 +66,7 @@ public class OrderToday {
     }
 
     public double getTotalPrice() {
-        return totalPrice();
+        return totalPrice;
     }
 
     public void setShop(Shop shop) {

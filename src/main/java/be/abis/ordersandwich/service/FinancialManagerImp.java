@@ -61,7 +61,7 @@ public class FinancialManagerImp implements FinancialManager{
 
     }
 
-    public double dayPriceOfCourse(Session session, LocalDate day){
+    public double dayPriceOfSession(Session session, LocalDate day){
         double sum=0;
         List<OrderToday> orderHistory=history.getOrderHistory();
         List<OrderToday> courseOrders=orderHistory.stream().filter(x->x.getDate().equals(day)).collect(Collectors.toList());
