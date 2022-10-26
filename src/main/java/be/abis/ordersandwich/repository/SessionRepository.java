@@ -8,7 +8,7 @@ import java.util.List;
 public interface SessionRepository {
 
     List<Session> getSessions();
-    Session findMostRecentCourse(String courseName) throws SessionNotFoundException;
-    void addCourse(String name, String startDate, String endDate);
+    Session findMostRecentSession(String sessionName) throws SessionNotFoundException;
+    void addSession(String name, String startDate, String endDate);
 
 }

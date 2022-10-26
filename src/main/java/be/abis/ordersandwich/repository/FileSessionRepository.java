@@ -40,15 +40,15 @@ public class FileSessionRepository implements SessionRepository {
 
 
     @Override
-    public Session findMostRecentCourse(String courseName) throws SessionNotFoundException {
+    public Session findMostRecentSession(String sessionName) throws SessionNotFoundException {
         return sessions.stream()
-                .filter(course -> courseName.equals(course.getName()))
+                .filter(session -> sessionName.equals(session.getName()))
                 .sorted(Collections.reverseOrder())
                 .findFirst().orElseThrow(SessionNotFoundException::new);
     }
 
     @Override
-    public void addCourse(String name, String startDate, String endDate) {
+    public void addSession(String name, String startDate, String endDate) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(fileName, true))){
             writer.append(name + ";" + startDate + ";" + endDate + ";\n");
         } catch (IOException e) {

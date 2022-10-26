@@ -32,7 +32,7 @@ public class SessionServiceImp implements SessionService{
                 string+=session.getName() + ": " + person.getName() + " hasn't ordered." +"\n";
             } else {++count;}
         } if (count == session.getPersonList().size()){
-            string+="All students in " + session.getName() + " course have ordered.";
+            string+="All students in " + session.getName() + " session have ordered.";
         }
         return string;
     }
@@ -46,13 +46,13 @@ public class SessionServiceImp implements SessionService{
     }
 
     @Override
-    public Session findMostRecentCourse(String courseName) throws SessionNotFoundException{
-        return sessionRepository.findMostRecentCourse(courseName);
+    public Session findMostRecentSession(String sessionName) throws SessionNotFoundException{
+        return sessionRepository.findMostRecentSession(sessionName);
     }
 
     @Override
-    public void addCourse(String name, String startDate, String endDate){
-        sessionRepository.addCourse(name, startDate, endDate);
+    public void addSession(String name, String startDate, String endDate){
+        sessionRepository.addSession(name, startDate, endDate);
     }
 
 }

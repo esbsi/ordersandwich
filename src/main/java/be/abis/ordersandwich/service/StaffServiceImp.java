@@ -28,7 +28,7 @@ public class StaffServiceImp implements StaffService{
         orderToday.setNow(LocalDateTime.now());
         orderHistory.addToOrderHistory(orderToday);
 
-        List<Session> sessionList =orderToday.getOrder().stream().map(p->p.getPerson().getCourse()).distinct().collect(Collectors.toList());
+        List<Session> sessionList =orderToday.getOrder().stream().map(p->p.getPerson().getSession()).distinct().collect(Collectors.toList());
         toFile(orderToday.toString(),false);
 
         for (Session session : sessionList){
@@ -45,7 +45,7 @@ public class StaffServiceImp implements StaffService{
         PrintWriter pw = null;
 
         try {
-            fw = new FileWriter("c:\\temp\\javacourses\\broodjes2.txt", bool);
+            fw = new FileWriter("c:\\temp\\javasessions\\broodjes2.txt", bool);
             bw = new BufferedWriter(fw);
             pw = new PrintWriter(bw);
             pw.println(writing);

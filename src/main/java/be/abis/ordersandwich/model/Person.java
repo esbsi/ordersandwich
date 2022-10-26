@@ -38,11 +38,11 @@ public class Person {
         this.name = name;
     }
 
-    public Session getCourse() {
+    public Session getSession() {
         return session;
     }
 
-    public void setCourse(Session session) {
+    public void setSession(Session session) {
         this.session = session;
     }
 

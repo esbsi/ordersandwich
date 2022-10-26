@@ -35,20 +35,20 @@ public class Session {
 
     public void addPerson(Person p) throws PersonAlreadyInSessionException, NullInputException {
         if(p==null)throw new NullInputException("input is null");
-        if(personList.contains(p)) throw new PersonAlreadyInSessionException("person is already in the course");
+        if(personList.contains(p)) throw new PersonAlreadyInSessionException("person is already in the session");
         if(personList.stream().map(per->per.getName()).anyMatch(x->x.equals(p.getName()))){
             p.setName(p.getName()+"2");
             System.out.println("2 is added to "+p.getName()+" because there are 2 people with the same name");
         }
         personList.add(p);
-        p.setCourse(this);
+        p.setSession(this);
     }
 
     public void removePerson(Person p) throws PersonNotInSessionException, NullInputException {
         if(p==null)throw new NullInputException("input is null");
         if (!personList.contains(p)) throw new PersonNotInSessionException(p.getName()+" is not in this session");
         personList.remove(p);
-        p.setCourse(null);
+        p.setSession(null);
     }
 
 

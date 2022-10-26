@@ -3,7 +3,7 @@ package be.abis.ordersandwich.exception;
 public class SessionNotFoundException extends Exception{
 
     public SessionNotFoundException() {
-        super("Course not found.");
+        super("Session not found.");
     }
 
     public SessionNotFoundException(String message) {

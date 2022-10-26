@@ -54,12 +54,12 @@ public class FinancialManagerImp implements FinancialManager{
         return totalSandwiches;
     }
 
-    public double totalPriceOfCourse(Session session){
+    public double totalPriceOfSession(Session session){
         double sum=0;
         List<OrderToday> orderHistory=history.getOrderHistory();
-        List<OrderToday> courseOrders=orderHistory.stream().filter(x->x.getDate().compareTo(session.getStartDate())>=0 && x.getDate().compareTo(session.getEndDate())<=0).collect(Collectors.toList());
-        for(OrderToday order:courseOrders){
-            sum+=order.getOrder().stream().filter(x->x.getPerson().getCourse()== session).map(x->x.getSandwichType().getPrice()).mapToDouble(Double::doubleValue).sum();
+        List<OrderToday> sessionOrders=orderHistory.stream().filter(x->x.getDate().compareTo(session.getStartDate())>=0 && x.getDate().compareTo(session.getEndDate())<=0).collect(Collectors.toList());
+        for(OrderToday order:sessionOrders){
+            sum+=order.getOrder().stream().filter(x->x.getPerson().getSession()== session).map(x->x.getSandwichType().getPrice()).mapToDouble(Double::doubleValue).sum();
         }
         return sum;
 
@@ -68,9 +68,9 @@ public class FinancialManagerImp implements FinancialManager{
     public double dayPriceOfSession(Session session, LocalDate day){
         double sum=0;
         List<OrderToday> orderHistory=history.getOrderHistory();
-        List<OrderToday> courseOrders=orderHistory.stream().filter(x->x.getDate().equals(day)).collect(Collectors.toList());
-        for(OrderToday order:courseOrders){
-            sum+=order.getOrder().stream().filter(x->x.getPerson().getCourse()== session).map(x->x.getSandwichType().getPrice()).mapToDouble(Double::doubleValue).sum();
+        List<OrderToday> sessionOrders=orderHistory.stream().filter(x->x.getDate().equals(day)).collect(Collectors.toList());
+        for(OrderToday order:sessionOrders){
+            sum+=order.getOrder().stream().filter(x->x.getPerson().getSession()== session).map(x->x.getSandwichType().getPrice()).mapToDouble(Double::doubleValue).sum();
         }
         return sum;
 

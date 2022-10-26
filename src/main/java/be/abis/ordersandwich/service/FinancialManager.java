@@ -10,7 +10,7 @@ import java.time.Month;
 public interface FinancialManager {
      double getMonthlyPrice(Shop shop, Month month, int year);
      int getAmountOfSandwichesOrdered(Shop shop, Month month,int year);
-     double totalPriceOfCourse(Session session);
+     double totalPriceOfSession(Session session);
      public double dayPriceOfSession(Session session, LocalDate day);
      public double averagePriceSandwich(Shop shop, Month month,int year);
 }
