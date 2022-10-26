@@ -24,17 +24,13 @@ public class FileSandwichTypeRepository implements SandwichTypeRepository{
     @Override
     public void setShop(Shop shop) {
         this.shop = shop;
-        this.fileDirectory = shop.getName() + "SandwichTypes.csv";
+        this.fileDirectory = "src/main/resources/" + shop.getName() + "SandwichTypes.csv";
         loadSandwichTypes();
     }
 
-    @Override
-    public Shop getShop() {
-        return shop;
-    }
 
+    // business
 
-    // ToDo at setShop()
     public void loadSandwichTypes() {
         List<SandwichType> sandwichTypeList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(fileDirectory))) {
@@ -65,6 +61,11 @@ public class FileSandwichTypeRepository implements SandwichTypeRepository{
 
 
     // getset
+
+    @Override
+    public Shop getShop() {
+        return shop;
+    }
 
     @Override
     public List<SandwichType> getSandwichTypes() {
