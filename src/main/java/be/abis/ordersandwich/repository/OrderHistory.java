@@ -12,7 +12,7 @@ public class OrderHistory implements OrderRepository{
 
     private List<OrderToday> orderHistory = new ArrayList<>();
 
-    private OrderHistory() {}
+    public OrderHistory() {}
 
 
 
