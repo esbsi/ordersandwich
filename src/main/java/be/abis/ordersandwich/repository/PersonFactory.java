@@ -3,10 +3,12 @@ import be.abis.ordersandwich.exception.PersonAlreadyInSessionException;
 
 import be.abis.ordersandwich.model.Session;
 import be.abis.ordersandwich.model.Person;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class PersonFactory implements PersonRepository{
 
     private static PersonFactory personFactory=new PersonFactory();
@@ -53,6 +55,7 @@ public class PersonFactory implements PersonRepository{
         return personFactory;
     }
 
+    @Override
     public List<Person> getPersonList() {
         return personList;
     }

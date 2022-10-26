@@ -2,16 +2,19 @@ package be.abis.ordersandwich.repository;
 
 import be.abis.ordersandwich.exception.SessionNotFoundException;
 import be.abis.ordersandwich.model.Session;
+import org.springframework.stereotype.Repository;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Repository
 public class FileSessionRepository implements SessionRepository {
 
     private List<Session> sessionList = new ArrayList<>();
 
+    @Override
     public List<Session> getCourses(){
        // List<Session> sessionList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader("be/abis/ordersandwich/resource/SessionRepository.csv"))){
@@ -26,6 +29,7 @@ public class FileSessionRepository implements SessionRepository {
         } return this.sessionList;
     }
 
+    @Override
     public Session findMostRecentCourse(String courseName) throws SessionNotFoundException {
         return getCourses().stream()
                 .filter(course -> courseName.equals(course.getName()))
@@ -33,6 +37,7 @@ public class FileSessionRepository implements SessionRepository {
                 .findFirst().orElseThrow(SessionNotFoundException::new);
     }
 
+    @Override
     public void addCourse(String name, String startDate, String endDate) {
         try (PrintWriter writer = new PrintWriter(new FileWriter("be/abis/ordersandwich/resource/SessionRepository.csv", true))){
             writer.append(name + ";" + startDate + ";" + endDate + ";\n");
