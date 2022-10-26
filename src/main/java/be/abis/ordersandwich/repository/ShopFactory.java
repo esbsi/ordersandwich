@@ -8,16 +8,12 @@ import java.util.List;
 
 @Repository
 public class ShopFactory implements ShopRepository{
-    private static ShopFactory shopFactory =new ShopFactory();
 
     private List<Shop> shops = new ArrayList<>();
 
     private ShopFactory() {
         this.shops.add(new Shop("Vleugels"));
         this.shops.add(new Shop("Pinkys"));
-    }
-    public static ShopFactory getInstance(){
-        return shopFactory;
     }
 
     @Override
@@ -31,5 +27,4 @@ public class ShopFactory implements ShopRepository{
             .filter(shop -> shopName.equals(shop.getName()))
             .findFirst().orElse(null);
     }
-
 }

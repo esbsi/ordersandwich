@@ -9,14 +9,12 @@ import java.util.List;
 @Repository
 public class OrderHistory implements OrderRepository{
 
-    private static OrderHistory history=new OrderHistory();
+
     private List<OrderToday> orderHistory = new ArrayList<>();
 
     private OrderHistory() {}
 
-    public static OrderHistory getInstance(){
-        return history;
-    }
+
 
 
     // business

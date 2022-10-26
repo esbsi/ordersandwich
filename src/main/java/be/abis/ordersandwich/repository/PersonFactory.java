@@ -11,10 +11,10 @@ import java.util.List;
 @Repository
 public class PersonFactory implements PersonRepository{
 
-    private static PersonFactory personFactory=new PersonFactory();
+
     private List<Person> personList=new ArrayList<>();
 
-    private PersonFactory() {
+    public PersonFactory() {
         Session c =new Session("java");
         Session c1=new Session("python");
 
@@ -51,9 +51,7 @@ public class PersonFactory implements PersonRepository{
 
     }
 
-    public static PersonFactory getInstance(){
-        return personFactory;
-    }
+
 
     @Override
     public List<Person> getPersonList() {
