@@ -1,6 +1,7 @@
 package be.abis.ordersandwich.model;
 
 import be.abis.ordersandwich.exception.PersonAlreadyInSessionException;
+import be.abis.ordersandwich.exception.PersonNotInSessionException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -41,7 +42,8 @@ public class Session {
         p.setCourse(this);
     }
 
-    public void removePerson(Person p){
+    public void removePerson(Person p) throws PersonNotInSessionException {
+        if (!personList.contains(p)) throw new PersonNotInSessionException(p.getName()+" is not in this session");
         personList.remove(p);
         p.setCourse(null);
     }
