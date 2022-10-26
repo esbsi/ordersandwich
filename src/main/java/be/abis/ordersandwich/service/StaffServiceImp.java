@@ -20,6 +20,8 @@ import java.util.stream.Collectors;
 @Service
 public class StaffServiceImp implements StaffService{
 
+    @Autowired
+    SessionService sessionService;
 
     public OrderToday sendOrder(OrderToday orderToday, OrderHistory orderHistory, Shop shopTomorrow){
         orderToday.getTotalPrice();
@@ -30,7 +32,7 @@ public class StaffServiceImp implements StaffService{
         toFile(orderToday.toString(),false);
 
         for (Session session : sessionList){
-            toFile(session.checkAllOrdered(orderToday),true);
+            toFile(sessionService.checkAllOrdered(orderToday, session),true);
         }
 
 

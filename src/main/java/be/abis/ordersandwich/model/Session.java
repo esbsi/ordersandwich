@@ -46,24 +46,6 @@ public class Session {
         p.setCourse(null);
     }
 
-    public String checkAllOrdered(OrderToday orderToday){
-        int count = 0;
-        String string="";
-        for (Person person : personList) {
-            boolean personOrdered = false;
-            for (SandwichOrder sandwichOrder : orderToday.getOrder()){
-                if (sandwichOrder.getPerson() == person){
-                    personOrdered = true;
-                }
-            } if (!personOrdered){
-                string+=this.name + ": " + person.getName() + " hasn't ordered." +"\n";
-            } else {++count;}
-        } if (count == personList.size()){
-                string+="All students in " + this.name + " course have ordered.";
-        }
-        return string;
-    }
-
 
     // getset
 
