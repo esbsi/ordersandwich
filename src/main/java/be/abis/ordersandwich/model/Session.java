@@ -1,5 +1,6 @@
 package be.abis.ordersandwich.model;
 
+import be.abis.ordersandwich.exception.NullInputException;
 import be.abis.ordersandwich.exception.PersonAlreadyInSessionException;
 import be.abis.ordersandwich.exception.PersonNotInSessionException;
 
@@ -32,7 +33,8 @@ public class Session {
 
     // business
 
-    public void addPerson(Person p) throws PersonAlreadyInSessionException {
+    public void addPerson(Person p) throws PersonAlreadyInSessionException, NullInputException {
+        if(p==null)throw new NullInputException("input is null");
         if(personList.contains(p)) throw new PersonAlreadyInSessionException("person is already in the course");
         if(personList.stream().map(per->per.getName()).anyMatch(x->x.equals(p.getName()))){
             p.setName(p.getName()+"2");
@@ -42,7 +44,8 @@ public class Session {
         p.setCourse(this);
     }
 
-    public void removePerson(Person p) throws PersonNotInSessionException {
+    public void removePerson(Person p) throws PersonNotInSessionException, NullInputException {
+        if(p==null)throw new NullInputException("input is null");
         if (!personList.contains(p)) throw new PersonNotInSessionException(p.getName()+" is not in this session");
         personList.remove(p);
         p.setCourse(null);

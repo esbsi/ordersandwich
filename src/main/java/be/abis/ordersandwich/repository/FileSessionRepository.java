@@ -4,6 +4,7 @@ import be.abis.ordersandwich.exception.SessionNotFoundException;
 import be.abis.ordersandwich.model.Session;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,7 +14,7 @@ import java.util.List;
 public class FileSessionRepository implements SessionRepository {
 
     private List<Session> sessions = new ArrayList<>();
-    private String fileName = "SessionRepository.csv";
+    private String fileName = "src/main/resources/SessionRepository.csv";
 
     public FileSessionRepository() {
         loadSessions();
@@ -32,6 +33,11 @@ public class FileSessionRepository implements SessionRepository {
             throw new RuntimeException(e);
         }
     }
+
+
+
+
+
 
     @Override
     public Session findMostRecentCourse(String courseName) throws SessionNotFoundException {
