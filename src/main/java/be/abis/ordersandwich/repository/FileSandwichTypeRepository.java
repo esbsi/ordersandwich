@@ -16,6 +16,7 @@ public class FileSandwichTypeRepository implements SandwichTypeRepository{
 
     private Shop shop;
     private String fileDirectory;
+    private List<SandwichType> sandwichTypes;
 
     public FileSandwichTypeRepository() {
     }
@@ -23,7 +24,8 @@ public class FileSandwichTypeRepository implements SandwichTypeRepository{
     @Override
     public void setShop(Shop shop) {
         this.shop = shop;
-        this.fileDirectory = "be/abis/ordersandwich/resource/" + shop.getName() + "SandwichTypes.csv";
+        this.fileDirectory = shop.getName() + "SandwichTypes.csv";
+        loadSandwichTypes();
     }
 
     @Override
@@ -33,8 +35,7 @@ public class FileSandwichTypeRepository implements SandwichTypeRepository{
 
 
     // ToDo at setShop()
-    @Override
-    public List<SandwichType> getSandwichTypes() {
+    public void loadSandwichTypes() {
         List<SandwichType> sandwichTypeList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(fileDirectory))) {
                 String line;
@@ -52,7 +53,7 @@ public class FileSandwichTypeRepository implements SandwichTypeRepository{
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
-        } return sandwichTypeList;
+        } this.sandwichTypes = sandwichTypeList;
     }
 
     @Override
@@ -60,6 +61,14 @@ public class FileSandwichTypeRepository implements SandwichTypeRepository{
         return getSandwichTypes().stream()
                 .filter(sandwichType -> sandwichName.equals(sandwichType.getName()))
                 .findFirst().orElseThrow(SandwichTypeNotFoundException::new);
+    }
+
+
+    // getset
+
+    @Override
+    public List<SandwichType> getSandwichTypes() {
+        return sandwichTypes;
     }
 
 }
