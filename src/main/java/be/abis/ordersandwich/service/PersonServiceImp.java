@@ -1,5 +1,6 @@
 package be.abis.ordersandwich.service;
 
+import be.abis.ordersandwich.exception.NullInputException;
 import be.abis.ordersandwich.exception.TooLateException;
 import be.abis.ordersandwich.exception.TooManySandwichesException;
 import be.abis.ordersandwich.model.OrderToday;
@@ -18,12 +19,12 @@ public class PersonServiceImp implements PersonService{
     @Autowired
     OrderTodayService orderTodayService;
 
-    public void orderSandwich(int pos, boolean club, boolean white, String comment, Person person ,OrderToday orderToday) throws TooManySandwichesException, TooLateException {
+    public void orderSandwich(int pos, boolean club, boolean white, String comment, Person person ,OrderToday orderToday) throws TooManySandwichesException, TooLateException, NullInputException {
         orderTodayService.orderSandwich(pos,club,white,comment,person,orderToday);
     }
 
 
-    public void noOrderToday(Person person,OrderToday o) throws TooManySandwichesException, TooLateException {
+    public void noOrderToday(Person person,OrderToday o) throws TooManySandwichesException, TooLateException, NullInputException {
         orderTodayService.noOrder(person, o);
     }
 
@@ -42,7 +43,7 @@ public class PersonServiceImp implements PersonService{
         return integerList;
     }
 
-    public void removeMyOrder(Person person, OrderToday orderToday) throws TooLateException {
+    public void removeMyOrder(Person person, OrderToday orderToday) throws TooLateException, NullInputException {
         List<Integer> integerList=checkMyOrderToday(person,orderToday);
         if (integerList.size()==0){
             System.out.println("nothing ordered");

@@ -1,5 +1,6 @@
 package be.abis.ordersandwich.service;
 
+import be.abis.ordersandwich.exception.NullInputException;
 import be.abis.ordersandwich.exception.TooLateException;
 import be.abis.ordersandwich.exception.TooManySandwichesException;
 import be.abis.ordersandwich.model.OrderToday;
@@ -16,17 +17,18 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 @Service
 public class OrderTodayServiceImp implements OrderTodayService{
-    private Logger log= LogManager.getLogger("exceptionLogger") ;
+
     @Autowired
     SandwichTypeRepository sandwichTypeRepository;
 
-    public void orderSandwich(int i, boolean club, boolean white, String comment, Person person, OrderToday orderToday) throws TooManySandwichesException, TooLateException {
+    public void orderSandwich(int i, boolean club, boolean white, String comment, Person person, OrderToday orderToday) throws TooManySandwichesException, TooLateException, NullInputException {
+        if (person==null || orderToday==null ) throw new NullInputException("null input");
         if (LocalTime.now().compareTo(orderToday.getClosingTime())>0 && orderToday.getDate().equals(LocalDate.now())){
-            log.error("too late, order is closed");
+
             throw new TooLateException("too late, order is closed");
         }
         if (orderToday.getOrder().stream().filter(x->x.getPerson()==person).count()>1) {
-            log.error(person.getName()+" already ordered");
+
             throw new TooManySandwichesException("you already ordered");
         }
         sandwichTypeRepository.setShop(orderToday.getShop());
@@ -35,13 +37,14 @@ public class OrderTodayServiceImp implements OrderTodayService{
         orderToday.getOrder().add(sandwichOrder);
     }
 
-    public void noOrder(Person person, OrderToday orderToday) throws TooManySandwichesException, TooLateException {
+    public void noOrder(Person person, OrderToday orderToday) throws TooManySandwichesException, TooLateException, NullInputException {
+        if (person==null || orderToday==null ) throw new NullInputException("null input");
         if(LocalTime.now().compareTo(orderToday.getClosingTime())>0 && orderToday.getDate().equals(LocalDate.now())){
-            log.error(person.getName()+ " too late, order is closed");
+
             throw new TooLateException("too late, order is closed");
         }
         if(orderToday.getOrder().stream().anyMatch(x->x.getPerson()==person)) {
-            log.error(person.getName()+" already ordered");
+
             throw new TooManySandwichesException("you already ordered");
         }
         SandwichOrder sandwichOrder = new SandwichOrder(person);
@@ -49,15 +52,17 @@ public class OrderTodayServiceImp implements OrderTodayService{
         //System.out.println(sandwichOrder);
     }
 
-    public void removeOrder(int index,OrderToday orderToday) throws TooLateException {
+    public void removeOrder(int index,OrderToday orderToday) throws TooLateException, NullInputException {
+        if ( orderToday==null ) throw new NullInputException("null input");
         if(LocalTime.now().compareTo(orderToday.getClosingTime())>0 && orderToday.getDate().equals(LocalDate.now())){
-            log.error("too late, order is closed");
+
             throw new TooLateException("too late, order is closed");
         }
         orderToday.getOrder().remove(index);
     }
 
-    public double totalPrice(OrderToday orderToday){
+    public double totalPrice(OrderToday orderToday) throws NullInputException {
+        if ( orderToday==null ) throw new NullInputException("null input");
         double sum=0;
         for (SandwichOrder sandwich:orderToday.getOrder()){
             if(sandwich.getSandwichType()!=null && sandwich.getSandwichType().getPrice()!=null) {
