@@ -12,21 +12,23 @@ import java.util.List;
 @Repository
 public class FileSessionRepository implements SessionRepository {
 
-    private List<Session> sessionList = new ArrayList<>();
+    private List<Session> sessions = new ArrayList<>();
 
-    @Override
-    public List<Session> getSessions(){
-       // List<Session> sessionList = new ArrayList<>();
+    public FileSessionRepository() {
+        loadSessions();
+    }
+
+    public List<Session> loadSessions(){
         try (BufferedReader reader = new BufferedReader(new FileReader("be/abis/ordersandwich/resource/SessionRepository.csv"))){
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] attributes = line.split(";");
                 Session session = new Session(attributes[0], attributes[1], attributes[2]);
-                this.sessionList.add(session);
+                this.sessions.add(session);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } return this.sessionList;
+        } return this.sessions;
     }
 
     @Override
@@ -44,6 +46,14 @@ public class FileSessionRepository implements SessionRepository {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+
+    // getset
+
+    @Override
+    public List<Session> getSessions() {
+        return sessions;
     }
 
 }
