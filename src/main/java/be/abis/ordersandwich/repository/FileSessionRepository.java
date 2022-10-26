@@ -13,13 +13,14 @@ import java.util.List;
 public class FileSessionRepository implements SessionRepository {
 
     private List<Session> sessions = new ArrayList<>();
+    private String fileName = "SessionRepository.csv";
 
     public FileSessionRepository() {
         loadSessions();
     }
 
-    public List<Session> loadSessions(){
-        try (BufferedReader reader = new BufferedReader(new FileReader("be/abis/ordersandwich/resource/SessionRepository.csv"))){
+    public void loadSessions(){
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))){
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] attributes = line.split(";");
@@ -27,13 +28,14 @@ public class FileSessionRepository implements SessionRepository {
                 this.sessions.add(session);
             }
         } catch (IOException e) {
+            System.out.println("FileSessionRepository csv file not found.");
             throw new RuntimeException(e);
-        } return this.sessions;
+        }
     }
 
     @Override
     public Session findMostRecentCourse(String courseName) throws SessionNotFoundException {
-        return getSessions().stream()
+        return sessions.stream()
                 .filter(course -> courseName.equals(course.getName()))
                 .sorted(Collections.reverseOrder())
                 .findFirst().orElseThrow(SessionNotFoundException::new);
@@ -41,7 +43,7 @@ public class FileSessionRepository implements SessionRepository {
 
     @Override
     public void addCourse(String name, String startDate, String endDate) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter("be/abis/ordersandwich/resource/SessionRepository.csv", true))){
+        try (PrintWriter writer = new PrintWriter(new FileWriter(fileName, true))){
             writer.append(name + ";" + startDate + ";" + endDate + ";\n");
         } catch (IOException e) {
             System.out.println(e.getMessage());
