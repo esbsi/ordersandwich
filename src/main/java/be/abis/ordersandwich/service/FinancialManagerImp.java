@@ -4,13 +4,14 @@ import be.abis.ordersandwich.model.Session;
 import be.abis.ordersandwich.repository.OrderHistory;
 import be.abis.ordersandwich.model.OrderToday;
 import be.abis.ordersandwich.model.Shop;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Service
 public class FinancialManagerImp implements FinancialManager{
     private OrderHistory history=OrderHistory.getInstance();
 
