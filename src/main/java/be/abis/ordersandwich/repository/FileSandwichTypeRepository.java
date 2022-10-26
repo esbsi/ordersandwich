@@ -20,11 +20,19 @@ public class FileSandwichTypeRepository implements SandwichTypeRepository{
     public FileSandwichTypeRepository() {
     }
 
-    public FileSandwichTypeRepository(Shop shop) {
+    @Override
+    public void setShop(Shop shop) {
         this.shop = shop;
         this.fileDirectory = "be/abis/ordersandwich/resource/" + shop.getName() + "SandwichTypes.csv";
     }
 
+    @Override
+    public Shop getShop() {
+        return shop;
+    }
+
+
+    // ToDo at setShop()
     @Override
     public List<SandwichType> getSandwichTypes() {
         List<SandwichType> sandwichTypeList = new ArrayList<>();
