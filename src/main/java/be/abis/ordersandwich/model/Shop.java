@@ -13,7 +13,7 @@ public class Shop {
         this.name = name;
 
     }
-    
+
     // getset
 
     public String getName() {

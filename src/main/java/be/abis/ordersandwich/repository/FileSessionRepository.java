@@ -15,7 +15,7 @@ public class FileSessionRepository implements SessionRepository {
     private List<Session> sessionList = new ArrayList<>();
 
     @Override
-    public List<Session> getCourses(){
+    public List<Session> getSessions(){
        // List<Session> sessionList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader("be/abis/ordersandwich/resource/SessionRepository.csv"))){
             String line;
@@ -31,7 +31,7 @@ public class FileSessionRepository implements SessionRepository {
 
     @Override
     public Session findMostRecentCourse(String courseName) throws SessionNotFoundException {
-        return getCourses().stream()
+        return getSessions().stream()
                 .filter(course -> courseName.equals(course.getName()))
                 .sorted(Collections.reverseOrder())
                 .findFirst().orElseThrow(SessionNotFoundException::new);
