@@ -1,11 +1,11 @@
-package be.abis.ordersandwich.model;
+package be.abis.ordersandwich.repository;
 
-import java.time.LocalDateTime;
-import java.time.Month;
+import be.abis.ordersandwich.model.OrderToday;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderHistory {
+public class OrderHistory implements OrderRepository{
 
     private static OrderHistory history=new OrderHistory();
     private List<OrderToday> orderHistory = new ArrayList<>();

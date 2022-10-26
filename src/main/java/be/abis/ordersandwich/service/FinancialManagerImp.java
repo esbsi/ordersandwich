@@ -1,7 +1,7 @@
 package be.abis.ordersandwich.service;
 
 import be.abis.ordersandwich.model.Session;
-import be.abis.ordersandwich.model.OrderHistory;
+import be.abis.ordersandwich.repository.OrderHistory;
 import be.abis.ordersandwich.model.OrderToday;
 import be.abis.ordersandwich.model.Shop;
 

@@ -2,6 +2,7 @@ package be.abis.ordersandwich.model;
 
 import be.abis.ordersandwich.exception.TooLateException;
 import be.abis.ordersandwich.exception.TooManySandwichesException;
+import be.abis.ordersandwich.repository.OrderHistory;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -28,7 +29,7 @@ public class Staff extends Person {
 
     }
 
-    public OrderToday sendOrder(OrderToday orderToday,OrderHistory orderHistory,Shop shopTomorrow){
+    public OrderToday sendOrder(OrderToday orderToday, OrderHistory orderHistory, Shop shopTomorrow){
         orderToday.totalPrice();
         orderToday.setNow(LocalDateTime.now());
         orderHistory.addToOrderHistory(orderToday);
