@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss} [%t] %-5level %logger{36}
+												%msg%n" />
+        </Console>
+        <File name="ErrorFile" fileName="c:\temp\javacourses\Exceptions2.txt" immediateFlush="false"
+              append="false">
+            <JsonTemplateLayout eventTemplateUri="classpath:EcsLayout.json" />
+        </File>
+    </Appenders>
+    <Loggers>
+        <Root level="info" additivity="false">
+            <AppenderRef ref="Console" />
+        </Root>
+        <Logger name="exceptionLogger" level="error" additivity="false">
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+    </Loggers>
+</Configuration>
