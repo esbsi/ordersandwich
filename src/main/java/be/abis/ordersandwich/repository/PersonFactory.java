@@ -34,7 +34,7 @@ public class PersonFactory implements PersonRepository{
         personList.add(p6);
         personList.add(p7);
         personList.add(p8);
-
+/*
         try {
             c.addPerson(p1);
             c.addPerson(p2);
@@ -47,6 +47,8 @@ public class PersonFactory implements PersonRepository{
         } catch (PersonAlreadyInSessionException e) {
             throw new RuntimeException(e);
         }
+
+ */
 
 
     }
