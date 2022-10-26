@@ -1,6 +1,7 @@
 package be.abis.ordersandwich.service;
 
 import be.abis.ordersandwich.exception.NullInputException;
+import be.abis.ordersandwich.exception.SandwichTypeNotFoundException;
 import be.abis.ordersandwich.exception.TooLateException;
 import be.abis.ordersandwich.exception.TooManySandwichesException;
 import be.abis.ordersandwich.model.OrderToday;
@@ -53,14 +54,14 @@ public class OrderTodayServiceTest {
 
 
     @Test
-    void order() throws TooLateException, TooManySandwichesException, NullInputException {
+    void order() throws TooLateException, TooManySandwichesException, NullInputException, SandwichTypeNotFoundException {
         orderTodayService.orderSandwich(1,true,true,"", person,orderToday);
 
         assertEquals(1,orderToday.getOrder().size());
     }
 
     @Test
-    void orderTooMany() throws TooLateException, TooManySandwichesException, NullInputException {
+    void orderTooMany() throws TooLateException, TooManySandwichesException, NullInputException, SandwichTypeNotFoundException {
         orderTodayService.orderSandwich(1,true,true,"", person,orderToday);
         orderTodayService.orderSandwich(1,true,true,"", person,orderToday);
 
@@ -78,9 +79,12 @@ public class OrderTodayServiceTest {
     @Test
     void nullPerson() throws TooLateException, TooManySandwichesException {
 
-
-
         assertThrows(Exception.class,()->orderTodayService.orderSandwich(1,true,true,"", null,orderToday));
+    }
+
+    @Test
+    void indexToohigh(){
+        assertThrows(SandwichTypeNotFoundException.class,()->orderTodayService.orderSandwich(10000,true,true,"", person,orderToday));
     }
 
 

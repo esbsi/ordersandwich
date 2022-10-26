@@ -1,6 +1,7 @@
 package be.abis.ordersandwich.service;
 
 import be.abis.ordersandwich.exception.NullInputException;
+import be.abis.ordersandwich.exception.SandwichTypeNotFoundException;
 import be.abis.ordersandwich.exception.TooLateException;
 import be.abis.ordersandwich.exception.TooManySandwichesException;
 import be.abis.ordersandwich.model.OrderToday;
@@ -21,7 +22,7 @@ public class OrderTodayServiceImp implements OrderTodayService{
     @Autowired
     SandwichTypeRepository sandwichTypeRepository;
 
-    public void orderSandwich(int i, boolean club, boolean white, String comment, Person person, OrderToday orderToday) throws TooManySandwichesException, TooLateException, NullInputException {
+    public void orderSandwich(int i, boolean club, boolean white, String comment, Person person, OrderToday orderToday) throws TooManySandwichesException, TooLateException, NullInputException, SandwichTypeNotFoundException {
         if (person==null || orderToday==null ) throw new NullInputException("null input");
         if (LocalTime.now().compareTo(orderToday.getClosingTime())>0 && orderToday.getDate().equals(LocalDate.now())){
 
@@ -33,6 +34,7 @@ public class OrderTodayServiceImp implements OrderTodayService{
         }
         sandwichTypeRepository.setShop(orderToday.getShop());
         sandwichTypeRepository.getSandwichTypes();
+        if (i>sandwichTypeRepository.getSandwichTypes().size()-1) throw new SandwichTypeNotFoundException("index too high");
         SandwichOrder sandwichOrder = new SandwichOrder(sandwichTypeRepository.getSandwichTypes().get(i), club,white,comment,person);
         orderToday.getOrder().add(sandwichOrder);
     }

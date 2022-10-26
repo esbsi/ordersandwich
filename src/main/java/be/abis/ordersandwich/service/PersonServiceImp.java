@@ -1,6 +1,7 @@
 package be.abis.ordersandwich.service;
 
 import be.abis.ordersandwich.exception.NullInputException;
+import be.abis.ordersandwich.exception.SandwichTypeNotFoundException;
 import be.abis.ordersandwich.exception.TooLateException;
 import be.abis.ordersandwich.exception.TooManySandwichesException;
 import be.abis.ordersandwich.model.OrderToday;
@@ -19,7 +20,7 @@ public class PersonServiceImp implements PersonService{
     @Autowired
     OrderTodayService orderTodayService;
 
-    public void orderSandwich(int pos, boolean club, boolean white, String comment, Person person ,OrderToday orderToday) throws TooManySandwichesException, TooLateException, NullInputException {
+    public void orderSandwich(int pos, boolean club, boolean white, String comment, Person person ,OrderToday orderToday) throws TooManySandwichesException, TooLateException, NullInputException, SandwichTypeNotFoundException {
         orderTodayService.orderSandwich(pos,club,white,comment,person,orderToday);
     }
 
