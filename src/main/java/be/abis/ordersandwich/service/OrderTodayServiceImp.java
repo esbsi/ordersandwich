@@ -30,7 +30,7 @@ public class OrderTodayServiceImp implements OrderTodayService{
 
             throw new TooLateException("too late, order is closed");
         }
-        if (orderToday.getOrder().size()>0) {
+        if (orderToday.getOrder().stream().filter(x -> x.getPerson() == person).collect(Collectors.toList()).size()>0) {
             SandwichOrder sandwichOrder =orderToday.getOrder().stream().filter(x -> x.getPerson() == person).findFirst().get();
             if (sandwichOrder.getSandwichType()== null ) {
                 orderToday.remove(sandwichOrder);

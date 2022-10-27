@@ -1,9 +1,6 @@
 package be.abis.ordersandwich.service;
 
-import be.abis.ordersandwich.exception.NullInputException;
-import be.abis.ordersandwich.exception.SandwichTypeNotFoundException;
-import be.abis.ordersandwich.exception.TooLateException;
-import be.abis.ordersandwich.exception.TooManySandwichesException;
+import be.abis.ordersandwich.exception.*;
 import be.abis.ordersandwich.model.OrderToday;
 import be.abis.ordersandwich.model.Person;
 import be.abis.ordersandwich.model.Session;
@@ -38,6 +35,8 @@ public class OrderTodayServiceTest {
     SessionRepository sessionRepository;
     @Autowired
     SandwichTypeRepository sandwichTypeRepository;
+    @Mock
+    Person person2;
 
 
     OrderToday orderToday;
@@ -48,7 +47,7 @@ public class OrderTodayServiceTest {
     @Mock
     Person person;
     @BeforeEach
-    void setUp(){
+    void setUp() throws ShopNotFoundException {
         shop=shopRepository.findShop("Vleugels");
         orderToday=new OrderToday(shop);
         orderToday.setClosingTime(LocalTime.parse("18:00:00"));
@@ -59,8 +58,11 @@ public class OrderTodayServiceTest {
     @Test
     void order() throws TooLateException, TooManySandwichesException, NullInputException, SandwichTypeNotFoundException {
         orderTodayService.orderSandwich(1,true,true,"", person,orderToday);
+        orderTodayService.orderSandwich(1,true,true,"", person,orderToday);
+        orderTodayService.orderSandwich(1,true,true,"", person2,orderToday);
+        orderTodayService.orderSandwich(1,true,true,"", person2,orderToday);
 
-        assertEquals(1,orderToday.getOrder().size());
+        assertEquals(4,orderToday.getOrder().size());
     }
 
     @Test

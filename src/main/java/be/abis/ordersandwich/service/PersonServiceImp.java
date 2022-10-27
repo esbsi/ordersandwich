@@ -20,14 +20,6 @@ public class PersonServiceImp implements PersonService{
     @Autowired
     OrderTodayService orderTodayService;
 
-    public void orderSandwich(int pos, boolean club, boolean white, String comment, Person person ,OrderToday orderToday) throws TooManySandwichesException, TooLateException, NullInputException, SandwichTypeNotFoundException {
-        orderTodayService.orderSandwich(pos,club,white,comment,person,orderToday);
-    }
-
-
-    public void noOrderToday(Person person,OrderToday o) throws TooManySandwichesException, TooLateException, NullInputException {
-        orderTodayService.noOrder(person, o);
-    }
 
     public List<Integer> checkMyOrderToday(Person person,OrderToday orderToday){
         int i=0;
