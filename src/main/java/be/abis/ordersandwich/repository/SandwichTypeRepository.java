@@ -8,15 +8,13 @@ import java.util.List;
 
 public interface SandwichTypeRepository {
 
-    List<SandwichType> getSandwichTypes();
-    SandwichType findSandwichType(String sandwichName) throws SandwichTypeNotFoundException;
-
     void setShop(Shop shop);
+    Shop getShop();
 
-    void addSandwichType(SandwichType sandwichType) throws SandwichTypeNotFoundException;
-
+    void addSandwichType(SandwichType sandwichType);
+    SandwichType findSandwichType(String sandwichName) throws SandwichTypeNotFoundException;
     void removeSandwichType(SandwichType sandwichType) throws SandwichTypeNotFoundException;
 
-    Shop getShop();
+    List<SandwichType> getSandwichTypes();
 
 }
