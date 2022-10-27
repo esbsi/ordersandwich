@@ -8,11 +8,15 @@ import java.util.List;
 
 public interface SessionRepository {
 
-    void addSession(String name, String startDate, String endDate);
-    List<Session> getSessions();
+    void addSession(Session session);
+
+    void removeSession(Session session) throws SessionNotFoundException;
+
     Session findSession(String sessionName, LocalDate startDate) throws SessionNotFoundException;
     Session findMostRecentSession(String sessionName) throws SessionNotFoundException;
     List<Session> findSessionsByName(String sessionName) throws SessionNotFoundException;
     List<Session> findSessionsByDate(LocalDate localDate) throws SessionNotFoundException;
+    List<Session> getSessions();
+
 
 }
