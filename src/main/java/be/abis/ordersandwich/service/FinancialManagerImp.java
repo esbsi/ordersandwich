@@ -1,5 +1,6 @@
 package be.abis.ordersandwich.service;
 
+import be.abis.ordersandwich.model.Person;
 import be.abis.ordersandwich.model.Session;
 import be.abis.ordersandwich.repository.OrderHistory;
 import be.abis.ordersandwich.model.OrderToday;
@@ -58,6 +59,10 @@ public class FinancialManagerImp implements FinancialManager{
         double sum=0;
         List<OrderToday> orderHistory=history.getOrderHistory();
         List<OrderToday> sessionOrders=orderHistory.stream().filter(x->x.getDate().compareTo(session.getStartDate())>=0 && x.getDate().compareTo(session.getEndDate())<=0).collect(Collectors.toList());
+        //need to fix this later
+        for(OrderToday order:sessionOrders){
+            order.getOrder().stream().filter(x->session.getPersonList().contains(x.getPerson()));
+        }
         /*
         for(OrderToday order:sessionOrders){
             sum+=order.getOrder().stream().filter(x->x.getPerson().getSession()== session).map(x->x.getSandwichType().getPrice()).mapToDouble(Double::doubleValue).sum();
