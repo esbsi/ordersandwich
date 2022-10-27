@@ -16,5 +16,4 @@ public interface SandwichTypeRepository {
     SandwichType findSandwichType(String sandwichName) throws SandwichTypeNotFoundException;
     void removeSandwichType(SandwichType sandwichType) throws SandwichTypeNotFoundException;
 
-
 }
