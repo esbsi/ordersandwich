@@ -18,13 +18,13 @@ public class ShopFactory implements ShopRepository{
     }
 
     @Override
-    public void addShop(String shopName){
-        shops.add(new Shop(shopName));
+    public void addShop(Shop shop){
+        shops.add(shop);
     }
 
     @Override
-    public void removeShop(String shopName) throws ShopNotFoundException {
-        shops.remove(findShop(shopName));
+    public void removeShop(Shop shop){
+        shops.remove(shop);
     }
 
     @Override

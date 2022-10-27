@@ -5,9 +5,9 @@ import be.abis.ordersandwich.model.Shop;
 
 public interface ShopRepository {
 
-    void addShop(String shopName);
+    void addShop(Shop shop);
 
-    void removeShop(String shopName) throws ShopNotFoundException;
+    void removeShop(Shop shop);
 
     Shop findShop(String shopName) throws ShopNotFoundException;
 
