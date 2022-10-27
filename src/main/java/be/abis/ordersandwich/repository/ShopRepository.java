@@ -7,7 +7,7 @@ public interface ShopRepository {
 
     void addShop(Shop shop);
 
-    void removeShop(Shop shop);
+    void removeShop(Shop shop) throws ShopNotFoundException;
 
     Shop findShop(String shopName) throws ShopNotFoundException;
 

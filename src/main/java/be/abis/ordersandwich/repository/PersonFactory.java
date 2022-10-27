@@ -57,13 +57,15 @@ public class PersonFactory implements PersonRepository{
     // business
 
     @Override
-    public void addPerson(String personName){
-        persons.add(new Person(personName));
+    public void addPerson(Person person){
+        persons.add(person);
     }
 
     @Override
-    public void removePerson(String personName) throws PersonNotFoundException {
-        persons.remove(findPerson(personName));
+    public void removePerson(Person person) throws PersonNotFoundException {
+        if(!persons.remove(person)){
+            throw new PersonNotFoundException();
+        }
     }
 
     @Override

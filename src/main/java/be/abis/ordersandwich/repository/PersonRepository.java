@@ -8,9 +8,9 @@ import java.util.List;
 public interface PersonRepository {
     List<Person> getPersonList();
 
-    void addPerson(String personName);
+    void addPerson(Person person);
 
-    void removePerson(String personName) throws PersonNotFoundException;
+    void removePerson(Person person) throws PersonNotFoundException;
 
     Person findPerson(String personName) throws PersonNotFoundException;
 }

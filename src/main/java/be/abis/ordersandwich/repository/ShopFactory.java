@@ -23,8 +23,10 @@ public class ShopFactory implements ShopRepository{
     }
 
     @Override
-    public void removeShop(Shop shop){
-        shops.remove(shop);
+    public void removeShop(Shop shop) throws ShopNotFoundException {
+        if(!shops.remove(shop)){
+            throw new ShopNotFoundException();
+        }
     }
 
     @Override
