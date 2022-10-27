@@ -79,7 +79,7 @@ public class FileSessionRepository implements SessionRepository {
         try (PrintWriter writer = new PrintWriter(new FileWriter(fileName, true))){
             writer.append(session.getName() + ";" + session.getStartDate() + ";" + session.getEndDate() + ";\n");
         } catch (IOException e) {
-            throw new RuntimeException("FileSessionRepository cannot write to file.");
+            throw new RuntimeException(this.getClass().getSimpleName() + " cannot write to file.");
         }
     }
 

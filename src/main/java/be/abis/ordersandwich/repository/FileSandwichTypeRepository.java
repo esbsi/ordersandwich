@@ -5,9 +5,7 @@ import be.abis.ordersandwich.model.SandwichType;
 import be.abis.ordersandwich.model.Shop;
 import org.springframework.stereotype.Repository;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +57,40 @@ public class FileSandwichTypeRepository implements SandwichTypeRepository{
                 .findFirst().orElseThrow(SandwichTypeNotFoundException::new);
     }
 
+    public void appendSandwichTypeToFile(SandwichType sandwichType){
+        try (PrintWriter writer = new PrintWriter(new FileWriter(fileDirectory, true))){
+            writer.append(sandwichType.getName() + ";" + sandwichType.getPrice() + ";" + sandwichType.getCategory() + ";" + sandwichType.getVegetarian() + ";\n");
+        } catch (IOException e) {
+            throw new RuntimeException(this.getClass().getSimpleName() + " cannot write to file.");
+        }
+    }
+    
+    @Override
+    public void addSandwichType(SandwichType sandwichType){
+        try {appendSandwichTypeToFile(sandwichType);
+            sandwichTypes.add(sandwichType);
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
+    @Override
+    public void removeSandwichType(SandwichType sandwichType) throws SandwichTypeNotFoundException {
+        loadSandwichTypes();
+        if (!sandwichTypes.remove(sandwichType)) {
+            throw new SandwichTypeNotFoundException();
+        } else {
+            try (PrintWriter writer = new PrintWriter(new FileWriter(fileDirectory, false))) {
+                writer.append("");
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+            for (SandwichType s : sandwichTypes){
+                appendSandwichTypeToFile(s);
+            }
+        }
+    }
+        
 
     // getset
 

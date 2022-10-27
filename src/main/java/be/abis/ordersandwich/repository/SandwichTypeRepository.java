@@ -12,6 +12,11 @@ public interface SandwichTypeRepository {
     SandwichType findSandwichType(String sandwichName) throws SandwichTypeNotFoundException;
 
     void setShop(Shop shop);
+
+    void addSandwichType(SandwichType sandwichType) throws SandwichTypeNotFoundException;
+
+    void removeSandwichType(SandwichType sandwichType) throws SandwichTypeNotFoundException;
+
     Shop getShop();
 
 }
