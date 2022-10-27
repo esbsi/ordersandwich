@@ -10,7 +10,6 @@ import java.util.Scanner;
 public class Person {
 
     private String name;
-    private Session session;
 
     public Person() {}
 
@@ -36,14 +35,6 @@ public class Person {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Session getSession() {
-        return session;
-    }
-
-    public void setSession(Session session) {
-        this.session = session;
     }
 
 }
