@@ -4,11 +4,9 @@ import be.abis.ordersandwich.exception.SessionNotFoundException;
 import be.abis.ordersandwich.model.Session;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.PostConstruct;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -77,16 +75,37 @@ public class FileSessionRepository implements SessionRepository {
         } else return sessionsFiltered;
     }
 
-
-
-
+    public void appendSessionToFile(Session session){
+        try (PrintWriter writer = new PrintWriter(new FileWriter(fileName, true))){
+            writer.append(session.getName() + ";" + session.getStartDate() + ";" + session.getEndDate() + ";\n");
+        } catch (IOException e) {
+            throw new RuntimeException("FileSessionRepository cannot write to file.");
+        }
+    }
 
     @Override
-    public void addSession(String name, String startDate, String endDate) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(fileName, true))){
-            writer.append(name + ";" + startDate + ";" + endDate + ";\n");
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+    public void addSession(Session session){
+        try {appendSessionToFile(session);
+            sessions.add(session);
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void removeSession(Session session) throws SessionNotFoundException {
+        loadSessions();
+        if (!sessions.remove(session)) {
+            throw new SessionNotFoundException();
+        } else {
+            try (PrintWriter writer = new PrintWriter(new FileWriter(fileName, false))) {
+                writer.append("");
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+            for (Session s : sessions){
+                appendSessionToFile(s);
+            }
         }
     }
 

@@ -19,6 +19,7 @@ public class Session {
         this.name = name;
     }
 
+    // ToDo Dates should be Localdate?
     public Session(String name, String startDate, String endDate) {
         this.name = name;
         this.startDate = LocalDate.parse(startDate);
