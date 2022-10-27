@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -21,10 +23,12 @@ public class PersonServiceTest {
     PersonService ps;
     @Autowired
     ShopRepository shopRepository;
-    @Mock
-    Person person;
-    @Mock
-    Person person2;
+
+    Person person=new Person("sim");
+    Person person2=new Person("esben");
+    @Autowired
+    OrderTodayService orderTodayService;
+
     OrderToday orderToday;
 
     Shop shop;
@@ -38,18 +42,22 @@ public class PersonServiceTest {
     }
 
     @Test
-    void order() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
-        ps.orderSandwich(1,true,true,"",person,orderToday);
+    void checkOrder() throws TooLateException, TooManySandwichesException, NullInputException, SandwichTypeNotFoundException {
 
-        assertEquals(1,orderToday.getOrder().size());
+        orderTodayService.orderSandwich(1,true,true,"",person,orderToday);
+        orderTodayService.orderSandwich(1,true,true,"",person2,orderToday);
+        orderTodayService.orderSandwich(1,true,true,"",person,orderToday);
+        List<Integer> integerList=new ArrayList<>();
+        integerList.add(0);
+        integerList.add(2);
+
+        assertEquals(integerList,ps.checkMyOrderToday(person,orderToday));
+
     }
 
-    @Test
-    void noorder() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
-        ps.noOrderToday(person,orderToday);
 
-        assertEquals(1,orderToday.getOrder().size());
-    }
+
+
 
 
 

@@ -1,12 +1,10 @@
 package be.abis.ordersandwich.service;
 
-import be.abis.ordersandwich.exception.NullInputException;
-import be.abis.ordersandwich.exception.SandwichTypeNotFoundException;
-import be.abis.ordersandwich.exception.TooLateException;
-import be.abis.ordersandwich.exception.TooManySandwichesException;
+import be.abis.ordersandwich.exception.*;
 import be.abis.ordersandwich.model.OrderToday;
 import be.abis.ordersandwich.model.Person;
 import be.abis.ordersandwich.model.SandwichOrder;
+import be.abis.ordersandwich.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,24 +17,55 @@ public class PersonServiceImp implements PersonService{
 
     @Autowired
     OrderTodayService orderTodayService;
+    @Autowired
+    PersonRepository personRepository;
 
 
-    public List<Integer> checkMyOrderToday(Person person,OrderToday orderToday){
+    public List<Integer> checkMyOrderToday(Person person,OrderToday orderToday) throws NullInputException {
+        if (person==null || orderToday==null ) throw new NullInputException("null input");
         int i=0;
         int j=0;
         List<Integer> integerList= new ArrayList<>();
         for(SandwichOrder order:orderToday.getOrder()){
             if(order.getPerson()==person){
-                j++;
-                System.out.println(person.getName()+" order "+j+": "+ order.getSandwichType().getName()+(order.isRauwkost() ? " club" : "") + (order.isWhite() ? " wit" : " grijs") + ".\n "  + ((order.getComment().equals("") ? "" : (": " + order.getComment()))));
-                integerList.add(i);
+                if(order.getSandwichType()!=null){
+                    j++;
+                    System.out.println(person.getName()+" order "+j+": "+ order.getSandwichType().getName()+(order.isRauwkost() ? " club" : "") + (order.isWhite() ? " wit" : " grijs") + ".\n "  + ((order.getComment().equals("") ? "" : (": " + order.getComment()))));
+                    integerList.add(i);
+                }else {
+                    integerList.add(i);
+                    System.out.println("doesn't want anything today");
+                }
             }
             i++;
         }
         return integerList;
     }
 
+    @Override
+    public List<Person> getPersonList() {
+        return personRepository.getPersonList();
+    }
+
+    @Override
+    public void addPerson(String personName) {
+        personRepository.addPerson(personName);
+    }
+
+    @Override
+    public void removePerson(String personName) throws PersonNotFoundException {
+        personRepository.removePerson(personName);
+
+    }
+
+    @Override
+    public Person findPerson(String personName) throws PersonNotFoundException {
+        return personRepository.findPerson(personName);
+    }
+    /*
+
     public void removeMyOrder(Person person, OrderToday orderToday) throws TooLateException, NullInputException {
+        if (person==null || orderToday==null ) throw new NullInputException("null input");
         List<Integer> integerList=checkMyOrderToday(person,orderToday);
         if (integerList.size()==0){
             System.out.println("nothing ordered");
@@ -56,4 +85,6 @@ public class PersonServiceImp implements PersonService{
             }
         }
     }
+
+     */
 }
