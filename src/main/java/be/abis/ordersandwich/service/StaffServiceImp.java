@@ -1,5 +1,6 @@
 package be.abis.ordersandwich.service;
 
+import be.abis.ordersandwich.exception.NullInputException;
 import be.abis.ordersandwich.exception.TooLateException;
 import be.abis.ordersandwich.exception.TooManySandwichesException;
 import be.abis.ordersandwich.model.OrderToday;
@@ -24,7 +25,8 @@ public class StaffServiceImp implements StaffService{
     @Autowired
     SessionService sessionService;
 
-    public OrderToday sendOrder(OrderToday orderToday, OrderRepository orderHistory, Shop shopTomorrow){
+    public OrderToday sendOrder(OrderToday orderToday, OrderRepository orderHistory, Shop shopTomorrow) throws NullInputException {
+        if(orderHistory==null || orderToday== null || shopTomorrow== null) throw new NullInputException("some of the inputs are null");
         orderToday.getTotalPrice();
         orderToday.setNow(LocalDateTime.now());
         orderHistory.addToOrderHistory(orderToday);
@@ -66,7 +68,4 @@ public class StaffServiceImp implements StaffService{
 
     }
 
-    public  OrderToday changeShopCancelCurrent(Shop shop){
-        return new OrderToday(shop);
-    }
 }

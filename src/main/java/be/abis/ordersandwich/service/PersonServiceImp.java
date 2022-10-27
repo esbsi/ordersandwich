@@ -48,13 +48,13 @@ public class PersonServiceImp implements PersonService{
     }
 
     @Override
-    public void addPerson(String personName) {
-        personRepository.addPerson(personName);
+    public void addPerson(Person person) {
+        personRepository.addPerson(person);
     }
 
     @Override
-    public void removePerson(String personName) throws PersonNotFoundException {
-        personRepository.removePerson(personName);
+    public void removePerson(Person person) throws PersonNotFoundException {
+        personRepository.removePerson(person);
 
     }
 

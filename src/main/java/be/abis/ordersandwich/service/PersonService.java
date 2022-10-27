@@ -11,9 +11,9 @@ public interface PersonService {
     public List<Integer> checkMyOrderToday(Person person, OrderToday orderToday) throws NullInputException;
     List<Person> getPersonList();
 
-    void addPerson(String personName);
+    void addPerson(Person person);
 
-    void removePerson(String personName) throws PersonNotFoundException;
+    void removePerson(Person person) throws PersonNotFoundException;
 
     Person findPerson(String personName) throws PersonNotFoundException;
 
