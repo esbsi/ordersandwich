@@ -7,6 +7,7 @@ import be.abis.ordersandwich.model.Person;
 import be.abis.ordersandwich.model.Session;
 import be.abis.ordersandwich.model.Shop;
 import be.abis.ordersandwich.repository.OrderHistory;
+import be.abis.ordersandwich.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,7 @@ public class StaffServiceImp implements StaffService{
     @Autowired
     SessionService sessionService;
 
-    public OrderToday sendOrder(OrderToday orderToday, OrderHistory orderHistory, Shop shopTomorrow){
+    public OrderToday sendOrder(OrderToday orderToday, OrderRepository orderHistory, Shop shopTomorrow){
         orderToday.getTotalPrice();
         orderToday.setNow(LocalDateTime.now());
         orderHistory.addToOrderHistory(orderToday);
@@ -34,7 +35,6 @@ public class StaffServiceImp implements StaffService{
         for (Session session : sessionList){
             toFile(sessionService.checkAllOrdered(orderToday, session),true);
         }
-
 
  */
 

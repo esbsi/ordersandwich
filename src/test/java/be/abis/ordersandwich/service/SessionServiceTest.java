@@ -53,7 +53,6 @@ public class SessionServiceTest {
         session.addPerson(person3);
         session2.addPerson(person4);
 
-
     }
 
     @Test
