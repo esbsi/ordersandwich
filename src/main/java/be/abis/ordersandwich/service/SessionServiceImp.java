@@ -10,6 +10,7 @@ import be.abis.ordersandwich.repository.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -51,8 +52,8 @@ public class SessionServiceImp implements SessionService{
     }
 
     @Override
-    public void addSession(String name, String startDate, String endDate){
-        sessionRepository.addSession(name, startDate, endDate);
+    public void addSession(Session session){
+        sessionRepository.addSession(session);
     }
 
 }

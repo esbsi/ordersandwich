@@ -17,6 +17,6 @@ public interface SessionService {
 
     List<Session> getSessions();
     Session findMostRecentSession(String sessionName) throws SessionNotFoundException;
-    void addSession(String name, String startDate, String endDate);
+    void addSession(Session session);
 
 }

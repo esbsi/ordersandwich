@@ -28,13 +28,15 @@ public class StaffServiceImp implements StaffService{
         orderToday.setNow(LocalDateTime.now());
         orderHistory.addToOrderHistory(orderToday);
 
-        List<Session> sessionList =orderToday.getOrder().stream().map(p->p.getPerson().getSession()).distinct().collect(Collectors.toList());
+        //List<Session> sessionList =orderToday.getOrder().stream().map(p->p.getPerson().getSession()).distinct().collect(Collectors.toList());
         toFile(orderToday.toString(),false);
-
+/*
         for (Session session : sessionList){
             toFile(sessionService.checkAllOrdered(orderToday, session),true);
         }
 
+
+ */
 
         return new OrderToday(shopTomorrow);
     }
