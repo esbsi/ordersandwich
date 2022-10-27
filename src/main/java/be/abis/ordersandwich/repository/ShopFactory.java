@@ -1,5 +1,6 @@
 package be.abis.ordersandwich.repository;
 
+import be.abis.ordersandwich.exception.ShopNotFoundException;
 import be.abis.ordersandwich.model.Shop;
 import org.springframework.stereotype.Repository;
 
@@ -22,9 +23,14 @@ public class ShopFactory implements ShopRepository{
     }
 
     @Override
-    public Shop findShop(String shopName){
+    public void removeShop(String shopName) throws ShopNotFoundException {
+        shops.remove(findShop(shopName));
+    }
+
+    @Override
+    public Shop findShop(String shopName) throws ShopNotFoundException {
         return shops.stream()
             .filter(shop -> shopName.equals(shop.getName()))
-            .findFirst().orElse(null);
+            .findFirst().orElseThrow(ShopNotFoundException::new);
     }
 }

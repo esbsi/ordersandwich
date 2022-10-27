@@ -1,6 +1,6 @@
 package be.abis.ordersandwich.repository;
-import be.abis.ordersandwich.exception.PersonAlreadyInSessionException;
 
+import be.abis.ordersandwich.exception.PersonNotFoundException;
 import be.abis.ordersandwich.model.Session;
 import be.abis.ordersandwich.model.Person;
 import org.springframework.stereotype.Repository;
@@ -10,10 +10,10 @@ import java.util.List;
 
 @Repository
 public class PersonFactory implements PersonRepository{
+    
+    private List<Person> persons=new ArrayList<>();
 
-
-    private List<Person> personList=new ArrayList<>();
-
+    // ToDo clean up (remove sessions)
     public PersonFactory() {
         Session c =new Session("java");
         Session c1=new Session("python");
@@ -26,14 +26,14 @@ public class PersonFactory implements PersonRepository{
         Person p6=new Person("kim");
         Person p7=new Person("quintin");
         Person p8=new Person("claudia");
-        personList.add(p1);
-        personList.add(p2);
-        personList.add(p3);
-        personList.add(p4);
-        personList.add(p5);
-        personList.add(p6);
-        personList.add(p7);
-        personList.add(p8);
+        persons.add(p1);
+        persons.add(p2);
+        persons.add(p3);
+        persons.add(p4);
+        persons.add(p5);
+        persons.add(p6);
+        persons.add(p7);
+        persons.add(p8);
 /*
         try {
             c.addPerson(p1);
@@ -54,9 +54,31 @@ public class PersonFactory implements PersonRepository{
     }
 
 
+    // business
+
+    @Override
+    public void addPerson(String personName){
+        persons.add(new Person(personName));
+    }
+
+    @Override
+    public void removePerson(String personName) throws PersonNotFoundException {
+        persons.remove(findPerson(personName));
+    }
+
+    @Override
+    public Person findPerson(String personName) throws PersonNotFoundException {
+        return persons.stream()
+                .filter(person -> personName.equals(person.getName()))
+                .findFirst().orElseThrow(PersonNotFoundException::new);
+    }
+
+
+    // getset
 
     @Override
     public List<Person> getPersonList() {
-        return personList;
+        return persons;
     }
+    
 }
