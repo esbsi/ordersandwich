@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.stream.Collectors;
+
 @Service
 public class OrderTodayServiceImp implements OrderTodayService{
 
@@ -28,12 +30,19 @@ public class OrderTodayServiceImp implements OrderTodayService{
 
             throw new TooLateException("too late, order is closed");
         }
+        if (orderToday.getOrder().size()>0) {
+            SandwichOrder sandwichOrder =orderToday.getOrder().stream().filter(x -> x.getPerson() == person).findFirst().get();
+            if (sandwichOrder.getSandwichType()== null ) {
+                orderToday.remove(sandwichOrder);
+
+            }
+        }
         if (orderToday.getOrder().stream().filter(x->x.getPerson()==person).count()>1) {
 
             throw new TooManySandwichesException("you already ordered");
         }
         sandwichTypeRepository.setShop(orderToday.getShop());
-        sandwichTypeRepository.getSandwichTypes();
+
         if (i>sandwichTypeRepository.getSandwichTypes().size()-1) throw new SandwichTypeNotFoundException("index too high");
         SandwichOrder sandwichOrder = new SandwichOrder(sandwichTypeRepository.getSandwichTypes().get(i), club,white,comment,person);
         orderToday.getOrder().add(sandwichOrder);
@@ -50,7 +59,7 @@ public class OrderTodayServiceImp implements OrderTodayService{
             throw new TooManySandwichesException("you already ordered");
         }
         SandwichOrder sandwichOrder = new SandwichOrder(person);
-        orderToday.getOrder().add(sandwichOrder);
+        orderToday.add(sandwichOrder);
         //System.out.println(sandwichOrder);
     }
 

@@ -83,9 +83,30 @@ public class OrderTodayServiceTest {
     }
 
     @Test
-    void indexToohigh(){
+    void indexTooHigh(){
         assertThrows(SandwichTypeNotFoundException.class,()->orderTodayService.orderSandwich(10000,true,true,"", person,orderToday));
     }
+    @Test
+    void noOrder() throws TooLateException, TooManySandwichesException, NullInputException {
+        orderTodayService.noOrder(person,orderToday);
+        assertEquals(1,orderToday.getOrder().size());
+    }
+
+    @Test
+    void noOrderWithexistingorder() throws TooLateException, TooManySandwichesException, NullInputException {
+        orderTodayService.noOrder(person,orderToday);
+
+        assertThrows(TooManySandwichesException.class,() ->orderTodayService.noOrder(person,orderToday));
+    }
+
+    @Test
+    void OrderAfterNoOrder() throws TooLateException, TooManySandwichesException, NullInputException, SandwichTypeNotFoundException {
+        orderTodayService.noOrder(person,orderToday);
+        orderTodayService.orderSandwich(1,true,true,"",person,orderToday);
+        assertEquals(1,orderToday.getOrder().size());
+    }
+    // weird cases van noorder kunnen nog gecheckt worden
+
 
 
 }

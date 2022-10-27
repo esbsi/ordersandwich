@@ -49,6 +49,13 @@ public class OrderToday {
         } return orderStringBuilder.toString();
     }
 
+    public void add(SandwichOrder sandwichOrder){
+        order.add(sandwichOrder);
+    }
+    public void remove(SandwichOrder sandwichOrder){
+        order.remove(sandwichOrder);
+    }
+
 
 
     // getset
