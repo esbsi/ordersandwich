@@ -25,15 +25,11 @@ public class StaffServiceTest {
     StaffService staffService;
     @Autowired
     OrderTodayService orderTodayService;
-
     @Autowired
     ShopRepository shopRepository;
     @Autowired
     OrderRepository history;
     Person person=new Person("sim");
-    Person person2=new Person("claus");
-    Person person3=new Person("jana");
-    Person person4=new Person("esben");
 
     OrderToday orderToday;
     Shop shop;
@@ -48,7 +44,6 @@ public class StaffServiceTest {
         orderToday=new OrderToday(shop);
         orderToday.setClosingTime(LocalTime.parse("18:00:00"));
 
-
     }
 
     @Test
@@ -60,14 +55,26 @@ public class StaffServiceTest {
 
     @Test
     void changeShop() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
-        assertEquals(shop2,orderToday.getShop());
+        assertEquals(shop,orderToday.getShop());
     }
 
     @Test
-    void sendOrderWithnull() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
+    void sendOrderWithNull1() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
         orderTodayService.orderSandwich(1,true,true,"",person,orderToday);
         orderToday = staffService.sendOrder(orderToday, history, shop2);
         assertThrows(NullInputException.class,()->staffService.sendOrder(orderToday, history, null));
+    }
+    @Test
+    void sendOrderWithNull2() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
+        orderTodayService.orderSandwich(1,true,true,"",person,orderToday);
+        orderToday = staffService.sendOrder(orderToday, history, shop2);
+        assertThrows(NullInputException.class,()->staffService.sendOrder(orderToday, null, shop));
+    }
+    @Test
+    void sendOrderWithNull3() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
+        orderTodayService.orderSandwich(1,true,true,"",person,orderToday);
+        orderToday = staffService.sendOrder(orderToday, history, shop2);
+        assertThrows(NullInputException.class,()->staffService.sendOrder(null, history, shop));
     }
 
 
