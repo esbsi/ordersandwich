@@ -55,6 +55,21 @@ public class PersonServiceTest {
 
     }
 
+    @Test
+    void addPerson(){
+
+
+    }
+
+    @Test
+    void removePerson(){
+
+    }
+    @Test
+    void findPerson(){
+
+    }
+
 
 
 

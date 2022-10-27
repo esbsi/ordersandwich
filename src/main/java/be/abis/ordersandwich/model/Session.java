@@ -41,14 +41,14 @@ public class Session {
             System.out.println("2 is added to "+p.getName()+" because there are 2 people with the same name");
         }
         personList.add(p);
-        p.setSession(this);
+
     }
 
     public void removePerson(Person p) throws PersonNotInSessionException, NullInputException {
         if(p==null)throw new NullInputException("input is null");
         if (!personList.contains(p)) throw new PersonNotInSessionException(p.getName()+" is not in this session");
         personList.remove(p);
-        p.setSession(null);
+
     }
 
 
