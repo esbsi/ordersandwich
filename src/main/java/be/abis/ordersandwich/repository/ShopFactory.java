@@ -1,5 +1,6 @@
 package be.abis.ordersandwich.repository;
 
+import be.abis.ordersandwich.exception.ShopAlreadyExistsException;
 import be.abis.ordersandwich.exception.ShopNotFoundException;
 import be.abis.ordersandwich.model.Shop;
 import org.springframework.stereotype.Repository;
@@ -18,8 +19,10 @@ public class ShopFactory implements ShopRepository{
     }
 
     @Override
-    public void addShop(Shop shop){
-        shops.add(shop);
+    public void addShop(Shop shop) throws ShopAlreadyExistsException {
+        if(!shops.contains(shop)){
+            shops.add(shop);
+        } else throw new ShopAlreadyExistsException();
     }
 
     @Override
