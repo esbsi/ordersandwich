@@ -19,11 +19,10 @@ public class Session {
         this.name = name;
     }
 
-    // ToDo Dates should be Localdate?
-    public Session(String name, String startDate, String endDate) {
+    public Session(String name, LocalDate startDate, LocalDate endDate) {
         this.name = name;
-        this.startDate = LocalDate.parse(startDate);
-        this.endDate = LocalDate.parse(endDate);
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     @Override

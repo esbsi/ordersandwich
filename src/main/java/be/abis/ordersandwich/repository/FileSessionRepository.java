@@ -26,7 +26,7 @@ public class FileSessionRepository implements SessionRepository {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] attributes = line.split(";");
-                Session session = new Session(attributes[0], attributes[1], attributes[2]);
+                Session session = new Session(attributes[0], LocalDate.parse(attributes[1]), LocalDate.parse(attributes[2]));
                 this.sessions.add(session);
             }
         } catch (IOException e) {
