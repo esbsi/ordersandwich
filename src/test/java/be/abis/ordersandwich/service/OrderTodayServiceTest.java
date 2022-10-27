@@ -9,6 +9,7 @@ import be.abis.ordersandwich.model.Person;
 import be.abis.ordersandwich.model.Session;
 import be.abis.ordersandwich.model.Shop;
 import be.abis.ordersandwich.repository.PersonRepository;
+import be.abis.ordersandwich.repository.SandwichTypeRepository;
 import be.abis.ordersandwich.repository.SessionRepository;
 import be.abis.ordersandwich.repository.ShopRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,6 +36,8 @@ public class OrderTodayServiceTest {
     PersonRepository personRepository;
     @Autowired
     SessionRepository sessionRepository;
+    @Autowired
+    SandwichTypeRepository sandwichTypeRepository;
 
 
     OrderToday orderToday;
@@ -106,6 +109,39 @@ public class OrderTodayServiceTest {
         assertEquals(1,orderToday.getOrder().size());
     }
     // weird cases van noorder kunnen nog gecheckt worden
+
+    @Test
+    void removeOrder() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
+        orderTodayService.noOrder(person,orderToday);
+        orderTodayService.orderSandwich(1,true,true,"",person,orderToday);
+        orderTodayService.orderSandwich(2,true,true,"",person,orderToday);
+        orderTodayService.removeOrder(1,orderToday);
+
+        assertEquals(1,orderToday.getOrder().size());
+    }
+
+    @Test
+    void removeOrderCorrect() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
+        orderTodayService.noOrder(person,orderToday);
+        orderTodayService.orderSandwich(1,true,true,"",person,orderToday);
+        orderTodayService.orderSandwich(2,true,true,"",person,orderToday);
+        orderTodayService.removeOrder(0,orderToday);
+
+        assertEquals(sandwichTypeRepository.getSandwichTypes().get(2),orderToday.getOrder().get(0).getSandwichType());
+    }
+    @Test
+    void totalPrice() throws NullInputException {
+        assertEquals(0,orderTodayService.totalPrice(orderToday));
+    }
+
+    @Test
+    void totalPricefrom2() throws NullInputException, SandwichTypeNotFoundException, TooLateException, TooManySandwichesException {
+        orderTodayService.orderSandwich(1,true,true,"",person,orderToday);
+        orderTodayService.orderSandwich(2,true,true,"",person,orderToday);
+
+
+        assertEquals(9.12,orderTodayService.totalPrice(orderToday));
+    }
 
 
 
