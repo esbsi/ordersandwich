@@ -78,7 +78,7 @@ public class SessionServiceTest {
     }
 
     @Test
-    void checkOrdersotherSession() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
+    void checkOrdersOtherSession() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
 
         orderTodayService.orderSandwich(1,true,true,"",person,orderToday);
         orderTodayService.orderSandwich(1,true,true,"",person2,orderToday);
