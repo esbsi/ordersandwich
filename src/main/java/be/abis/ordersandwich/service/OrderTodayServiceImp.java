@@ -34,7 +34,7 @@ public class OrderTodayServiceImp implements OrderTodayService{
     // business
 
     @Override
-    public void orderSandwich(int i, boolean club, boolean white, String comment, Person person) throws TooManySandwichesException, TooLateException, NullInputException, SandwichTypeNotFoundException {
+    public void orderSandwich(int i, boolean club, boolean grilledVegs, boolean white, String comment, Person person) throws TooManySandwichesException, TooLateException, NullInputException, SandwichTypeNotFoundException {
         if (person==null || orderToday==null ) throw new NullInputException("null input");
         if (LocalTime.now().compareTo(orderToday.getClosingTime())>0 && orderToday.getDate().equals(LocalDate.now())){
 
@@ -54,7 +54,7 @@ public class OrderTodayServiceImp implements OrderTodayService{
         sandwichTypeRepository.setShop(orderToday.getShop());
 
         if (i>sandwichTypeRepository.getSandwichTypes().size()-1) throw new SandwichTypeNotFoundException("index too high");
-        SandwichOrder sandwichOrder = new SandwichOrder(sandwichTypeRepository.getSandwichTypes().get(i), club,white,comment,person);
+        SandwichOrder sandwichOrder = new SandwichOrder(sandwichTypeRepository.getSandwichTypes().get(i), club, grilledVegs, white, comment, person);
         orderToday.getOrder().add(sandwichOrder);
     }
 
@@ -136,6 +136,8 @@ public class OrderTodayServiceImp implements OrderTodayService{
             catch (IOException io) {}
         }
     }
+
+
 
 
     // getset

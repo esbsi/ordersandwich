@@ -5,7 +5,8 @@ public class SandwichOrder {
     private int id;
     private SandwichType sandwichType;
     private boolean rauwkost;
-//    private boolean noButter;
+    private boolean grilledVegs;
+    //    private boolean noButter;
     private boolean white;
     private String comment;
     private Person person;
@@ -16,9 +17,10 @@ public class SandwichOrder {
         this.person = person;
     }
 
-    public SandwichOrder(SandwichType sandwichType, boolean rauwkost, boolean white, String comment, Person person) {
+    public SandwichOrder(SandwichType sandwichType, boolean rauwkost, boolean grilledVegs, boolean white, String comment, Person person) {
         this.sandwichType = sandwichType;
         this.rauwkost = rauwkost;
+        this.grilledVegs = grilledVegs;
         this.white = white;
         this.comment = comment;
         this.person = person;
@@ -73,5 +75,13 @@ public class SandwichOrder {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public boolean isGrilledVegs() {
+        return grilledVegs;
+    }
+
+    public void setGrilledVegs(boolean grilledVegs) {
+        this.grilledVegs = grilledVegs;
     }
 }
