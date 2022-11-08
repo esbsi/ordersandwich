@@ -23,8 +23,9 @@ public class OrderTodayServiceImp implements OrderTodayService{
 
     @Autowired
     SandwichTypeRepository sandwichTypeRepository;
+    OrderToday orderToday;
 
-    public void orderSandwich(int i, boolean club, boolean white, String comment, Person person, OrderToday orderToday) throws TooManySandwichesException, TooLateException, NullInputException, SandwichTypeNotFoundException {
+    public void orderSandwich(int i, boolean club, boolean white, String comment, Person person) throws TooManySandwichesException, TooLateException, NullInputException, SandwichTypeNotFoundException {
         if (person==null || orderToday==null ) throw new NullInputException("null input");
         if (LocalTime.now().compareTo(orderToday.getClosingTime())>0 && orderToday.getDate().equals(LocalDate.now())){
 
@@ -48,7 +49,7 @@ public class OrderTodayServiceImp implements OrderTodayService{
         orderToday.getOrder().add(sandwichOrder);
     }
 
-    public void noOrder(Person person, OrderToday orderToday) throws TooManySandwichesException, TooLateException, NullInputException {
+    public void noOrder(Person person) throws TooManySandwichesException, TooLateException, NullInputException {
         if (person==null || orderToday==null ) throw new NullInputException("null input");
         if(LocalTime.now().compareTo(orderToday.getClosingTime())>0 && orderToday.getDate().equals(LocalDate.now())){
 
@@ -63,7 +64,7 @@ public class OrderTodayServiceImp implements OrderTodayService{
         //System.out.println(sandwichOrder);
     }
 
-    public void removeOrder(int index,OrderToday orderToday) throws TooLateException, NullInputException {
+    public void removeOrder(int index) throws TooLateException, NullInputException {
         if ( orderToday==null ) throw new NullInputException("null input");
         if(LocalTime.now().compareTo(orderToday.getClosingTime())>0 && orderToday.getDate().equals(LocalDate.now())){
 
@@ -72,7 +73,7 @@ public class OrderTodayServiceImp implements OrderTodayService{
         orderToday.getOrder().remove(index);
     }
 
-    public double totalPrice(OrderToday orderToday) throws NullInputException {
+    public double totalPrice() throws NullInputException {
         if ( orderToday==null ) throw new NullInputException("null input");
         double sum=0;
         for (SandwichOrder sandwich:orderToday.getOrder()){
@@ -84,7 +85,7 @@ public class OrderTodayServiceImp implements OrderTodayService{
         return sum;
     }
 
-    public void setClosingTime(LocalTime closingTime, OrderToday orderToday) {
+    public void setClosingTime(LocalTime closingTime) {
         orderToday.setClosingTime(closingTime);
     }
 
