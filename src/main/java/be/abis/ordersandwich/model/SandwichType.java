@@ -2,6 +2,7 @@ package be.abis.ordersandwich.model;
 
 public class SandwichType {
 
+    private int id;
     private String name;
     private Double price;
     private String category;

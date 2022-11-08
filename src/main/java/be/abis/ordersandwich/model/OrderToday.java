@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 
 public class OrderToday {
 
+    private int id;
     private List<SandwichOrder> order = new ArrayList<>();
     private double totalPrice;
     private Shop shop;

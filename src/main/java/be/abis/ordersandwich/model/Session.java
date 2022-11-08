@@ -10,6 +10,7 @@ import java.util.List;
 
 public class Session {
 
+    private int id;
     private String name;
     private LocalDate startDate;
     private LocalDate endDate;

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 public class Shop {
 
+    private int id;
     private String name;
 
     public Shop(String name) {

@@ -2,6 +2,7 @@ package be.abis.ordersandwich.model;
 
 public class SandwichOrder {
 
+    private int id;
     private SandwichType sandwichType;
     private boolean rauwkost;
 //    private boolean noButter;

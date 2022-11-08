@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 public class Person {
 
+    private int id;
     private String name;
 
     public Person() {}
@@ -23,11 +24,6 @@ public class Person {
     }
 
 
-    // business
-
-
-
-    // getset
 
     public String getName() {
         return name;
