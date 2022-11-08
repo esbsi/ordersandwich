@@ -10,10 +10,7 @@ import be.abis.ordersandwich.service.FinancialManager;
 import be.abis.ordersandwich.service.OrderTodayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalTime;
 
@@ -40,10 +37,15 @@ public class OrderTodayController {
         service.setClosingTime(closingTime);
     }
     @PostMapping("new")
-    public void newOrder(@RequestBody Shop shop) throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
-        OrderToday orderToday= new OrderToday(shop);
-        orderToday.setClosingTime(LocalTime.NOON);
+    public void newOrder(@RequestBody OrderToday orderToday) throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
+
         service.setOrderToday(orderToday);
+    }
+
+    @GetMapping("")
+    public OrderToday getOrderToday() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
+        return service.getOrderToday();
+
     }
 
 
