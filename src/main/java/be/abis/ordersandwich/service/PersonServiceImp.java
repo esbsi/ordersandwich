@@ -21,27 +21,6 @@ public class PersonServiceImp implements PersonService{
     PersonRepository personRepository;
 
 
-    public List<Integer> checkMyOrderToday(Person person,OrderToday orderToday) throws NullInputException {
-        if (person==null || orderToday==null ) throw new NullInputException("null input");
-        int i=0;
-        int j=0;
-        List<Integer> integerList= new ArrayList<>();
-        for(SandwichOrder order:orderToday.getOrder()){
-            if(order.getPerson()==person){
-                if(order.getSandwichType()!=null){
-                    j++;
-                    System.out.println(person.getName()+" order "+j+": "+ order.getSandwichType().getName()+(order.isRauwkost() ? " club" : "") + (order.isWhite() ? " wit" : " grijs") + ".\n "  + ((order.getComment().equals("") ? "" : (": " + order.getComment()))));
-                    integerList.add(i);
-                }else {
-                    integerList.add(i);
-                    System.out.println("doesn't want anything today");
-                }
-            }
-            i++;
-        }
-        return integerList;
-    }
-
     @Override
     public List<Person> getPersonList() {
         return personRepository.getPersonList();

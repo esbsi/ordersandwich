@@ -19,6 +19,8 @@ import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -111,6 +113,28 @@ public class OrderTodayServiceImp implements OrderTodayService{
             toFile(sessionService.checkAllOrdered(orderToday, session),true);
         }
  */
+    }
+
+    @Override
+    public List<Integer> checkMyOrderToday(Person person) throws NullInputException {
+        if (person==null || orderToday==null ) throw new NullInputException("null input");
+        int i=0;
+        int j=0;
+        List<Integer> integerList= new ArrayList<>();
+        for(SandwichOrder order:orderToday.getOrder()){
+            if(order.getPerson()==person){
+                if(order.getSandwichType()!=null){
+                    j++;
+                    System.out.println(person.getName()+" order "+j+": "+ order.getSandwichType().getName()+(order.isRauwkost() ? " club" : "") + (order.isWhite() ? " wit" : " grijs") + ".\n "  + ((order.getComment().equals("") ? "" : (": " + order.getComment()))));
+                    integerList.add(i);
+                }else {
+                    integerList.add(i);
+                    System.out.println("doesn't want anything today");
+                }
+            }
+            i++;
+        }
+        return integerList;
     }
 
     @Override

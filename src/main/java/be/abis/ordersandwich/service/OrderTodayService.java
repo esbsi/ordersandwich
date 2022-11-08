@@ -8,6 +8,7 @@ import be.abis.ordersandwich.model.OrderToday;
 import be.abis.ordersandwich.model.Person;
 
 import java.time.LocalTime;
+import java.util.List;
 
 public interface OrderTodayService {
 
@@ -18,6 +19,8 @@ public interface OrderTodayService {
     double totalPrice() throws NullInputException;
 
     void sendOrder() throws NullInputException;
+
+    List<Integer> checkMyOrderToday(Person person) throws NullInputException;
 
     void toFile(String writing, boolean bool);
 
