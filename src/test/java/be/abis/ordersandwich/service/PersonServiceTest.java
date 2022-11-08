@@ -45,14 +45,14 @@ public class PersonServiceTest {
     @Test
     void checkOrder() throws TooLateException, TooManySandwichesException, NullInputException, SandwichTypeNotFoundException {
 
-        orderTodayService.orderSandwich(1,true,true,"",person);
-        orderTodayService.orderSandwich(1,true,true,"",person2);
-        orderTodayService.orderSandwich(1,true,true,"",person);
+        orderTodayService.orderSandwich(1,true,false,true,"",person);
+        orderTodayService.orderSandwich(1,true,false,true,"",person2);
+        orderTodayService.orderSandwich(1,true,false,true,"",person);
         List<Integer> integerList=new ArrayList<>();
         integerList.add(0);
         integerList.add(2);
 
-        assertEquals(integerList,ps.checkMyOrderToday(person,orderToday));
+        assertEquals(integerList,orderTodayService.checkMyOrderToday(person));
 
     }
 
