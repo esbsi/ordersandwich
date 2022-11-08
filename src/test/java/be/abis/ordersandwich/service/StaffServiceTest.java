@@ -43,6 +43,7 @@ public class StaffServiceTest {
         shop2=shopRepository.findShop("Pinkys");
         orderToday=new OrderToday(shop);
         orderToday.setClosingTime(LocalTime.parse("18:00:00"));
+        orderTodayService.setOrderToday(orderToday);
 
     }
 
@@ -60,19 +61,19 @@ public class StaffServiceTest {
 
     @Test
     void sendOrderWithNull1() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
-        orderTodayService.orderSandwich(1,true,true,"",person,orderToday);
+        orderTodayService.orderSandwich(1,true,true,"",person);
         orderToday = staffService.sendOrder(orderToday, history, shop2);
         assertThrows(NullInputException.class,()->staffService.sendOrder(orderToday, history, null));
     }
     @Test
     void sendOrderWithNull2() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
-        orderTodayService.orderSandwich(1,true,true,"",person,orderToday);
+        orderTodayService.orderSandwich(1,true,true,"",person);
         orderToday = staffService.sendOrder(orderToday, history, shop2);
         assertThrows(NullInputException.class,()->staffService.sendOrder(orderToday, null, shop));
     }
     @Test
     void sendOrderWithNull3() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
-        orderTodayService.orderSandwich(1,true,true,"",person,orderToday);
+        orderTodayService.orderSandwich(1,true,true,"",person);
         orderToday = staffService.sendOrder(orderToday, history, shop2);
         assertThrows(NullInputException.class,()->staffService.sendOrder(null, history, shop));
     }

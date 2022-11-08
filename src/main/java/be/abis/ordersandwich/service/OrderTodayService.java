@@ -15,4 +15,7 @@ public interface OrderTodayService {
     void removeOrder(int index) throws TooLateException, NullInputException;
     double totalPrice() throws NullInputException;
     public void setClosingTime(LocalTime closingTime);
+    public OrderToday getOrderToday();
+    public void setOrderToday(OrderToday orderToday);
+
 }

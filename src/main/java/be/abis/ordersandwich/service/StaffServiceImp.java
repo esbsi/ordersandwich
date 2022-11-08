@@ -29,7 +29,7 @@ public class StaffServiceImp implements StaffService{
 
     public OrderToday sendOrder(OrderToday orderToday, OrderRepository orderHistory, Shop shopTomorrow) throws NullInputException {
         if(orderHistory==null || orderToday== null || shopTomorrow== null) throw new NullInputException("some of the inputs are null");
-        orderTodayService.totalPrice(orderToday);
+        orderTodayService.totalPrice();
         orderToday.getTotalPrice();
         orderToday.setNow(LocalDateTime.now());
         orderHistory.addToOrderHistory(orderToday);

@@ -47,6 +47,7 @@ public class SessionServiceTest {
         orderToday.setClosingTime(LocalTime.parse("18:00:00"));
         session=sessionService.getSessions().get(0);
         session2=sessionService.getSessions().get(1);
+        orderTodayService.setOrderToday(orderToday);
 
         session.addPerson(person);
         session.addPerson(person2);
@@ -57,9 +58,9 @@ public class SessionServiceTest {
 
     @Test
     void checkOrdersNobody() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
-        orderTodayService.orderSandwich(1,true,true,"",person,orderToday);
-        orderTodayService.orderSandwich(1,true,true,"",person2,orderToday);
-        orderTodayService.orderSandwich(1,true,true,"",person2,orderToday);
+        orderTodayService.orderSandwich(1,true,true,"",person);
+        orderTodayService.orderSandwich(1,true,true,"",person2);
+        orderTodayService.orderSandwich(1,true,true,"",person2);
 
 
         assertTrue(sessionService.checkAllOrdered(orderToday,session).startsWith(session.getName()));
@@ -68,9 +69,9 @@ public class SessionServiceTest {
     @Test
     void checkOrders() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
 
-        orderTodayService.orderSandwich(1,true,true,"",person,orderToday);
-        orderTodayService.orderSandwich(1,true,true,"",person2,orderToday);
-        orderTodayService.orderSandwich(1,true,true,"",person3,orderToday);
+        orderTodayService.orderSandwich(1,true,true,"",person);
+        orderTodayService.orderSandwich(1,true,true,"",person2);
+        orderTodayService.orderSandwich(1,true,true,"",person3);
 
 
         assertTrue(sessionService.checkAllOrdered(orderToday,session).startsWith("All"));
@@ -79,9 +80,9 @@ public class SessionServiceTest {
     @Test
     void checkOrdersOtherSession() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
 
-        orderTodayService.orderSandwich(1,true,true,"",person,orderToday);
-        orderTodayService.orderSandwich(1,true,true,"",person2,orderToday);
-        orderTodayService.orderSandwich(1,true,true,"",person3,orderToday);
+        orderTodayService.orderSandwich(1,true,true,"",person);
+        orderTodayService.orderSandwich(1,true,true,"",person2);
+        orderTodayService.orderSandwich(1,true,true,"",person3);
 
 
         assertTrue(sessionService.checkAllOrdered(orderToday,session2).startsWith(session2.getName()));

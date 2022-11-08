@@ -38,15 +38,16 @@ public class PersonServiceTest {
         shop=shopRepository.findShop("Vleugels");
         orderToday=new OrderToday();
         orderToday.setShop(shop);
+        orderTodayService.setOrderToday(orderToday);
         orderToday.setClosingTime(LocalTime.MAX);
     }
 
     @Test
     void checkOrder() throws TooLateException, TooManySandwichesException, NullInputException, SandwichTypeNotFoundException {
 
-        orderTodayService.orderSandwich(1,true,true,"",person,orderToday);
-        orderTodayService.orderSandwich(1,true,true,"",person2,orderToday);
-        orderTodayService.orderSandwich(1,true,true,"",person,orderToday);
+        orderTodayService.orderSandwich(1,true,true,"",person);
+        orderTodayService.orderSandwich(1,true,true,"",person2);
+        orderTodayService.orderSandwich(1,true,true,"",person);
         List<Integer> integerList=new ArrayList<>();
         integerList.add(0);
         integerList.add(2);

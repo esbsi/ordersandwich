@@ -50,6 +50,7 @@ public class OrderTodayServiceTest {
     void setUp() throws ShopNotFoundException {
         shop=shopRepository.findShop("Vleugels");
         orderToday=new OrderToday(shop);
+        orderTodayService.setOrderToday(orderToday);
         orderToday.setClosingTime(LocalTime.parse("18:00:00"));
 
     }
@@ -57,20 +58,20 @@ public class OrderTodayServiceTest {
 
     @Test
     void order() throws TooLateException, TooManySandwichesException, NullInputException, SandwichTypeNotFoundException {
-        orderTodayService.orderSandwich(1,true,true,"", person,orderToday);
-        orderTodayService.orderSandwich(1,true,true,"", person,orderToday);
-        orderTodayService.orderSandwich(1,true,true,"", person2,orderToday);
-        orderTodayService.orderSandwich(1,true,true,"", person2,orderToday);
+        orderTodayService.orderSandwich(1,true,true,"", person);
+        orderTodayService.orderSandwich(1,true,true,"", person);
+        orderTodayService.orderSandwich(1,true,true,"", person2);
+        orderTodayService.orderSandwich(1,true,true,"", person2);
 
         assertEquals(4,orderToday.getOrder().size());
     }
 
     @Test
     void orderTooMany() throws TooLateException, TooManySandwichesException, NullInputException, SandwichTypeNotFoundException {
-        orderTodayService.orderSandwich(1,true,true,"", person,orderToday);
-        orderTodayService.orderSandwich(1,true,true,"", person,orderToday);
+        orderTodayService.orderSandwich(1,true,true,"", person);
+        orderTodayService.orderSandwich(1,true,true,"", person);
 
-        assertThrows(TooManySandwichesException.class,()->orderTodayService.orderSandwich(1,true,true,"", person,orderToday));
+        assertThrows(TooManySandwichesException.class,()->orderTodayService.orderSandwich(1,true,true,"", person));
     }
 
     @Test
@@ -78,71 +79,71 @@ public class OrderTodayServiceTest {
         orderToday.setClosingTime(LocalTime.MIN);
 
 
-        assertThrows(TooLateException.class,()->orderTodayService.orderSandwich(1,true,true,"", person,orderToday));
+        assertThrows(TooLateException.class,()->orderTodayService.orderSandwich(1,true,true,"", person));
     }
 
     @Test
     void nullPerson() throws TooLateException, TooManySandwichesException {
 
-        assertThrows(Exception.class,()->orderTodayService.orderSandwich(1,true,true,"", null,orderToday));
+        assertThrows(Exception.class,()->orderTodayService.orderSandwich(1,true,true,"", null));
     }
 
     @Test
     void indexTooHigh(){
-        assertThrows(SandwichTypeNotFoundException.class,()->orderTodayService.orderSandwich(10000,true,true,"", person,orderToday));
+        assertThrows(SandwichTypeNotFoundException.class,()->orderTodayService.orderSandwich(10000,true,true,"", person));
     }
     @Test
     void noOrder() throws TooLateException, TooManySandwichesException, NullInputException {
-        orderTodayService.noOrder(person,orderToday);
+        orderTodayService.noOrder(person);
         assertEquals(1,orderToday.getOrder().size());
     }
 
     @Test
     void noOrderWithexistingorder() throws TooLateException, TooManySandwichesException, NullInputException {
-        orderTodayService.noOrder(person,orderToday);
+        orderTodayService.noOrder(person);
 
-        assertThrows(TooManySandwichesException.class,() ->orderTodayService.noOrder(person,orderToday));
+        assertThrows(TooManySandwichesException.class,() ->orderTodayService.noOrder(person));
     }
 
     @Test
     void OrderAfterNoOrder() throws TooLateException, TooManySandwichesException, NullInputException, SandwichTypeNotFoundException {
-        orderTodayService.noOrder(person,orderToday);
-        orderTodayService.orderSandwich(1,true,true,"",person,orderToday);
+        orderTodayService.noOrder(person);
+        orderTodayService.orderSandwich(1,true,true,"",person);
         assertEquals(1,orderToday.getOrder().size());
     }
     // weird cases van noorder kunnen nog gecheckt worden
 
     @Test
     void removeOrder() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
-        orderTodayService.noOrder(person,orderToday);
-        orderTodayService.orderSandwich(1,true,true,"",person,orderToday);
-        orderTodayService.orderSandwich(2,true,true,"",person,orderToday);
-        orderTodayService.removeOrder(1,orderToday);
+        orderTodayService.noOrder(person);
+        orderTodayService.orderSandwich(1,true,true,"",person);
+        orderTodayService.orderSandwich(2,true,true,"",person);
+        orderTodayService.removeOrder(1);
 
         assertEquals(1,orderToday.getOrder().size());
     }
 
     @Test
     void removeOrderCorrect() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
-        orderTodayService.noOrder(person,orderToday);
-        orderTodayService.orderSandwich(1,true,true,"",person,orderToday);
-        orderTodayService.orderSandwich(2,true,true,"",person,orderToday);
-        orderTodayService.removeOrder(0,orderToday);
+        orderTodayService.noOrder(person);
+        orderTodayService.orderSandwich(1,true,true,"",person);
+        orderTodayService.orderSandwich(2,true,true,"",person);
+        orderTodayService.removeOrder(0);
 
         assertEquals(sandwichTypeRepository.getSandwichTypes().get(2),orderToday.getOrder().get(0).getSandwichType());
     }
     @Test
     void totalPrice() throws NullInputException {
-        assertEquals(0,orderTodayService.totalPrice(orderToday));
+        assertEquals(0,orderTodayService.totalPrice());
     }
 
     @Test
     void totalPricefrom2() throws NullInputException, SandwichTypeNotFoundException, TooLateException, TooManySandwichesException {
-        orderTodayService.orderSandwich(1,true,true,"",person,orderToday);
-        orderTodayService.orderSandwich(2,true,true,"",person,orderToday);
+        orderTodayService.orderSandwich(1,true,true,"",person);
+        orderTodayService.orderSandwich(2,true,true,"",person);
 
 
-        assertEquals(9.12,orderTodayService.totalPrice(orderToday));
+        assertEquals(9.12,orderTodayService.totalPrice());
     }
 
 

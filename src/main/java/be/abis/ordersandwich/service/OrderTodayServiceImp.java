@@ -89,4 +89,11 @@ public class OrderTodayServiceImp implements OrderTodayService{
         orderToday.setClosingTime(closingTime);
     }
 
+    public OrderToday getOrderToday() {
+        return orderToday;
+    }
+
+    public void setOrderToday(OrderToday orderToday) {
+        this.orderToday = orderToday;
+    }
 }
