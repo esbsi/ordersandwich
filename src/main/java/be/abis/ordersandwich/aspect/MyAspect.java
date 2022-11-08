@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class MyAspect {
     Logger log= LogManager.getLogger("exceptionLogger");
 
-
+/*
 
     @AfterThrowing(pointcut="Mypointcut.except()",throwing="exc")
     public void err(Exception exc){
@@ -22,6 +22,8 @@ public class MyAspect {
 
         log.error(exc.getMessage());
     }
+
+ */
 
 
 

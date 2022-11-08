@@ -45,7 +45,7 @@ public class PersonController {
     @PostMapping("name")
     public Person findByName(@RequestBody Name name ) throws PersonNotFoundException {
 
-        System.out.println(name.getName());
+
         return service.findPerson(name.getName());
     }
 
