@@ -42,7 +42,7 @@ public class OrderToday {
                 if (shop.getName().equals("Pinkys")) {
                     orderStringBuilder.append(i + ". " + sandwichOrder.getSandwichType().getName() + (sandwichOrder.isRauwkost() ? " club" : "") + (sandwichOrder.isWhite() ? " wit" : " grijs") + ".\n " + sandwichOrder.getPerson().getName() + ((sandwichOrder.getComment().equals("") ? "" : (": " + sandwichOrder.getComment()))) + "\n\n");
                 } else if (shop.getName().equals("Vleugels")) {
-                    orderStringBuilder.append(i + ". " + sandwichOrder.getSandwichType().getName() + (sandwichOrder.isRauwkost() ? " rauwkost" : "") + (sandwichOrder.isWhite() ? " wit" : " grijs") + ".\n " + sandwichOrder.getPerson().getName() + ((sandwichOrder.getComment().equals("") ? "" : (": " + sandwichOrder.getComment()))) + "\n\n");
+                    orderStringBuilder.append(i + ". " + sandwichOrder.getSandwichType().getName() + (sandwichOrder.isRauwkost() ? " rauwkost" : "") + (sandwichOrder.isGrilledVegs() ? " gegrilde groenten" : "") + (sandwichOrder.isWhite() ? " wit" : " grijs") + ".\n " + sandwichOrder.getPerson().getName() + ((sandwichOrder.getComment().equals("") ? "" : (": " + sandwichOrder.getComment()))) + "\n\n");
                 } else {
                     orderStringBuilder.append(i + ". " + sandwichOrder.getSandwichType().getName() + (sandwichOrder.isRauwkost() ? " rauwkost" : "") + (sandwichOrder.isWhite() ? " wit" : " grijs") + ".\n " + sandwichOrder.getPerson().getName() + ((sandwichOrder.getComment().equals("") ? "" : (": " + sandwichOrder.getComment()))) + "\n\n");
                 }
