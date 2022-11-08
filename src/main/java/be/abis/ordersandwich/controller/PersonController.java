@@ -4,9 +4,9 @@ import be.abis.ordersandwich.exception.*;
 import be.abis.ordersandwich.model.Name;
 import be.abis.ordersandwich.model.Person;
 import be.abis.ordersandwich.model.SandwichOrderModel;
-import be.abis.ordersandwich.service.OrderTodayService;
+
 import be.abis.ordersandwich.service.PersonService;
-import com.fasterxml.jackson.databind.node.TextNode;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -41,12 +41,11 @@ public class PersonController {
     public void delete( @RequestBody Person person) throws PersonNotFoundException {
          service.removePerson(person);
     }
-
      */
     @PostMapping("name")
     public Person findByName(@RequestBody Name name ) throws PersonNotFoundException {
 
-        System.out.println("goes in");
+
         return service.findPerson(name.getName());
     }
 
