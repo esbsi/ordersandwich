@@ -21,7 +21,7 @@ public class SessionController {
     SessionService service;
 // willen hier wrsz iets andrs terug als een string
     @PostMapping("allordered")
-    public void add(@RequestBody CheckOrder checkOrder )  {
+    public void allOrdered(@RequestBody CheckOrder checkOrder )  {
         service.checkAllOrdered(checkOrder.getOrderToday(), checkOrder.getSession());
     }
 
@@ -29,10 +29,13 @@ public class SessionController {
     public List<Session> getAll()  {
         return service.getSessions();
     }
+    /*
     @PostMapping("add")
     public void addsession(@RequestBody Session session)  {
         service.addSession(session);
     }
+
+     */
 
 
 

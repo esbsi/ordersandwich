@@ -1,6 +1,7 @@
 package be.abis.ordersandwich.controller;
 
 import be.abis.ordersandwich.exception.*;
+import be.abis.ordersandwich.model.Name;
 import be.abis.ordersandwich.model.Person;
 import be.abis.ordersandwich.model.SandwichOrderModel;
 import be.abis.ordersandwich.service.OrderTodayService;
@@ -30,6 +31,8 @@ public class PersonController {
     public List<Person> allPersons( )  {
         return service.getPersonList();
     }
+
+    /*
     @PostMapping("add")
     public void add(@RequestBody Person person )  {
          service.addPerson(person);
@@ -38,9 +41,13 @@ public class PersonController {
     public void delete( @RequestBody Person person) throws PersonNotFoundException {
          service.removePerson(person);
     }
-    @GetMapping("name")
-    public Person findByName(@RequestBody TextNode name ) throws PersonNotFoundException {
-        return service.findPerson(name.asText());
+
+     */
+    @PostMapping("name")
+    public Person findByName(@RequestBody Name name ) throws PersonNotFoundException {
+
+        System.out.println("goes in");
+        return service.findPerson(name.getName());
     }
 
 
