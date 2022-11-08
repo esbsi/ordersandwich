@@ -27,7 +27,6 @@ public class OrderTodayController {
 
     @PostMapping("")
     public void order(@RequestBody SandwichOrderModel model) throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
-
          service.orderSandwich(model.getI(),model.isRauwkost(), model.isWhite(), model.getComment(), model.getPerson());
     }
 
