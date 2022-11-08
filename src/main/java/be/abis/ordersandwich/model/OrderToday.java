@@ -116,4 +116,12 @@ public class OrderToday {
     public void setDate(LocalDate date) {
         this.date = date;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

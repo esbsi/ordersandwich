@@ -87,4 +87,11 @@ public class Session {
         this.personList = personList;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

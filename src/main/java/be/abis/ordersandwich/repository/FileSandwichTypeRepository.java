@@ -51,6 +51,13 @@ public class FileSandwichTypeRepository implements SandwichTypeRepository{
     }
 
     @Override
+    public SandwichType findSandwichTypeById(int id) throws SandwichTypeNotFoundException {
+        return getSandwichTypes().stream()
+                .filter(sandwichType -> id == sandwichType.getId())
+                .findFirst().orElseThrow(SandwichTypeNotFoundException::new);
+    }
+
+    @Override
     public SandwichType findSandwichType(String sandwichName) throws SandwichTypeNotFoundException {
         return getSandwichTypes().stream()
                 .filter(sandwichType -> sandwichName.equals(sandwichType.getName()))

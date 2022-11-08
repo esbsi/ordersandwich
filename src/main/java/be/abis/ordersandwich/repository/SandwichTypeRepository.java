@@ -13,6 +13,9 @@ public interface SandwichTypeRepository {
     List<SandwichType> getSandwichTypes();
 
     void addSandwichType(SandwichType sandwichType);
+
+    SandwichType findSandwichTypeById(int id) throws SandwichTypeNotFoundException;
+
     SandwichType findSandwichType(String sandwichName) throws SandwichTypeNotFoundException;
     void removeSandwichType(SandwichType sandwichType) throws SandwichTypeNotFoundException;
 
