@@ -83,4 +83,9 @@ public class OrderTodayServiceImp implements OrderTodayService{
         orderToday.setTotalPrice(sum);
         return sum;
     }
+
+    public void setClosingTime(LocalTime closingTime, OrderToday orderToday) {
+        orderToday.setClosingTime(closingTime);
+    }
+
 }
