@@ -25,6 +25,17 @@ import java.util.List;
 public class RestResponseEntityExceptionHandler
         extends ResponseEntityExceptionHandler {
 
+    @ExceptionHandler(value = PersonNotFoundException.class)
+    protected ResponseEntity<? extends Object> personNotFound
+            ( PersonNotFoundException ance, WebRequest request) {
+        HttpStatus status = HttpStatus.CONFLICT;
+        ApiError err = new ApiError("not found", status.value(), ance.getMessage());
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add("content-type",
+                MediaType.APPLICATION_PROBLEM_JSON_VALUE);
+        return new ResponseEntity<ApiError>(err, responseHeaders, status);
+    }
+
 
 
 }
