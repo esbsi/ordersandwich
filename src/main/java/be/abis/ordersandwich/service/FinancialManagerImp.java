@@ -54,7 +54,7 @@ public class FinancialManagerImp implements FinancialManager{
         }
         return totalSandwiches;
     }
-
+/*
     public double totalPriceOfSession(Session session){
         double sum=0;
         List<OrderToday> orderHistory=history.getOrderHistory();
@@ -68,7 +68,7 @@ public class FinancialManagerImp implements FinancialManager{
             sum+=order.getOrder().stream().filter(x->x.getPerson().getSession()== session).map(x->x.getSandwichType().getPrice()).mapToDouble(Double::doubleValue).sum();
         }
 
-         */
+
         return sum;
 
     }
@@ -82,10 +82,11 @@ public class FinancialManagerImp implements FinancialManager{
             sum+=order.getOrder().stream().filter(x->x.getPerson().getSession()== session).map(x->x.getSandwichType().getPrice()).mapToDouble(Double::doubleValue).sum();
         }
 
-         */
+
         return sum;
 
     }
+    */
 
 
     public double averagePriceSandwich(Shop shop, Month month,int year){
