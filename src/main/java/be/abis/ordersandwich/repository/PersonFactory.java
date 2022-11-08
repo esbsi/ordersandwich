@@ -13,11 +13,7 @@ public class PersonFactory implements PersonRepository{
     
     private List<Person> persons=new ArrayList<>();
 
-    // ToDo clean up (remove sessions)
     public PersonFactory() {
-        Session c =new Session("java");
-        Session c1=new Session("python");
-
         Person p1=new Person("sim");
         Person p2=new Person("jana");
         Person p3=new Person("esben");
@@ -34,23 +30,6 @@ public class PersonFactory implements PersonRepository{
         persons.add(p6);
         persons.add(p7);
         persons.add(p8);
-/*
-        try {
-            c.addPerson(p1);
-            c.addPerson(p2);
-            c.addPerson(p3);
-            c.addPerson(p4);
-            c1.addPerson(p5);
-            c1.addPerson(p6);
-            c1.addPerson(p7);
-            c1.addPerson(p8);
-        } catch (PersonAlreadyInSessionException e) {
-            throw new RuntimeException(e);
-        }
-
- */
-
-
     }
 
 
@@ -66,6 +45,13 @@ public class PersonFactory implements PersonRepository{
         if(!persons.remove(person)){
             throw new PersonNotFoundException();
         }
+    }
+
+    @Override
+    public Person findPersonById(int id) throws PersonNotFoundException {
+        return persons.stream()
+                .filter(person -> id == person.getId())
+                .findFirst().orElseThrow(PersonNotFoundException::new);
     }
 
     @Override

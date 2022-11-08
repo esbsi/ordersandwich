@@ -17,6 +17,8 @@ public interface OrderRepository {
 
     List<OrderToday> findOrdersToday(LocalDate localDate) throws OrderTodayNotFoundException;
 
+    OrderToday findOrderToday(int id) throws OrderTodayNotFoundException;
+
     OrderToday findLastOrderToday(LocalDate localDate) throws OrderTodayNotFoundException;
 
     // should be removed?

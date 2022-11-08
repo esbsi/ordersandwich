@@ -36,15 +36,21 @@ public class FileSessionRepository implements SessionRepository {
     }
 
 
+    // business
 
-
-
-
+    // Redundant method?
     @Override
     public Session findMostRecentSession(String sessionName) throws SessionNotFoundException {
         return sessions.stream()
                 .filter(session -> sessionName.equals(session.getName()))
                 .sorted(Comparator.comparing(Session::getStartDate).reversed())
+                .findFirst().orElseThrow(SessionNotFoundException::new);
+    }
+
+    @Override
+    public Session findSession(int id) throws SessionNotFoundException {
+        return sessions.stream()
+                .filter(session -> id == session.getId())
                 .findFirst().orElseThrow(SessionNotFoundException::new);
     }
 

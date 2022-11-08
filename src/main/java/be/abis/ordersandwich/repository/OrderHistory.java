@@ -41,6 +41,14 @@ public class OrderHistory implements OrderRepository{
     }
 
     @Override
+    public OrderToday findOrderToday(int id) throws OrderTodayNotFoundException {
+        return orderHistory.stream()
+                .filter(orderToday -> id == orderToday.getId())
+                .findFirst().orElseThrow(OrderTodayNotFoundException::new);
+    }
+
+    // Redundant method?
+    @Override
     public OrderToday findLastOrderToday(LocalDate localDate) throws OrderTodayNotFoundException {
         return orderHistory.stream()
                 .filter(orderToday -> orderToday.getDate().isEqual(localDate))

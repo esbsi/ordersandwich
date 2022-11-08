@@ -33,6 +33,13 @@ public class ShopFactory implements ShopRepository{
     }
 
     @Override
+    public Shop findShopById(int id) throws ShopNotFoundException {
+        return shops.stream()
+                .filter(shop -> id == shop.getId())
+                .findFirst().orElseThrow(ShopNotFoundException::new);
+    }
+
+    @Override
     public Shop findShop(String shopName) throws ShopNotFoundException {
         return shops.stream()
             .filter(shop -> shopName.equals(shop.getName()))

@@ -26,9 +26,6 @@ public class FileSandwichTypeRepository implements SandwichTypeRepository{
         loadSandwichTypes();
     }
 
-
-    // business
-
     public void loadSandwichTypes() {
         List<SandwichType> sandwichTypeList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(fileDirectory))) {
@@ -49,6 +46,9 @@ public class FileSandwichTypeRepository implements SandwichTypeRepository{
             System.out.println(e.getMessage());
         } this.sandwichTypes = sandwichTypeList;
     }
+
+
+    // business
 
     @Override
     public SandwichType findSandwichTypeById(int id) throws SandwichTypeNotFoundException {

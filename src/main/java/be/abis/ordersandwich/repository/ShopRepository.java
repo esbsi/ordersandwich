@@ -10,6 +10,8 @@ public interface ShopRepository {
 
     void removeShop(Shop shop) throws ShopNotFoundException;
 
+    Shop findShopById(int id) throws ShopNotFoundException;
+
     Shop findShop(String shopName) throws ShopNotFoundException;
 
 }

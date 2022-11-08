@@ -12,6 +12,8 @@ public interface SessionRepository {
 
     void removeSession(Session session) throws SessionNotFoundException;
 
+    Session findSession(int id) throws SessionNotFoundException;
+
     Session findSession(String sessionName, LocalDate startDate) throws SessionNotFoundException;
     Session findMostRecentSession(String sessionName) throws SessionNotFoundException;
     List<Session> findSessionsByName(String sessionName) throws SessionNotFoundException;

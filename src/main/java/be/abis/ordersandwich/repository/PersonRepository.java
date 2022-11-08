@@ -12,5 +12,7 @@ public interface PersonRepository {
 
     void removePerson(Person person) throws PersonNotFoundException;
 
+    Person findPersonById(int id) throws PersonNotFoundException;
+
     Person findPerson(String personName) throws PersonNotFoundException;
 }
