@@ -7,14 +7,17 @@ import be.abis.ordersandwich.exception.TooManySandwichesException;
 import be.abis.ordersandwich.model.OrderToday;
 import be.abis.ordersandwich.model.Person;
 import be.abis.ordersandwich.model.SandwichOrder;
+import be.abis.ordersandwich.repository.OrderRepository;
 import be.abis.ordersandwich.repository.SandwichTypeRepository;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.stream.Collectors;
 
@@ -23,8 +26,14 @@ public class OrderTodayServiceImp implements OrderTodayService{
 
     @Autowired
     SandwichTypeRepository sandwichTypeRepository;
+    @Autowired
+    OrderRepository orderHistory;
     OrderToday orderToday;
 
+
+    // business
+
+    @Override
     public void orderSandwich(int i, boolean club, boolean white, String comment, Person person) throws TooManySandwichesException, TooLateException, NullInputException, SandwichTypeNotFoundException {
         if (person==null || orderToday==null ) throw new NullInputException("null input");
         if (LocalTime.now().compareTo(orderToday.getClosingTime())>0 && orderToday.getDate().equals(LocalDate.now())){
@@ -49,6 +58,7 @@ public class OrderTodayServiceImp implements OrderTodayService{
         orderToday.getOrder().add(sandwichOrder);
     }
 
+    @Override
     public void noOrder(Person person) throws TooManySandwichesException, TooLateException, NullInputException {
         if (person==null || orderToday==null ) throw new NullInputException("null input");
         if(LocalTime.now().compareTo(orderToday.getClosingTime())>0 && orderToday.getDate().equals(LocalDate.now())){
@@ -64,6 +74,7 @@ public class OrderTodayServiceImp implements OrderTodayService{
         //System.out.println(sandwichOrder);
     }
 
+    @Override
     public void removeOrder(int index) throws TooLateException, NullInputException {
         if ( orderToday==null ) throw new NullInputException("null input");
         if(LocalTime.now().compareTo(orderToday.getClosingTime())>0 && orderToday.getDate().equals(LocalDate.now())){
@@ -73,6 +84,7 @@ public class OrderTodayServiceImp implements OrderTodayService{
         orderToday.getOrder().remove(index);
     }
 
+    @Override
     public double totalPrice() throws NullInputException {
         if ( orderToday==null ) throw new NullInputException("null input");
         double sum=0;
@@ -85,14 +97,60 @@ public class OrderTodayServiceImp implements OrderTodayService{
         return sum;
     }
 
+    @Override
+    public void sendOrder() throws NullInputException {
+        if(orderHistory==null || orderToday== null) throw new NullInputException("some of the inputs are null");
+        this.totalPrice();
+        orderToday.getTotalPrice();
+        orderToday.setNow(LocalDateTime.now());
+        orderHistory.addToOrderHistory(orderToday);
+        toFile(orderToday.toString(),false);
+/*
+        List<Session> sessionList =orderToday.getOrder().stream().map(p->p.getPerson().getSession()).distinct().collect(Collectors.toList());
+        for (Session session : sessionList){
+            toFile(sessionService.checkAllOrdered(orderToday, session),true);
+        }
+ */
+    }
+
+    @Override
+    public void toFile(String writing, boolean bool){
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+        PrintWriter pw = null;
+
+        try {
+            fw = new FileWriter("c:\\temp\\javasessions\\broodjes2.txt", bool);
+            bw = new BufferedWriter(fw);
+            pw = new PrintWriter(bw);
+            pw.println(writing);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                pw.close();
+                bw.close();
+                fw.close();
+            }
+            catch (IOException io) {}
+        }
+    }
+
+
+    // getset
+
+    @Override
     public void setClosingTime(LocalTime closingTime) {
         orderToday.setClosingTime(closingTime);
     }
 
+    @Override
     public OrderToday getOrderToday() {
         return orderToday;
     }
 
+    @Override
     public void setOrderToday(OrderToday orderToday) {
         this.orderToday = orderToday;
     }

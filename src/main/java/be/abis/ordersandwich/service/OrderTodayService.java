@@ -14,6 +14,11 @@ public interface OrderTodayService {
     void noOrder(Person person) throws TooManySandwichesException, TooLateException, NullInputException;
     void removeOrder(int index) throws TooLateException, NullInputException;
     double totalPrice() throws NullInputException;
+
+    void sendOrder() throws NullInputException;
+
+    void toFile(String writing, boolean bool);
+
     public void setClosingTime(LocalTime closingTime);
     public OrderToday getOrderToday();
     public void setOrderToday(OrderToday orderToday);
