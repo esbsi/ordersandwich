@@ -30,6 +30,9 @@ public class PersonFactory implements PersonRepository{
         persons.add(p6);
         persons.add(p7);
         persons.add(p8);
+        for (int id = 0; id < persons.size(); id++){
+            persons.get(id).setId(id);
+        }
     }
 
 

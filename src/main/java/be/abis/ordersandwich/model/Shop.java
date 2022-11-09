@@ -9,7 +9,15 @@ public class Shop {
     private int id;
     private String name;
 
+    public Shop() {
+    }
+
     public Shop(String name) {
+        this.name = name;
+    }
+
+    public Shop(int id, String name) {
+        this.id = id;
         this.name = name;
     }
 

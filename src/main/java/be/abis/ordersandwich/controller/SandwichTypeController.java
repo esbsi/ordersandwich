@@ -33,6 +33,7 @@ public class SandwichTypeController {
     @PostMapping("shop")
     public void setShop(@RequestBody Shop shop){
         sandwichTypeService.setShop(shop);
+ //       System.out.println("Shop set: " + shop.getName());
     }
 
     @GetMapping("{id}")
@@ -41,8 +42,8 @@ public class SandwichTypeController {
         return new ResponseEntity<>(sandwichType, HttpStatus.OK);
     }
 
-    @GetMapping("{name}")
-    public ResponseEntity<?> findSandwichType(String name) throws SandwichTypeNotFoundException{
+    @GetMapping("query")
+    public ResponseEntity<?> findSandwichType(@RequestParam String name) throws SandwichTypeNotFoundException{
         SandwichType sandwichType = sandwichTypeService.findSandwichType(name);
         return new ResponseEntity<>(sandwichType, HttpStatus.OK);
     }

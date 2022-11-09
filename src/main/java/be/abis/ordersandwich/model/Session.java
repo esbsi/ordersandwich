@@ -16,11 +16,21 @@ public class Session {
     private LocalDate endDate;
     private List<Person> personList= new ArrayList<>();
 
+    public Session() {
+    }
+
     public Session(String name) {
         this.name = name;
     }
 
     public Session(String name, LocalDate startDate, LocalDate endDate) {
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    public Session(int id, String name, LocalDate startDate, LocalDate endDate) {
+        this.id = id;
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;

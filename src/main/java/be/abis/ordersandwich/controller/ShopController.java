@@ -33,8 +33,8 @@ public class ShopController {
         return new ResponseEntity<>(shop, HttpStatus.OK);
     }
 
-    @GetMapping("{name}")
-    public ResponseEntity<?> findShop(@PathVariable String name) throws ShopNotFoundException {
+    @GetMapping("query")
+    public ResponseEntity<?> findShop(@RequestParam String name) throws ShopNotFoundException {
         Shop shop = shopService.findShop(name);
         return new ResponseEntity<>(shop, HttpStatus.OK);
     }

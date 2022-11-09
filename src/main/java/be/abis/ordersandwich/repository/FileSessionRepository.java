@@ -24,9 +24,12 @@ public class FileSessionRepository implements SessionRepository {
     public void loadSessions(){
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))){
             String line;
+            int id = 0;
             while ((line = reader.readLine()) != null) {
+                id++;
                 String[] attributes = line.split(";");
                 Session session = new Session(attributes[0], LocalDate.parse(attributes[1]), LocalDate.parse(attributes[2]));
+                session.setId(id);
                 this.sessions.add(session);
             }
         } catch (IOException e) {

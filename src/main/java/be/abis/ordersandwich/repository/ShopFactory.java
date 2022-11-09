@@ -14,8 +14,8 @@ public class ShopFactory implements ShopRepository{
     private List<Shop> shops = new ArrayList<>();
 
     public ShopFactory() {
-        this.shops.add(new Shop("Vleugels"));
-        this.shops.add(new Shop("Pinkys"));
+        this.shops.add(new Shop(1, "Vleugels"));
+        this.shops.add(new Shop(2, "Pinkys"));
     }
 
     @Override
