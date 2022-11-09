@@ -1,6 +1,9 @@
 package be.abis.ordersandwich.controller;
 
+import be.abis.ordersandwich.exception.PersonNotFoundException;
+import be.abis.ordersandwich.exception.SessionNotFoundException;
 import be.abis.ordersandwich.model.CheckOrder;
+import be.abis.ordersandwich.model.Name;
 import be.abis.ordersandwich.model.Person;
 import be.abis.ordersandwich.model.Session;
 import be.abis.ordersandwich.service.PersonService;
@@ -20,7 +23,7 @@ public class SessionController {
     @Autowired
     SessionService service;
 // willen hier wrsz iets andrs terug als een string
-    
+
     @GetMapping("")
     public List<Session> getAll()  {
         return service.getSessions();
@@ -33,6 +36,12 @@ public class SessionController {
 
      */
 
+    @PostMapping("name")
+    public Session findByName(@RequestBody Name name ) throws PersonNotFoundException, SessionNotFoundException {
+
+
+        return service.findMostRecentSession(name.getName());
+    }
 
 
 }
