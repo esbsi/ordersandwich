@@ -1,5 +1,6 @@
 package be.abis.ordersandwich.service;
 
+import be.abis.ordersandwich.exception.NullInputException;
 import be.abis.ordersandwich.exception.PersonAlreadyInSessionException;
 import be.abis.ordersandwich.exception.SessionNotFoundException;
 import be.abis.ordersandwich.model.OrderToday;
@@ -12,7 +13,7 @@ public interface SessionService {
 
 
     // repository methods
-
+    void addPersonToSession(Session session, Person person) throws PersonAlreadyInSessionException, NullInputException;
     List<Session> getSessions();
     Session findMostRecentSession(String sessionName) throws SessionNotFoundException;
     void addSession(Session session);

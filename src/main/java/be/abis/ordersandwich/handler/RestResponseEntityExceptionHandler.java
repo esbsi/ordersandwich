@@ -4,11 +4,8 @@ package be.abis.ordersandwich.handler;
 import be.abis.ordersandwich.error.ApiError;
 import be.abis.ordersandwich.error.ValidationError;
 
-import be.abis.ordersandwich.exception.PersonNotFoundException;
+import be.abis.ordersandwich.exception.*;
 
-import be.abis.ordersandwich.exception.SessionNotFoundException;
-import be.abis.ordersandwich.exception.ShopAlreadyExistsException;
-import be.abis.ordersandwich.exception.ShopNotFoundException;
 import be.abis.ordersandwich.model.Session;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -45,6 +42,28 @@ public class RestResponseEntityExceptionHandler
             (SessionNotFoundException ance, WebRequest request) {
         HttpStatus status = HttpStatus.NOT_FOUND;
         ApiError err = new ApiError("not found", status.value(), ance.getMessage());
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add("content-type",
+                MediaType.APPLICATION_PROBLEM_JSON_VALUE);
+        return new ResponseEntity<ApiError>(err, responseHeaders, status);
+    }
+
+    @ExceptionHandler(value = NullInputException.class)
+    protected ResponseEntity<? extends Object> nullInput
+            (NullInputException ance, WebRequest request) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        ApiError err = new ApiError("null input", status.value(), ance.getMessage());
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add("content-type",
+                MediaType.APPLICATION_PROBLEM_JSON_VALUE);
+        return new ResponseEntity<ApiError>(err, responseHeaders, status);
+    }
+
+    @ExceptionHandler(value = PersonAlreadyInSessionException.class)
+    protected ResponseEntity<? extends Object> personInSession
+            (PersonAlreadyInSessionException ance, WebRequest request) {
+        HttpStatus status = HttpStatus.CONFLICT;
+        ApiError err = new ApiError("Person is already in the session", status.value(), ance.getMessage());
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.add("content-type",
                 MediaType.APPLICATION_PROBLEM_JSON_VALUE);
