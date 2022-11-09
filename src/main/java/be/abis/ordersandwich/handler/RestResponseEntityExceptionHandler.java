@@ -102,6 +102,7 @@ public class RestResponseEntityExceptionHandler
         return new ResponseEntity<ApiError>(err, responseHeaders, status);
     }
 
+
     @ExceptionHandler(value = ShopNotFoundException.class)
     protected ResponseEntity<?> handleShopNotFound
             (ShopNotFoundException exception, WebRequest request) {

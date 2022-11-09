@@ -49,5 +49,12 @@ public class SessionController {
          service.addPersonToSession(model.getSession(),model.getPerson());
     }
 
+    @PostMapping("persons")
+    public List<Person> persons(@RequestBody Session session ) throws SessionNotFoundException, PersonAlreadyInSessionException, NullInputException {
+
+        return  service.getAllPersonsFromSession(session);
+
+    }
+
 
 }
