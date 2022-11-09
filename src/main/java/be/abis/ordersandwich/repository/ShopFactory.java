@@ -45,4 +45,13 @@ public class ShopFactory implements ShopRepository{
             .filter(shop -> shopName.equals(shop.getName()))
             .findFirst().orElseThrow(ShopNotFoundException::new);
     }
+
+
+    // getset
+
+    @Override
+    public List<Shop> getShops() {
+        return shops;
+    }
+
 }

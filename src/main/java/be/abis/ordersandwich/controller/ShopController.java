@@ -6,6 +6,7 @@ import be.abis.ordersandwich.exception.PersonNotFoundException;
 import be.abis.ordersandwich.exception.ShopAlreadyExistsException;
 import be.abis.ordersandwich.exception.ShopNotFoundException;
 import be.abis.ordersandwich.model.FinanceModel;
+import be.abis.ordersandwich.model.SandwichType;
 import be.abis.ordersandwich.model.Shop;
 import be.abis.ordersandwich.repository.ShopRepository;
 import be.abis.ordersandwich.service.ShopService;
@@ -17,6 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/shop")
@@ -50,6 +53,12 @@ public class ShopController {
         Shop shop = new Shop(name);
         shopService.addShop(shop);
         return new ResponseEntity<>(Void.class, HttpStatus.OK);
+    }
+
+    @GetMapping("")
+    public ResponseEntity<?> getShops() {
+        List<Shop> shops = shopService.getShops();
+        return new ResponseEntity<>(shops, HttpStatus.OK);
     }
 
 }

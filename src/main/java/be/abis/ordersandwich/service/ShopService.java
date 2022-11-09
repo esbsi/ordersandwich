@@ -4,6 +4,8 @@ import be.abis.ordersandwich.exception.ShopAlreadyExistsException;
 import be.abis.ordersandwich.exception.ShopNotFoundException;
 import be.abis.ordersandwich.model.Shop;
 
+import java.util.List;
+
 public interface ShopService {
     void addShop(Shop shop) throws ShopAlreadyExistsException;
 
@@ -12,4 +14,6 @@ public interface ShopService {
     Shop findShopById(int id) throws ShopNotFoundException;
 
     Shop findShop(String shopName) throws ShopNotFoundException;
+
+    List<Shop> getShops();
 }

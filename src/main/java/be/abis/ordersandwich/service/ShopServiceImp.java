@@ -7,6 +7,8 @@ import be.abis.ordersandwich.repository.ShopRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ShopServiceImp implements ShopService {
 
@@ -31,6 +33,11 @@ public class ShopServiceImp implements ShopService {
     @Override
     public Shop findShop(String shopName) throws ShopNotFoundException{
         return shopRepository.findShop(shopName);
+    }
+
+    @Override
+    public List<Shop> getShops() {
+        return shopRepository.getShops();
     }
 
 }
