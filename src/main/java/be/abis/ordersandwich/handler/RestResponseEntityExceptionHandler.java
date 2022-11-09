@@ -70,20 +70,10 @@ public class RestResponseEntityExceptionHandler
         return new ResponseEntity<ApiError>(err, responseHeaders, status);
     }
 
-    @ExceptionHandler(value = SandwichTypeNotFoundException.class)
-    protected ResponseEntity<? extends Object> SanwichNotFound
-            (SandwichTypeNotFoundException ance, WebRequest request) {
-        HttpStatus status = HttpStatus.NOT_FOUND;
-        ApiError err = new ApiError("sandwich type not found", status.value(), ance.getMessage());
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.add("content-type",
-                MediaType.APPLICATION_PROBLEM_JSON_VALUE);
-        return new ResponseEntity<ApiError>(err, responseHeaders, status);
-    }
     @ExceptionHandler(value = TooManySandwichesException.class)
     protected ResponseEntity<? extends Object> tooMany
             (TooManySandwichesException ance, WebRequest request) {
-        HttpStatus status = HttpStatus.NOT_FOUND;
+        HttpStatus status = HttpStatus.FORBIDDEN;
         ApiError err = new ApiError("ordering too many sandwiches", status.value(), ance.getMessage());
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.add("content-type",
@@ -106,8 +96,8 @@ public class RestResponseEntityExceptionHandler
     @ExceptionHandler(value = ShopNotFoundException.class)
     protected ResponseEntity<?> handleShopNotFound
             (ShopNotFoundException exception, WebRequest request) {
-        HttpStatus status = HttpStatus.CONFLICT;
-        ApiError apiError = new ApiError("Not found", status.value(), exception.getMessage());
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        ApiError apiError = new ApiError("Shop Not Found", status.value(), exception.getMessage());
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.add("content-type", MediaType.APPLICATION_PROBLEM_JSON_VALUE);
         return new ResponseEntity<>(apiError, responseHeaders, status);
@@ -123,11 +113,33 @@ public class RestResponseEntityExceptionHandler
         return new ResponseEntity<>(apiError, responseHeaders, status);
     }
 
+    /*    @ExceptionHandler(value = SandwichTypeNotFoundException.class)
+    protected ResponseEntity<? extends Object> SanwichNotFound
+            (SandwichTypeNotFoundException ance, WebRequest request) {
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        ApiError err = new ApiError("sandwich type not found", status.value(), ance.getMessage());
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add("content-type",
+                MediaType.APPLICATION_PROBLEM_JSON_VALUE);
+        return new ResponseEntity<ApiError>(err, responseHeaders, status);
+    }
+ */
+
     @ExceptionHandler(value = SandwichTypeNotFoundException.class)
     protected ResponseEntity<?> handleSandwichTypeNotFound
             (SandwichTypeNotFoundException exception, WebRequest request) {
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        ApiError apiError = new ApiError("SandwichType Not found", status.value(), exception.getMessage());
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add("content-type", MediaType.APPLICATION_PROBLEM_JSON_VALUE);
+        return new ResponseEntity<>(apiError, responseHeaders, status);
+    }
+
+    @ExceptionHandler(value = SandwichTypeAlreadyExistsException.class)
+    protected ResponseEntity<?> handleSandwichTypeAlreadyExists
+            (SandwichTypeAlreadyExistsException exception, WebRequest request) {
         HttpStatus status = HttpStatus.CONFLICT;
-        ApiError apiError = new ApiError("Not found", status.value(), exception.getMessage());
+        ApiError apiError = new ApiError("SandwichType Already Exists", status.value(), exception.getMessage());
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.add("content-type", MediaType.APPLICATION_PROBLEM_JSON_VALUE);
         return new ResponseEntity<>(apiError, responseHeaders, status);

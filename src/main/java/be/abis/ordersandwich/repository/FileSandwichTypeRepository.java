@@ -1,6 +1,8 @@
 package be.abis.ordersandwich.repository;
 
+import be.abis.ordersandwich.exception.SandwichTypeAlreadyExistsException;
 import be.abis.ordersandwich.exception.SandwichTypeNotFoundException;
+import be.abis.ordersandwich.exception.ShopAlreadyExistsException;
 import be.abis.ordersandwich.model.SandwichType;
 import be.abis.ordersandwich.model.Shop;
 import org.springframework.stereotype.Repository;
@@ -76,11 +78,12 @@ public class FileSandwichTypeRepository implements SandwichTypeRepository{
     }
     
     @Override
-    public void addSandwichType(SandwichType sandwichType){
-        try {appendSandwichTypeToFile(sandwichType);
+    public void addSandwichType(SandwichType sandwichType) throws SandwichTypeAlreadyExistsException {
+        if (sandwichTypes.contains(sandwichType)) {
+            throw new SandwichTypeAlreadyExistsException("A sandwich with this name is already on this shops menu.");
+        } else {
+            appendSandwichTypeToFile(sandwichType);
             sandwichTypes.add(sandwichType);
-        } catch (RuntimeException e) {
-            throw new RuntimeException(e);
         }
     }
 

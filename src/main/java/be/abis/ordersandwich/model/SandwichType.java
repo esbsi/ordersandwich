@@ -34,6 +34,18 @@ public class SandwichType {
         return name;
     }
 
+    @Override
+    public boolean equals(Object o){
+        if (!(o instanceof SandwichType)){
+            return false;
+        } else return this.getName().equals(((SandwichType)o).getName());
+    }
+
+    @Override
+    public int hashCode(){
+        return this.getName().length();
+    }
+
 
     // getset
 

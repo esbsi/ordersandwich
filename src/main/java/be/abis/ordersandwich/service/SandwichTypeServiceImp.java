@@ -1,5 +1,6 @@
 package be.abis.ordersandwich.service;
 
+import be.abis.ordersandwich.exception.SandwichTypeAlreadyExistsException;
 import be.abis.ordersandwich.exception.SandwichTypeNotFoundException;
 import be.abis.ordersandwich.model.SandwichType;
 import be.abis.ordersandwich.model.Shop;
@@ -31,7 +32,7 @@ public class SandwichTypeServiceImp implements SandwichTypeService {
     }
 
     @Override
-    public void addSandwichType(SandwichType sandwichType){
+    public void addSandwichType(SandwichType sandwichType) throws SandwichTypeAlreadyExistsException {
         sandwichTypeRepository.addSandwichType(sandwichType);
     }
 

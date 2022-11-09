@@ -1,5 +1,6 @@
 package be.abis.ordersandwich.repository;
 
+import be.abis.ordersandwich.exception.SandwichTypeAlreadyExistsException;
 import be.abis.ordersandwich.exception.SandwichTypeNotFoundException;
 import be.abis.ordersandwich.model.SandwichType;
 import be.abis.ordersandwich.model.Shop;
@@ -12,7 +13,7 @@ public interface SandwichTypeRepository {
     Shop getShop();
     List<SandwichType> getSandwichTypes();
 
-    void addSandwichType(SandwichType sandwichType);
+    void addSandwichType(SandwichType sandwichType) throws SandwichTypeAlreadyExistsException;
 
     SandwichType findSandwichTypeById(int id) throws SandwichTypeNotFoundException;
 

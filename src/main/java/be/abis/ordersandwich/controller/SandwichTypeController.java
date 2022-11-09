@@ -1,6 +1,7 @@
 package be.abis.ordersandwich.controller;
 
 import be.abis.ordersandwich.error.ApiError;
+import be.abis.ordersandwich.exception.SandwichTypeAlreadyExistsException;
 import be.abis.ordersandwich.exception.SandwichTypeNotFoundException;
 import be.abis.ordersandwich.exception.ShopNotFoundException;
 import be.abis.ordersandwich.model.SandwichType;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.net.ssl.SSLEngineResult;
+import java.util.List;
 
 @RestController
 @RequestMapping("/sandwich")
@@ -46,6 +48,23 @@ public class SandwichTypeController {
     public ResponseEntity<?> findSandwichType(@RequestParam String name) throws SandwichTypeNotFoundException{
         SandwichType sandwichType = sandwichTypeService.findSandwichType(name);
         return new ResponseEntity<>(sandwichType, HttpStatus.OK);
+    }
+
+    @DeleteMapping("{id}")
+    public void removeSandwichType(@PathVariable int id) throws SandwichTypeNotFoundException {
+        SandwichType sandwichType = sandwichTypeService.findSandwichTypeById(id);
+        sandwichTypeService.removeSandwichType(sandwichType);
+    }
+
+    @PostMapping("")
+    public void addSandwichType(@RequestBody SandwichType sandwichType) throws SandwichTypeAlreadyExistsException {
+        sandwichTypeService.addSandwichType(sandwichType);
+    }
+
+    @GetMapping("")
+    public ResponseEntity<?> getSandwichTypes() {
+        List<SandwichType> sandwichTypes = sandwichTypeService.getSandwichTypes();
+        return new ResponseEntity<>(sandwichTypes, HttpStatus.OK);
     }
 
 }
