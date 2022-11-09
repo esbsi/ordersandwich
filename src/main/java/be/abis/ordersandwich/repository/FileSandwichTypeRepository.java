@@ -29,10 +29,13 @@ public class FileSandwichTypeRepository implements SandwichTypeRepository{
     public void loadSandwichTypes() {
         List<SandwichType> sandwichTypeList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(fileDirectory))) {
-                String line;
+            String line;
+            int id = 0;
             while ((line = reader.readLine()) != null) {
+                id++;
                 String[] sandwichAttributes = line.split(";");
                 SandwichType sandwichType = new SandwichType();
+                sandwichType.setId(id);
                 sandwichType.setName(sandwichAttributes[0]);
                 sandwichType.setPrice(Double.parseDouble(sandwichAttributes[1]));
                 sandwichType.setCategory(sandwichAttributes[2]);
