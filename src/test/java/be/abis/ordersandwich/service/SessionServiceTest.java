@@ -56,37 +56,7 @@ public class SessionServiceTest {
 
     }
 
-    @Test
-    void checkOrdersNobody() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
-        orderTodayService.orderSandwich(1,true,false,true,"",person);
-        orderTodayService.orderSandwich(1,true,false,true,"",person2);
-        orderTodayService.orderSandwich(1,true,false,true,"",person2);
 
-
-        assertTrue(sessionService.checkAllOrdered(orderToday,session).startsWith(session.getName()));
-    }
-
-    @Test
-    void checkOrders() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
-
-        orderTodayService.orderSandwich(1,true,false,true,"",person);
-        orderTodayService.orderSandwich(1,true,false,true,"",person2);
-        orderTodayService.orderSandwich(1,true,false,true,"",person3);
-
-
-        assertTrue(sessionService.checkAllOrdered(orderToday,session).startsWith("All"));
-    }
-
-    @Test
-    void checkOrdersOtherSession() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
-
-        orderTodayService.orderSandwich(1,true,false,true,"",person);
-        orderTodayService.orderSandwich(1,true,false,true,"",person2);
-        orderTodayService.orderSandwich(1,true,false,true,"",person3);
-
-
-        assertTrue(sessionService.checkAllOrdered(orderToday,session2).startsWith(session2.getName()));
-    }
 
 
 

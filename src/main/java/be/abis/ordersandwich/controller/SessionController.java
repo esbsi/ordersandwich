@@ -20,11 +20,7 @@ public class SessionController {
     @Autowired
     SessionService service;
 // willen hier wrsz iets andrs terug als een string
-    @PostMapping("allordered")
-    public void allOrdered(@RequestBody CheckOrder checkOrder )  {
-        service.checkAllOrdered(checkOrder.getOrderToday(), checkOrder.getSession());
-    }
-
+    
     @GetMapping("")
     public List<Session> getAll()  {
         return service.getSessions();

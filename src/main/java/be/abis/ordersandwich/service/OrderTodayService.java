@@ -6,6 +6,7 @@ import be.abis.ordersandwich.exception.TooLateException;
 import be.abis.ordersandwich.exception.TooManySandwichesException;
 import be.abis.ordersandwich.model.OrderToday;
 import be.abis.ordersandwich.model.Person;
+import be.abis.ordersandwich.model.Session;
 
 import java.time.LocalTime;
 import java.util.List;
@@ -27,5 +28,6 @@ public interface OrderTodayService {
     void setClosingTime(LocalTime closingTime);
     OrderToday getOrderToday();
     void setOrderToday(OrderToday orderToday);
+    String checkAllOrderedString( Session session);
 
 }

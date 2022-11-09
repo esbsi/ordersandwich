@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface SessionService {
 
-    String checkAllOrdered(OrderToday orderToday, Session session);
+
     // repository methods
 
     List<Session> getSessions();

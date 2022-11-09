@@ -7,6 +7,7 @@ import be.abis.ordersandwich.exception.TooManySandwichesException;
 import be.abis.ordersandwich.model.OrderToday;
 import be.abis.ordersandwich.model.Person;
 import be.abis.ordersandwich.model.SandwichOrder;
+import be.abis.ordersandwich.model.Session;
 import be.abis.ordersandwich.repository.OrderRepository;
 import be.abis.ordersandwich.repository.SandwichTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -159,6 +160,39 @@ public class OrderTodayServiceImp implements OrderTodayService{
             }
             catch (IOException io) {}
         }
+    }
+
+    @Override
+    public String checkAllOrderedString(Session session){
+        List<Person> personList=checkAllOrderedPersons(session);
+
+        String string="";
+        if ( personList.size()>0){
+            for(Person person : personList){
+                string+=session.getName() + ": " + person.getName() + " hasn't ordered." +"\n";
+            }
+        }else {
+            string+="All students in " + session.getName() + " session have ordered." +"\n";
+        }
+
+        return string;
+    }
+
+    public List<Person> checkAllOrderedPersons(Session session){
+
+        List<Person> personList =new ArrayList<>();
+
+        for (Person person : session.getPersonList()) {
+            boolean personOrdered = false;
+            for (SandwichOrder sandwichOrder : orderToday.getOrder()){
+                if (sandwichOrder.getPerson() == person){
+                    personOrdered = true;
+                }
+            } if (!personOrdered){
+                personList.add(person);
+            }
+        }
+        return personList;
     }
 
 

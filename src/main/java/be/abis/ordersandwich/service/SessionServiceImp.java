@@ -19,24 +19,7 @@ public class SessionServiceImp implements SessionService{
     @Autowired
     SessionRepository sessionRepository;
 
-    @Override
-    public String checkAllOrdered(OrderToday orderToday, Session session){
-        int count = 0;
-        String string="";
-        for (Person person : session.getPersonList()) {
-            boolean personOrdered = false;
-            for (SandwichOrder sandwichOrder : orderToday.getOrder()){
-                if (sandwichOrder.getPerson() == person){
-                    personOrdered = true;
-                }
-            } if (!personOrdered){
-                string+=session.getName() + ": " + person.getName() + " hasn't ordered." +"\n";
-            } else {++count;}
-        } if (count == session.getPersonList().size()){
-            string+="All students in " + session.getName() + " session have ordered.";
-        }
-        return string;
-    }
+
 
 
     // repository methods

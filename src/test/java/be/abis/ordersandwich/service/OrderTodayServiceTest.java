@@ -19,8 +19,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class OrderTodayServiceTest {
@@ -35,8 +34,17 @@ public class OrderTodayServiceTest {
     SessionRepository sessionRepository;
     @Autowired
     SandwichTypeRepository sandwichTypeRepository;
-    @Mock
-    Person person2;
+    @Autowired
+    SessionService sessionService;
+
+    Person person=new Person("sim");
+
+    Person person2=new Person("claus");
+
+    Person person3=new Person("jana");
+
+    Person person4=new Person("esben");
+
 
 
     OrderToday orderToday;
@@ -44,14 +52,22 @@ public class OrderTodayServiceTest {
     List<Person> personList =new ArrayList<>();
     List<Shop> shops=new ArrayList<>();
     List<Session> sessionList=new ArrayList<>();
-    @Mock
-    Person person;
+    Session session;
+    Session session2;
+
     @BeforeEach
-    void setUp() throws ShopNotFoundException {
+    void setUp() throws ShopNotFoundException, PersonAlreadyInSessionException, NullInputException {
         shop=shopRepository.findShop("Vleugels");
         orderToday=new OrderToday(shop);
         orderTodayService.setOrderToday(orderToday);
         orderToday.setClosingTime(LocalTime.parse("18:00:00"));
+        session=sessionService.getSessions().get(0);
+        session2=sessionService.getSessions().get(1);
+
+        session.addPerson(person);
+        session.addPerson(person2);
+        session.addPerson(person3);
+        session2.addPerson(person4);
 
     }
 
@@ -144,6 +160,38 @@ public class OrderTodayServiceTest {
 
 
         assertEquals(9.12,orderTodayService.totalPrice());
+    }
+
+    @Test
+    void checkOrdersNobody() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
+        orderTodayService.orderSandwich(1,true,false,true,"",person);
+        orderTodayService.orderSandwich(1,true,false,true,"",person2);
+        orderTodayService.orderSandwich(1,true,false,true,"",person2);
+
+
+        assertTrue(orderTodayService.checkAllOrderedString(session).startsWith(session.getName()));
+    }
+
+    @Test
+    void checkOrders() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
+
+        orderTodayService.orderSandwich(1,true,false,true,"",person);
+        orderTodayService.orderSandwich(1,true,false,true,"",person2);
+        orderTodayService.orderSandwich(1,true,false,true,"",person3);
+        System.out.println(orderTodayService.checkAllOrderedString(session));
+
+        assertTrue(orderTodayService.checkAllOrderedString(session).startsWith("All"));
+    }
+
+    @Test
+    void checkOrdersOtherSession() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
+
+        orderTodayService.orderSandwich(1,true,false,true,"",person);
+        orderTodayService.orderSandwich(1,true,false,true,"",person2);
+        orderTodayService.orderSandwich(1,true,false,true,"",person3);
+
+
+        assertTrue(orderTodayService.checkAllOrderedString(session2).startsWith(session2.getName()));
     }
 
 
