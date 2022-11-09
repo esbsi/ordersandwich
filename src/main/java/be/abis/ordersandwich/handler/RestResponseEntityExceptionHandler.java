@@ -6,8 +6,10 @@ import be.abis.ordersandwich.error.ValidationError;
 
 import be.abis.ordersandwich.exception.PersonNotFoundException;
 
+import be.abis.ordersandwich.exception.SessionNotFoundException;
 import be.abis.ordersandwich.exception.ShopAlreadyExistsException;
 import be.abis.ordersandwich.exception.ShopNotFoundException;
+import be.abis.ordersandwich.model.Session;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,6 +32,17 @@ public class RestResponseEntityExceptionHandler
     @ExceptionHandler(value = PersonNotFoundException.class)
     protected ResponseEntity<? extends Object> personNotFound
             ( PersonNotFoundException ance, WebRequest request) {
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        ApiError err = new ApiError("not found", status.value(), ance.getMessage());
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add("content-type",
+                MediaType.APPLICATION_PROBLEM_JSON_VALUE);
+        return new ResponseEntity<ApiError>(err, responseHeaders, status);
+    }
+
+    @ExceptionHandler(value = SessionNotFoundException.class)
+    protected ResponseEntity<? extends Object> sessionNotFound
+            (SessionNotFoundException ance, WebRequest request) {
         HttpStatus status = HttpStatus.NOT_FOUND;
         ApiError err = new ApiError("not found", status.value(), ance.getMessage());
         HttpHeaders responseHeaders = new HttpHeaders();

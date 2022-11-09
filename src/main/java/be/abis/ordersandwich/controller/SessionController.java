@@ -37,7 +37,7 @@ public class SessionController {
      */
 
     @PostMapping("name")
-    public Session findByName(@RequestBody Name name ) throws PersonNotFoundException, SessionNotFoundException {
+    public Session findByName(@RequestBody Name name ) throws  SessionNotFoundException {
 
 
         return service.findMostRecentSession(name.getName());
