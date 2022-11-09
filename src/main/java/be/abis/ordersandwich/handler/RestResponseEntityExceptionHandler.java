@@ -90,6 +90,16 @@ public class RestResponseEntityExceptionHandler
         return new ResponseEntity<>(apiError, responseHeaders, status);
     }
 
+    @ExceptionHandler(value = SandwichTypeNotFoundException.class)
+    protected ResponseEntity<?> handleSandwichTypeNotFound
+            (SandwichTypeNotFoundException exception, WebRequest request) {
+        HttpStatus status = HttpStatus.CONFLICT;
+        ApiError apiError = new ApiError("Not found", status.value(), exception.getMessage());
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add("content-type", MediaType.APPLICATION_PROBLEM_JSON_VALUE);
+        return new ResponseEntity<>(apiError, responseHeaders, status);
+    }
+
 
 
 }

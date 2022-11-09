@@ -27,13 +27,13 @@ public class ShopController {
     ShopService shopService;
 
 
-    @GetMapping("${id}")
+    @GetMapping("{id}")
     public ResponseEntity<?> findShopById(@PathVariable int id) throws ShopNotFoundException {
         Shop shop = shopService.findShopById(id);
         return new ResponseEntity<>(shop, HttpStatus.OK);
     }
 
-    @GetMapping("${name}")
+    @GetMapping("{name}")
     public ResponseEntity<?> findShop(@PathVariable String name) throws ShopNotFoundException {
         Shop shop = shopService.findShop(name);
         return new ResponseEntity<>(shop, HttpStatus.OK);
