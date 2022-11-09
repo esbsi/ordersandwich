@@ -59,6 +59,38 @@ public class RestResponseEntityExceptionHandler
         return new ResponseEntity<ApiError>(err, responseHeaders, status);
     }
 
+    @ExceptionHandler(value = TooLateException.class)
+    protected ResponseEntity<? extends Object> tooLate
+            (TooLateException ance, WebRequest request) {
+        HttpStatus status = HttpStatus.CONFLICT;
+        ApiError err = new ApiError("too late", status.value(), ance.getMessage());
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add("content-type",
+                MediaType.APPLICATION_PROBLEM_JSON_VALUE);
+        return new ResponseEntity<ApiError>(err, responseHeaders, status);
+    }
+
+    @ExceptionHandler(value = SandwichTypeNotFoundException.class)
+    protected ResponseEntity<? extends Object> SanwichNotFound
+            (SandwichTypeNotFoundException ance, WebRequest request) {
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        ApiError err = new ApiError("sandwich type not found", status.value(), ance.getMessage());
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add("content-type",
+                MediaType.APPLICATION_PROBLEM_JSON_VALUE);
+        return new ResponseEntity<ApiError>(err, responseHeaders, status);
+    }
+    @ExceptionHandler(value = TooManySandwichesException.class)
+    protected ResponseEntity<? extends Object> tooMany
+            (TooManySandwichesException ance, WebRequest request) {
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        ApiError err = new ApiError("ordering too many sandwiches", status.value(), ance.getMessage());
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add("content-type",
+                MediaType.APPLICATION_PROBLEM_JSON_VALUE);
+        return new ResponseEntity<ApiError>(err, responseHeaders, status);
+    }
+
     @ExceptionHandler(value = PersonAlreadyInSessionException.class)
     protected ResponseEntity<? extends Object> personInSession
             (PersonAlreadyInSessionException ance, WebRequest request) {

@@ -9,12 +9,12 @@ import be.abis.ordersandwich.repository.PersonRepository;
 import be.abis.ordersandwich.repository.SandwichTypeRepository;
 import be.abis.ordersandwich.repository.SessionRepository;
 import be.abis.ordersandwich.repository.ShopRepository;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.lang.annotation.Annotation;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +22,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class OrderTodayServiceTest {
 
     @Autowired
@@ -134,7 +135,7 @@ public class OrderTodayServiceTest {
         orderTodayService.noOrder(person);
         orderTodayService.orderSandwich(1,true,false,true,"",person);
         orderTodayService.orderSandwich(2,true,false,true,"",person);
-        orderTodayService.removeOrder(1);
+        orderTodayService.removeOrder(orderTodayService.getOrderToday().getOrder().get(1));
 
         assertEquals(1,orderToday.getOrder().size());
     }
@@ -144,7 +145,7 @@ public class OrderTodayServiceTest {
         orderTodayService.noOrder(person);
         orderTodayService.orderSandwich(1,true,false,true,"",person);
         orderTodayService.orderSandwich(2,true,false,true,"",person);
-        orderTodayService.removeOrder(0);
+        orderTodayService.removeOrder(orderTodayService.getOrderToday().getOrder().get(0));
 
         assertEquals(sandwichTypeRepository.getSandwichTypes().get(2),orderToday.getOrder().get(0).getSandwichType());
     }
@@ -173,6 +174,7 @@ public class OrderTodayServiceTest {
     }
 
     @Test
+    @Order(1)
     void checkOrders() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
 
         orderTodayService.orderSandwich(1,true,false,true,"",person);

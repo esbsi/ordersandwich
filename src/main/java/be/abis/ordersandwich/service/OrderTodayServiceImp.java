@@ -78,13 +78,13 @@ public class OrderTodayServiceImp implements OrderTodayService{
     }
 
     @Override
-    public void removeOrder(int index) throws TooLateException, NullInputException {
+    public void removeOrder(SandwichOrder sandwichOrder) throws TooLateException, NullInputException {
         if ( orderToday==null ) throw new NullInputException("null input");
         if(LocalTime.now().compareTo(orderToday.getClosingTime())>0 && orderToday.getDate().equals(LocalDate.now())){
 
             throw new TooLateException("too late, order is closed");
         }
-        orderToday.getOrder().remove(index);
+        orderToday.getOrder().remove(sandwichOrder);
     }
 
     @Override
@@ -117,25 +117,19 @@ public class OrderTodayServiceImp implements OrderTodayService{
     }
 
     @Override
-    public List<Integer> checkMyOrderToday(Person person) throws NullInputException {
+    public List<SandwichOrder> checkMyOrderToday(Person person) throws NullInputException {
         if (person==null || orderToday==null ) throw new NullInputException("null input");
-        int i=0;
-        int j=0;
-        List<Integer> integerList= new ArrayList<>();
+
+        List<SandwichOrder> orderList=new ArrayList<>();
+
         for(SandwichOrder order:orderToday.getOrder()){
             if(order.getPerson()==person){
-                if(order.getSandwichType()!=null){
-                    j++;
-                    System.out.println(person.getName()+" order "+j+": "+ order.getSandwichType().getName()+(order.isRauwkost() ? " club" : "") + (order.isWhite() ? " wit" : " grijs") + ".\n "  + ((order.getComment().equals("") ? "" : (": " + order.getComment()))));
-                    integerList.add(i);
-                }else {
-                    integerList.add(i);
-                    System.out.println("doesn't want anything today");
-                }
+                orderList.add(order);
+
             }
-            i++;
+
         }
-        return integerList;
+        return orderList;
     }
 
     @Override
