@@ -6,6 +6,8 @@ import be.abis.ordersandwich.error.ValidationError;
 
 import be.abis.ordersandwich.exception.PersonNotFoundException;
 
+import be.abis.ordersandwich.exception.ShopAlreadyExistsException;
+import be.abis.ordersandwich.exception.ShopNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -34,6 +36,26 @@ public class RestResponseEntityExceptionHandler
         responseHeaders.add("content-type",
                 MediaType.APPLICATION_PROBLEM_JSON_VALUE);
         return new ResponseEntity<ApiError>(err, responseHeaders, status);
+    }
+
+    @ExceptionHandler(value = ShopNotFoundException.class)
+    protected ResponseEntity<?> handleShopNotFound
+            (ShopNotFoundException exception, WebRequest request) {
+        HttpStatus status = HttpStatus.CONFLICT;
+        ApiError apiError = new ApiError("Not found", status.value(), exception.getMessage());
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add("content-type", MediaType.APPLICATION_PROBLEM_JSON_VALUE);
+        return new ResponseEntity<>(apiError, responseHeaders, status);
+    }
+
+    @ExceptionHandler(value = ShopAlreadyExistsException.class)
+    protected ResponseEntity<?> handleShopAlreadyExists
+            (ShopAlreadyExistsException exception, WebRequest request) {
+        HttpStatus status = HttpStatus.CONFLICT;
+        ApiError apiError = new ApiError("Shop Already Exists", status.value(), exception.getMessage());
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add("content-type", MediaType.APPLICATION_PROBLEM_JSON_VALUE);
+        return new ResponseEntity<>(apiError, responseHeaders, status);
     }
 
 
