@@ -110,9 +110,21 @@ public class OrderTodayServiceTest {
         assertThrows(SandwichTypeNotFoundException.class,()->orderTodayService.orderSandwich(10000,true,false,true,"", person));
     }
     @Test
+    @Order(2)
     void noOrder() throws TooLateException, TooManySandwichesException, NullInputException {
         orderTodayService.noOrder(person);
         assertEquals(1,orderToday.getOrder().size());
+    }
+
+    @Test
+    @Order(4)
+    void personAlreadyIn() throws TooLateException, TooManySandwichesException, NullInputException, PersonAlreadyInSessionException {
+
+        Person pers= new Person("simson");
+        session.addPerson(pers);
+        assertThrows(PersonAlreadyInSessionException.class,()->session.addPerson(pers) );
+
+
     }
 
     @Test

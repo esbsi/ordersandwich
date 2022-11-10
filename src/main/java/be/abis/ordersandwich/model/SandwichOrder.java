@@ -10,20 +10,26 @@ public class SandwichOrder {
     private boolean white;
     private String comment;
     private Person person;
+    private static int count;
 
-    public SandwichOrder() {}
+    public SandwichOrder() {
+        count++;
+        id=count;
+    }
 
     public SandwichOrder(Person person){
+        this();
         this.person = person;
     }
 
     public SandwichOrder(SandwichType sandwichType, boolean rauwkost, boolean grilledVegs, boolean white, String comment, Person person) {
+        this(person);
         this.sandwichType = sandwichType;
         this.rauwkost = rauwkost;
         this.grilledVegs = grilledVegs;
         this.white = white;
         this.comment = comment;
-        this.person = person;
+
     }
 
 

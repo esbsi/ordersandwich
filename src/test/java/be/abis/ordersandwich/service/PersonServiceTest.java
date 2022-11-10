@@ -33,8 +33,11 @@ public class PersonServiceTest {
 
     Shop shop;
 
+
+
     @BeforeEach
     void setUp() throws ShopNotFoundException {
+        ps.getPersonList();
         shop=shopRepository.findShop("Vleugels");
         orderToday=new OrderToday();
         orderToday.setShop(shop);

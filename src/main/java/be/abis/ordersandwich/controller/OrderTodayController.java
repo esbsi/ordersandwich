@@ -1,10 +1,7 @@
 package be.abis.ordersandwich.controller;
 
 
-import be.abis.ordersandwich.exception.NullInputException;
-import be.abis.ordersandwich.exception.SandwichTypeNotFoundException;
-import be.abis.ordersandwich.exception.TooLateException;
-import be.abis.ordersandwich.exception.TooManySandwichesException;
+import be.abis.ordersandwich.exception.*;
 import be.abis.ordersandwich.model.*;
 import be.abis.ordersandwich.service.FinancialManager;
 import be.abis.ordersandwich.service.OrderTodayService;
@@ -54,9 +51,12 @@ public class OrderTodayController {
 
     }
 // to do
-    @PostMapping("remove")
-    public void remove(@RequestBody SandwichOrder sandwichOrder ) throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
-         service.removeOrder(sandwichOrder);
+    @DeleteMapping("")
+    public void remove(@RequestBody SandwichOrder sandwichOrder ) throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException, OrderNotFoundException {
+        SandwichOrder order=service.getOrderToday().getOrder().stream()
+                        .filter(x-> x.getId()==sandwichOrder.getId())
+                        .findFirst().orElseThrow(()->new OrderNotFoundException("order not found"));
+        service.removeOrder(order);
     }
 
     @GetMapping("price")

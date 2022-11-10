@@ -20,7 +20,6 @@ public class OrderToday {
     private Shop shop;
 
 
-    private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
     private LocalDateTime now = LocalDateTime.now();
     private LocalDate date=LocalDate.now();
     private LocalTime closingTime=LocalTime.now();
@@ -61,9 +60,6 @@ public class OrderToday {
 
     // getset
 
-    public DateTimeFormatter getDtf() {
-        return dtf;
-    }
 
     public LocalDateTime getNow() {
         return now;
@@ -81,9 +77,6 @@ public class OrderToday {
         this.shop = shop;
     }
 
-    public void setDtf(DateTimeFormatter dtf) {
-        this.dtf = dtf;
-    }
 
     public void setNow(LocalDateTime now) {
         this.now = now;
