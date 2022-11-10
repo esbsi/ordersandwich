@@ -1,9 +1,6 @@
 package be.abis.ordersandwich.service;
 
-import be.abis.ordersandwich.exception.NullInputException;
-import be.abis.ordersandwich.exception.SandwichTypeNotFoundException;
-import be.abis.ordersandwich.exception.TooLateException;
-import be.abis.ordersandwich.exception.TooManySandwichesException;
+import be.abis.ordersandwich.exception.*;
 import be.abis.ordersandwich.model.OrderToday;
 import be.abis.ordersandwich.model.Person;
 import be.abis.ordersandwich.model.SandwichOrder;
@@ -22,7 +19,7 @@ public interface OrderTodayService {
 
     void sendOrder() throws NullInputException;
 
-    List<SandwichOrder> checkMyOrderToday(Person person) throws NullInputException;
+    List<SandwichOrder> checkMyOrderToday(Person person) throws NullInputException, PersonNotFoundException;
 
     void toFile(String writing, boolean bool);
 

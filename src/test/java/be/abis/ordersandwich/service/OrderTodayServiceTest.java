@@ -53,9 +53,15 @@ public class OrderTodayServiceTest {
 
 
 
-    @PostConstruct
-    void init() throws PersonAlreadyInSessionException, NullInputException {
-        System.out.println(" hallo");
+
+
+    @BeforeEach
+    void setUp() throws ShopNotFoundException, PersonAlreadyInSessionException, NullInputException {
+        shop=shopRepository.findShop("Vleugels");
+        orderToday=new OrderToday(shop);
+        orderTodayService.setOrderToday(orderToday);
+        orderToday.setClosingTime(LocalTime.parse("18:00:00"));
+
         person=new Person("sim");
         person2=new Person("claus");
         person3=new Person("jana");
@@ -67,20 +73,17 @@ public class OrderTodayServiceTest {
         session.addPerson(person2);
         session.addPerson(person3);
         session2.addPerson(person4);
-    }
-
-    @BeforeEach
-    void setUp() throws ShopNotFoundException, PersonAlreadyInSessionException, NullInputException {
-        shop=shopRepository.findShop("Vleugels");
-        orderToday=new OrderToday(shop);
-        orderTodayService.setOrderToday(orderToday);
-        orderToday.setClosingTime(LocalTime.parse("18:00:00"));
-
 
 
 
     }
 
+    @AfterEach
+    void after(){
+        List<Person> list=new ArrayList<>();
+        session.setPersonList(list);
+        session2.setPersonList(list);
+    }
 
     @Test
     void personrepo(){

@@ -1,9 +1,6 @@
 package be.abis.ordersandwich.service;
 
-import be.abis.ordersandwich.exception.NullInputException;
-import be.abis.ordersandwich.exception.SandwichTypeNotFoundException;
-import be.abis.ordersandwich.exception.TooLateException;
-import be.abis.ordersandwich.exception.TooManySandwichesException;
+import be.abis.ordersandwich.exception.*;
 import be.abis.ordersandwich.model.OrderToday;
 import be.abis.ordersandwich.model.Person;
 import be.abis.ordersandwich.model.SandwichOrder;
@@ -79,7 +76,7 @@ public class OrderTodayServiceImp implements OrderTodayService{
 
     @Override
     public void removeOrder(SandwichOrder sandwichOrder) throws TooLateException, NullInputException {
-        if ( orderToday==null | sandwichOrder==null ) throw new NullInputException("null input");
+        if ( orderToday==null || sandwichOrder==null ) throw new NullInputException("null input");
         if(LocalTime.now().compareTo(orderToday.getClosingTime())>0 && orderToday.getDate().equals(LocalDate.now())){
 
             throw new TooLateException("too late, order is closed");
@@ -120,13 +117,18 @@ public class OrderTodayServiceImp implements OrderTodayService{
     }
 
     @Override
-    public List<SandwichOrder> checkMyOrderToday(Person person) throws NullInputException {
+    public List<SandwichOrder> checkMyOrderToday(Person person) throws NullInputException, PersonNotFoundException {
+        System.out.println("hey");
         if (person==null || orderToday==null ) throw new NullInputException("null input");
+
+        List<Person> personList=getOrderToday().getOrder().stream().map(x->x.getPerson()).collect(Collectors.toList());
+
+        if(!personList.contains(person)) throw new PersonNotFoundException("person not found in ordertoday");
 
         List<SandwichOrder> orderList=new ArrayList<>();
 
         for(SandwichOrder order:orderToday.getOrder()){
-            if(order.getPerson()==person){
+            if(order.getPerson().equals(person)){
                 orderList.add(order);
 
             }

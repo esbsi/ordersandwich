@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/order")
@@ -70,12 +71,15 @@ public class OrderTodayController {
     }
     @PostMapping("check/person")
     public List<SandwichOrder> check(@RequestBody Person person ) throws NullInputException, PersonNotFoundException {
+        System.out.println("hey");
 /*
         Person person2 = personService.findPerson(person.getId());
         if(!person2.getName().equals(person2.getName())) throw new PersonNotFoundException("person not found");
 
 
  */
+
+
 
         return  service.checkMyOrderToday(person);
 
