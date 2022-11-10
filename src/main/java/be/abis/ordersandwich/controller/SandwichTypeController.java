@@ -28,15 +28,14 @@ public class SandwichTypeController {
     @Autowired
     SandwichTypeService sandwichTypeService;
 
-    @GetMapping("shop")
+    @GetMapping("currentshop")
     public Shop getShop(){
         return sandwichTypeService.getShop();
     }
 
-    @PostMapping("shop")
+    @PostMapping("currentshop")
     public void setShop(@RequestBody Shop shop){
         sandwichTypeService.setShop(shop);
- //       System.out.println("Shop set: " + shop.getName());
     }
 
     @GetMapping("{id}")
@@ -51,9 +50,8 @@ public class SandwichTypeController {
         return new ResponseEntity<>(sandwichType, HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
-    public void removeSandwichType(@PathVariable int id) throws SandwichTypeNotFoundException {
-        SandwichType sandwichType = sandwichTypeService.findSandwichTypeById(id);
+    @DeleteMapping("")
+    public void removeSandwichType(@RequestBody SandwichType sandwichType) throws SandwichTypeNotFoundException {
         sandwichTypeService.removeSandwichType(sandwichType);
     }
 

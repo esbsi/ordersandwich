@@ -37,14 +37,14 @@ public class ShopController {
     @DeleteMapping("")
     public ResponseEntity<?> removeShop(@RequestBody Shop shop) throws ShopNotFoundException {
         shopService.removeShop(shop);
-        return new ResponseEntity<>(Void.class, HttpStatus.OK);
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
-    @PostMapping("")
-    public ResponseEntity<?> addShop(@RequestBody String name) throws ShopAlreadyExistsException {
+    @PostMapping("query")
+    public ResponseEntity<?> addShop(@RequestParam String name) throws ShopAlreadyExistsException {
         Shop shop = new Shop(name);
         shopService.addShop(shop);
-        return new ResponseEntity<>(Void.class, HttpStatus.OK);
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     @GetMapping("")

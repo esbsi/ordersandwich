@@ -71,7 +71,7 @@ public class FileSandwichTypeRepository implements SandwichTypeRepository{
 
     public void appendSandwichTypeToFile(SandwichType sandwichType){
         try (PrintWriter writer = new PrintWriter(new FileWriter(fileDirectory, true))){
-            writer.append(sandwichType.getName() + ";" + sandwichType.getPrice() + ";" + sandwichType.getCategory() + ";" + sandwichType.getVegetarian() + ";\n");
+            writer.append(sandwichType.getName() + ";" + sandwichType.getPrice() + ";" + sandwichType.getCategory() + ";" + sandwichType.getVegetarian() + ";" + sandwichType.getDescription() + ";\n");
         } catch (IOException e) {
             throw new RuntimeException(this.getClass().getSimpleName() + " cannot write to file.");
         }
@@ -83,7 +83,7 @@ public class FileSandwichTypeRepository implements SandwichTypeRepository{
             throw new SandwichTypeAlreadyExistsException("A sandwich with this name is already on this shops menu.");
         } else {
             appendSandwichTypeToFile(sandwichType);
-            sandwichTypes.add(sandwichType);
+            loadSandwichTypes();
         }
     }
 
