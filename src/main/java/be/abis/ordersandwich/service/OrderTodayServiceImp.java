@@ -109,7 +109,7 @@ public class OrderTodayServiceImp implements OrderTodayService{
         orderHistory.addToOrderHistory(orderToday);
         toFile(orderToday.toString(),false);
 
-        System.out.println(orderToday.toString());
+
 
 /*
         List<Session> sessionList =orderToday.getOrder().stream().map(p->p.getPerson().getSession()).distinct().collect(Collectors.toList());
