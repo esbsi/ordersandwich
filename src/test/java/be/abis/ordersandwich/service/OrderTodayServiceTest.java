@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.annotation.PostConstruct;
 import java.lang.annotation.Annotation;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -38,16 +39,10 @@ public class OrderTodayServiceTest {
     @Autowired
     SessionService sessionService;
 
-    Person person=new Person("sim");
-
-    Person person2=new Person("claus");
-
-    Person person3=new Person("jana");
-
-    Person person4=new Person("esben");
-
-
-
+    Person person;
+    Person person2;
+    Person person3;
+    Person person4;
     OrderToday orderToday;
     Shop shop ;
     List<Person> personList =new ArrayList<>();
@@ -56,12 +51,15 @@ public class OrderTodayServiceTest {
     Session session;
     Session session2;
 
-    @BeforeEach
-    void setUp() throws ShopNotFoundException, PersonAlreadyInSessionException, NullInputException {
-        shop=shopRepository.findShop("Vleugels");
-        orderToday=new OrderToday(shop);
-        orderTodayService.setOrderToday(orderToday);
-        orderToday.setClosingTime(LocalTime.parse("18:00:00"));
+
+
+    @PostConstruct
+    void init() throws PersonAlreadyInSessionException, NullInputException {
+        System.out.println(" hallo");
+        person=new Person("sim");
+        person2=new Person("claus");
+        person3=new Person("jana");
+        person4=new Person("esben");
         session=sessionService.getSessions().get(0);
         session2=sessionService.getSessions().get(1);
 
@@ -69,9 +67,25 @@ public class OrderTodayServiceTest {
         session.addPerson(person2);
         session.addPerson(person3);
         session2.addPerson(person4);
+    }
+
+    @BeforeEach
+    void setUp() throws ShopNotFoundException, PersonAlreadyInSessionException, NullInputException {
+        shop=shopRepository.findShop("Vleugels");
+        orderToday=new OrderToday(shop);
+        orderTodayService.setOrderToday(orderToday);
+        orderToday.setClosingTime(LocalTime.parse("18:00:00"));
+
+
+
 
     }
 
+
+    @Test
+    void personrepo(){
+        personRepository.getPersonList();
+    }
 
     @Test
     void order() throws TooLateException, TooManySandwichesException, NullInputException, SandwichTypeNotFoundException {
@@ -170,6 +184,7 @@ public class OrderTodayServiceTest {
     void totalPricefrom2() throws NullInputException, SandwichTypeNotFoundException, TooLateException, TooManySandwichesException {
         orderTodayService.orderSandwich(1,true,false,true,"",person);
         orderTodayService.orderSandwich(2,true,false,true,"",person);
+        System.out.println(        session.getPersonList());
 
 
         assertEquals(9.12,orderTodayService.totalPrice());
