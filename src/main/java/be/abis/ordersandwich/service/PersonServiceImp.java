@@ -38,6 +38,11 @@ public class PersonServiceImp implements PersonService{
     }
 
     @Override
+    public Person findPerson(int id) throws PersonNotFoundException {
+        return  personRepository.findPersonById(id);
+    }
+
+    @Override
     public Person findPerson(String personName) throws PersonNotFoundException {
         return personRepository.findPerson(personName);
     }

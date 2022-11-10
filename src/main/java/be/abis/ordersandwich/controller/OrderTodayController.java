@@ -5,8 +5,10 @@ import be.abis.ordersandwich.apibody.SandwichOrderModel;
 import be.abis.ordersandwich.exception.*;
 import be.abis.ordersandwich.model.*;
 import be.abis.ordersandwich.service.OrderTodayService;
+import be.abis.ordersandwich.service.PersonService;
 import be.abis.ordersandwich.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +26,9 @@ public class OrderTodayController {
     @Autowired
     SessionService sessionService;
 
+    @Autowired
+    PersonService personService;
+
     @PostMapping("")
     public void order(@RequestBody SandwichOrderModel model) throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
          service.orderSandwich(model.getI(),model.isRauwkost(), model.isGrilledVegs(), model.isWhite(), model.getComment(), model.getPerson());
@@ -31,6 +36,12 @@ public class OrderTodayController {
 
     @PostMapping("none")
     public void noOrder(@RequestBody Person person) throws TooLateException, TooManySandwichesException, NullInputException {
+        /*
+        Person person2 = personService.findPerson(person.getId());
+        if(!person2.getName().equals(person2.getName())) throw new PersonNotFoundException("person not found");
+
+
+ */
         service.noOrder(person);
     }
 /*
@@ -41,12 +52,13 @@ public class OrderTodayController {
 
  */
     @PostMapping("new/tomorrow")
-    public void newOrderTomorrow(@RequestBody OrderToday orderToday) {
-
+    public void newOrderTomorrow(@RequestBody Shop shop) {
+        OrderToday orderToday = new OrderToday(shop);
         service.setOrderToday(orderToday);
     }
     @PostMapping("new/today")
-    public void newOrderToday(@RequestBody OrderToday orderToday) {
+    public void newOrderToday(@RequestBody Shop shop) {
+        OrderToday orderToday = new OrderToday(shop);
         orderToday.setClosingTime(LocalTime.MAX);
         service.setOrderToday(orderToday);
     }
@@ -57,7 +69,14 @@ public class OrderTodayController {
 
     }
     @PostMapping("check/person")
-    public List<SandwichOrder> check(@RequestBody Person person ) throws NullInputException {
+    public List<SandwichOrder> check(@RequestBody Person person ) throws NullInputException, PersonNotFoundException {
+/*
+        Person person2 = personService.findPerson(person.getId());
+        if(!person2.getName().equals(person2.getName())) throw new PersonNotFoundException("person not found");
+
+
+ */
+
         return  service.checkMyOrderToday(person);
 
     }
@@ -67,6 +86,7 @@ public class OrderTodayController {
         SandwichOrder order=service.getOrderToday().getOrder().stream()
                         .filter(x-> x.getId()==sandwichOrder.getId())
                         .findFirst().orElseThrow(()->new OrderNotFoundException("order not found"));
+
         if(!sandwichOrder.getPerson().getName().equals(order.getPerson().getName())) throw new OrderNotFoundException("order not found");
 
         service.removeOrder(order);
