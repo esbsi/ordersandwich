@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 
 public class OrderToday {
 
+    static int count;
     private int id;
     private List<SandwichOrder> order = new ArrayList<>();
     private double totalPrice;
@@ -24,8 +25,12 @@ public class OrderToday {
     private LocalDate date=LocalDate.now();
     private LocalTime closingTime=LocalTime.now();
 
-    public OrderToday() {}
+    public OrderToday() {
+        count++;
+        id=count;}
+
     public OrderToday(Shop shop) {
+        this();
         this.shop = shop;
     }
 

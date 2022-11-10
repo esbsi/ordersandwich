@@ -1,4 +1,7 @@
-package be.abis.ordersandwich.model;
+package be.abis.ordersandwich.apibody;
+
+import be.abis.ordersandwich.model.OrderToday;
+import be.abis.ordersandwich.model.Session;
 
 public class CheckOrder {
 

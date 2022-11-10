@@ -1,9 +1,9 @@
 package be.abis.ordersandwich.controller;
 
 
+import be.abis.ordersandwich.apibody.SandwichOrderModel;
 import be.abis.ordersandwich.exception.*;
 import be.abis.ordersandwich.model.*;
-import be.abis.ordersandwich.service.FinancialManager;
 import be.abis.ordersandwich.service.OrderTodayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -26,27 +26,27 @@ public class OrderTodayController {
     }
 
     @PostMapping("none")
-    public void noOrder(@RequestBody Person person) throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
+    public void noOrder(@RequestBody Person person) throws TooLateException, TooManySandwichesException, NullInputException {
         service.noOrder(person);
     }
 
     @PostMapping("closingtime")
-    public void closeTime(@RequestBody LocalTime closingTime) throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
+    public void closeTime(@RequestBody LocalTime closingTime) {
         service.setClosingTime(closingTime);
     }
     @PostMapping("new")
-    public void newOrder(@RequestBody OrderToday orderToday) throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
+    public void newOrder(@RequestBody OrderToday orderToday) {
 
         service.setOrderToday(orderToday);
     }
 
     @GetMapping("")
-    public OrderToday getOrderToday() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
+    public OrderToday getOrderToday()  {
         return service.getOrderToday();
 
     }
     @PostMapping("check/person")
-    public List<SandwichOrder> check(@RequestBody Person person ) throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
+    public List<SandwichOrder> check(@RequestBody Person person ) throws NullInputException {
         return  service.checkMyOrderToday(person);
 
     }
@@ -70,12 +70,12 @@ public class OrderTodayController {
     }
 
     @PostMapping("check/all")
-    public String checkallorderString(@RequestBody Session session ) throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
+    public String checkallorderString(@RequestBody Session session ) {
         return  service.checkAllOrderedString(session);
 
     }
     @PostMapping("check/allperson")
-    public List<Person> checkallorderPersons(@RequestBody Session session ) throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
+    public List<Person> checkallorderPersons(@RequestBody Session session ) {
         return  service.checkAllOrderedPersons(session);
 
     }

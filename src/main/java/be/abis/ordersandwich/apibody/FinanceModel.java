@@ -1,4 +1,6 @@
-package be.abis.ordersandwich.model;
+package be.abis.ordersandwich.apibody;
+
+import be.abis.ordersandwich.model.Shop;
 
 import java.time.Month;
 

@@ -1,13 +1,11 @@
 package be.abis.ordersandwich.controller;
 
 
-import be.abis.ordersandwich.model.FinanceModel;
+import be.abis.ordersandwich.apibody.FinanceModel;
 import be.abis.ordersandwich.service.FinancialManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.security.RolesAllowed;
 
 @RestController
 @RequestMapping("/finance")

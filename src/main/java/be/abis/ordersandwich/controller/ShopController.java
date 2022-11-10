@@ -1,23 +1,15 @@
 package be.abis.ordersandwich.controller;
 
 
-import be.abis.ordersandwich.error.ApiError;
-import be.abis.ordersandwich.exception.PersonNotFoundException;
 import be.abis.ordersandwich.exception.ShopAlreadyExistsException;
 import be.abis.ordersandwich.exception.ShopNotFoundException;
-import be.abis.ordersandwich.model.FinanceModel;
-import be.abis.ordersandwich.model.SandwichType;
 import be.abis.ordersandwich.model.Shop;
-import be.abis.ordersandwich.repository.ShopRepository;
 import be.abis.ordersandwich.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
 
 import java.util.List;
 

@@ -1,4 +1,7 @@
-package be.abis.ordersandwich.model;
+package be.abis.ordersandwich.apibody;
+
+import be.abis.ordersandwich.model.Person;
+import be.abis.ordersandwich.model.Session;
 
 public class AddToSessionModel {
     private Session session;
