@@ -108,7 +108,7 @@ public class OrderTodayServiceImp implements OrderTodayService{
         orderToday.setNow(LocalDateTime.now());
         orderHistory.addToOrderHistory(orderToday);
         toFile(orderToday.toString(),false);
-        System.out.println("does this");
+
         System.out.println(orderToday.toString());
 
 /*
@@ -140,13 +140,13 @@ public class OrderTodayServiceImp implements OrderTodayService{
         FileWriter fw = null;
         BufferedWriter bw = null;
         PrintWriter pw = null;
-        System.out.println("in file writer");
+
 
         try {
             fw = new FileWriter("c:\\temp\\javasessions\\broodjes2.txt", bool);
             bw = new BufferedWriter(fw);
             pw = new PrintWriter(bw);
-            pw.println(writing);
+
 
 
         } catch (IOException e) {
