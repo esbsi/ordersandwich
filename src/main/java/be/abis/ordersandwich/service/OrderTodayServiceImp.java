@@ -79,7 +79,7 @@ public class OrderTodayServiceImp implements OrderTodayService{
 
     @Override
     public void removeOrder(SandwichOrder sandwichOrder) throws TooLateException, NullInputException {
-        if ( orderToday==null ) throw new NullInputException("null input");
+        if ( orderToday==null | sandwichOrder==null ) throw new NullInputException("null input");
         if(LocalTime.now().compareTo(orderToday.getClosingTime())>0 && orderToday.getDate().equals(LocalDate.now())){
 
             throw new TooLateException("too late, order is closed");
