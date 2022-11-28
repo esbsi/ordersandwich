@@ -17,27 +17,32 @@ public class ShopServiceImp implements ShopService {
 
     @Override
     public void addShop(Shop shop) throws ShopAlreadyExistsException{
-        shopRepository.addShop(shop);
+        shopRepository.save(shop);
     }
 
     @Override
     public void removeShop(Shop shop) throws ShopNotFoundException{
-        shopRepository.removeShop(shop);
+        findShopById(shop.getId());
+        shopRepository.delete(shop);
     }
 
     @Override
     public Shop findShopById(int id) throws ShopNotFoundException{
-        return shopRepository.findShopById(id);
+        Shop s= shopRepository.findShopById(id);
+        if (s==null) throw new ShopNotFoundException("shop not found");
+        return s;
     }
 
     @Override
     public Shop findShop(String shopName) throws ShopNotFoundException{
-        return shopRepository.findShop(shopName);
+        Shop s= shopRepository.findShopByName(shopName);
+        if (s==null) throw new ShopNotFoundException("shop not found");
+        return s;
     }
 
     @Override
     public List<Shop> getShops() {
-        return shopRepository.getShops();
+        return shopRepository.findAll();
     }
 
 }

@@ -35,8 +35,8 @@ public class OrderTodayServiceTest2 {
     @BeforeEach
     void setUp() throws ShopNotFoundException, PersonAlreadyInSessionException, NullInputException {
 
-        shop=shopRepository.findShop("Vleugels");
-        shop2=shopRepository.findShop("Pinkys");
+        shop=shopRepository.findShopByName("Vleugels");
+        shop2=shopRepository.findShopByName("Pinkys");
         orderToday=new OrderToday(shop);
         orderToday.setClosingTime(LocalTime.parse("18:00:00"));
         orderTodayService.setOrderToday(orderToday);

@@ -3,6 +3,7 @@ package be.abis.ordersandwich.repository;
 import be.abis.ordersandwich.exception.ShopAlreadyExistsException;
 import be.abis.ordersandwich.exception.ShopNotFoundException;
 import be.abis.ordersandwich.model.Shop;
+import be.abis.ordersandwich.service.ShopService;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class ShopRepositoryTest {
 
     @Autowired
-    ShopJpaRepository shopRepository;
+    ShopService shopRepository;
 
     @Test
     @Order(1)

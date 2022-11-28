@@ -28,6 +28,7 @@ public class PersonServiceTest {
     @Autowired
     OrderTodayService orderTodayService;
 
+
     OrderToday orderToday;
 
     Shop shop;
@@ -37,7 +38,7 @@ public class PersonServiceTest {
     @BeforeEach
     void setUp() throws ShopNotFoundException {
         ps.getPersonList();
-        shop=shopRepository.findShop("Vleugels");
+        shop=shopRepository.findShopByName("Vleugels");
         orderToday=new OrderToday();
         orderToday.setShop(shop);
         orderTodayService.setOrderToday(orderToday);

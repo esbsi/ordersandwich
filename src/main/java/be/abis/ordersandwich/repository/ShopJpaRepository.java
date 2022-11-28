@@ -10,13 +10,10 @@ import java.util.List;
 
 public interface ShopJpaRepository extends JpaRepository<Shop, Integer> {
 
-    void addShop(Shop shop) throws ShopAlreadyExistsException;
 
-    void removeShop(Shop shop) throws ShopNotFoundException;
 
     Shop findShopById(int id) throws ShopNotFoundException;
 
-    Shop findShop(String shopName) throws ShopNotFoundException;
+    Shop findShopByName(String shopName) throws ShopNotFoundException;
 
-    List<Shop> getShops();
 }

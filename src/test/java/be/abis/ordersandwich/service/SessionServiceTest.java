@@ -40,7 +40,7 @@ public class SessionServiceTest {
     @BeforeEach
     void setUp() throws ShopNotFoundException, PersonAlreadyInSessionException, NullInputException {
 
-        shop=shopRepository.findShop("Vleugels");
+        shop=shopRepository.findShopByName("Vleugels");
         orderToday=new OrderToday(shop);
         orderToday.setClosingTime(LocalTime.parse("18:00:00"));
         session=sessionService.getSessions().get(0);

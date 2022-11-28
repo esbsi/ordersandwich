@@ -10,13 +10,9 @@ import java.util.List;
 
 public interface SandwichOrderJpaRepository extends JpaRepository<SandwichOrder, Integer> {
 
-    void addShop(Shop shop) throws ShopAlreadyExistsException;
 
-    void removeShop(Shop shop) throws ShopNotFoundException;
 
-    Shop findShopById(int id) throws ShopNotFoundException;
 
-    Shop findShop(String shopName) throws ShopNotFoundException;
 
-    List<Shop> getShops();
+
 }
