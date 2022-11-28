@@ -42,7 +42,7 @@ public class ShopRepositoryTest {
 
     @Test
     public void shouldThrowShopAlreadyExistsException(){
-        assertThrows(ShopAlreadyExistsException.class, () -> shopRepository.addShop(new Shop("Vleugels")));
+        assertThrows(ShopAlreadyExistsException.class, () -> shopRepository.addShop(new Shop("Vleugels") ));
     }
 
 
