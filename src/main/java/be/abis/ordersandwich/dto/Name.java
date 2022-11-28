@@ -1,4 +1,4 @@
-package be.abis.ordersandwich.apibody;
+package be.abis.ordersandwich.dto;
 
 public class Name {
 

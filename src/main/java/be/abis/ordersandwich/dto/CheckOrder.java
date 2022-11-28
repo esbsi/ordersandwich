@@ -1,4 +1,4 @@
-package be.abis.ordersandwich.apibody;
+package be.abis.ordersandwich.dto;
 
 import be.abis.ordersandwich.model.OrderToday;
 import be.abis.ordersandwich.model.Session;

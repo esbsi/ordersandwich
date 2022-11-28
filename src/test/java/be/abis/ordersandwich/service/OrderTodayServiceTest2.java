@@ -38,7 +38,7 @@ public class OrderTodayServiceTest2 {
         shop=shopRepository.findShopByName("Vleugels");
         shop2=shopRepository.findShopByName("Pinkys");
         orderToday=new OrderToday(shop);
-        orderToday.setClosingTime(LocalTime.parse("18:00:00"));
+        orderToday.setClosingTime(LocalTime.MAX);
         orderTodayService.setOrderToday(orderToday);
 
     }

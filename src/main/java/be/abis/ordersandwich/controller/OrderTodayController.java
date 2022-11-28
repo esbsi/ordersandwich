@@ -1,7 +1,7 @@
 package be.abis.ordersandwich.controller;
 
 
-import be.abis.ordersandwich.apibody.SandwichOrderModel;
+import be.abis.ordersandwich.dto.SandwichOrderModel;
 import be.abis.ordersandwich.exception.*;
 import be.abis.ordersandwich.model.*;
 import be.abis.ordersandwich.service.OrderTodayService;
