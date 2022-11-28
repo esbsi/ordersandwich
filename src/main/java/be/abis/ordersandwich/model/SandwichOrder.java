@@ -70,11 +70,11 @@ public class     SandwichOrder {
         this.white = white;
     }
 
-    public String getComment() {
+    public String getNote() {
         return note;
     }
 
-    public void setComment(String note) {
+    public void setNote(String note) {
         this.note = note;
     }
 
