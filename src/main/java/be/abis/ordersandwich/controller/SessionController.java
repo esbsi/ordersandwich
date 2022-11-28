@@ -1,7 +1,7 @@
 package be.abis.ordersandwich.controller;
 
-import be.abis.ordersandwich.apibody.AddToSessionModel;
-import be.abis.ordersandwich.apibody.Name;
+import be.abis.ordersandwich.dto.AddToSessionModel;
+import be.abis.ordersandwich.dto.Name;
 import be.abis.ordersandwich.exception.NullInputException;
 import be.abis.ordersandwich.exception.PersonAlreadyInSessionException;
 import be.abis.ordersandwich.exception.SessionNotFoundException;

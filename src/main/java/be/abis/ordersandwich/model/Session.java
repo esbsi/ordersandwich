@@ -17,13 +17,13 @@ public class Session {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "seqGen")
     @Column(name="id")
     private int id;
-    @Column(name="name")
+    @Column(name="session_name")
     private String name;
     @Column(name="startdate")
     private LocalDate startDate;
     @Column(name="enddate")
     private LocalDate endDate;
-    @OneToMany
+    @ManyToMany
     private List<Person> personList= new ArrayList<>();
 
     public Session() {

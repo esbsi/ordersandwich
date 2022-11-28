@@ -1,7 +1,7 @@
 package be.abis.ordersandwich.controller;
 
 
-import be.abis.ordersandwich.apibody.FinanceModel;
+import be.abis.ordersandwich.dto.FinanceModel;
 import be.abis.ordersandwich.service.FinancialManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
