@@ -4,8 +4,8 @@ import be.abis.ordersandwich.exception.*;
 import be.abis.ordersandwich.model.OrderToday;
 import be.abis.ordersandwich.model.Person;
 import be.abis.ordersandwich.model.Shop;
-import be.abis.ordersandwich.repository.OrderRepository;
-import be.abis.ordersandwich.repository.ShopRepository;
+import be.abis.ordersandwich.repository.OrderJpaRepository;
+import be.abis.ordersandwich.repository.ShopJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +22,9 @@ public class OrderTodayServiceTest2 {
     @Autowired
     OrderTodayService orderTodayService;
     @Autowired
-    ShopRepository shopRepository;
+    ShopJpaRepository shopRepository;
     @Autowired
-    OrderRepository history;
+    OrderJpaRepository history;
     Person person=new Person("sim");
 
     OrderToday orderToday;

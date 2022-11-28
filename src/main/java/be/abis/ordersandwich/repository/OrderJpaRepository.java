@@ -1,15 +1,14 @@
 package be.abis.ordersandwich.repository;
 
 import be.abis.ordersandwich.exception.OrderTodayNotFoundException;
-import be.abis.ordersandwich.exception.SessionNotFoundException;
 import be.abis.ordersandwich.model.OrderToday;
-import be.abis.ordersandwich.model.Session;
+import org.springframework.core.annotation.Order;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
-import java.util.Comparator;
 import java.util.List;
 
-public interface OrderRepository {
+public interface OrderJpaRepository extends JpaRepository<OrderToday, Integer> {
 
     void addToOrderHistory(OrderToday orderToday);
 

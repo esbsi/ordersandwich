@@ -5,17 +5,14 @@ import be.abis.ordersandwich.model.OrderToday;
 import be.abis.ordersandwich.model.Person;
 import be.abis.ordersandwich.model.Session;
 import be.abis.ordersandwich.model.Shop;
-import be.abis.ordersandwich.repository.PersonRepository;
-import be.abis.ordersandwich.repository.SandwichTypeRepository;
-import be.abis.ordersandwich.repository.SessionRepository;
-import be.abis.ordersandwich.repository.ShopRepository;
+import be.abis.ordersandwich.repository.PersonJpaRepository;
+import be.abis.ordersandwich.repository.SandwichTypeJpaRepository;
+import be.abis.ordersandwich.repository.SessionJpaRepository;
+import be.abis.ordersandwich.repository.ShopJpaRepository;
 import org.junit.jupiter.api.*;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.annotation.PostConstruct;
-import java.lang.annotation.Annotation;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,13 +26,13 @@ public class OrderTodayServiceTest {
     @Autowired
     OrderTodayService orderTodayService;
     @Autowired
-    ShopRepository shopRepository;
+    ShopJpaRepository shopRepository;
     @Autowired
-    PersonRepository personRepository;
+    PersonJpaRepository personRepository;
     @Autowired
-    SessionRepository sessionRepository;
+    SessionJpaRepository sessionRepository;
     @Autowired
-    SandwichTypeRepository sandwichTypeRepository;
+    SandwichTypeJpaRepository sandwichTypeRepository;
     @Autowired
     SessionService sessionService;
 

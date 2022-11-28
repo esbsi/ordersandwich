@@ -1,23 +1,19 @@
 package be.abis.ordersandwich.service;
 
-import be.abis.ordersandwich.model.Person;
-import be.abis.ordersandwich.model.Session;
-import be.abis.ordersandwich.repository.OrderHistory;
 import be.abis.ordersandwich.model.OrderToday;
 import be.abis.ordersandwich.model.Shop;
-import be.abis.ordersandwich.repository.OrderRepository;
+import be.abis.ordersandwich.repository.OrderJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
-import java.util.stream.Collectors;
+
 @Service
 public class FinancialManagerImp implements FinancialManager{
    @Autowired
-   OrderRepository history;
+   OrderJpaRepository history;
 
     public double getMonthlyPrice(Shop shop, Month month, int year){
         List<OrderToday> orderHistory=history.getOrderHistory();

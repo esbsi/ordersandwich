@@ -1,14 +1,15 @@
-package be.abis.ordersandwich.repository;
+package be.abis.ordersandwich.vintage;
 
 import be.abis.ordersandwich.exception.PersonNotFoundException;
 import be.abis.ordersandwich.model.Person;
+import be.abis.ordersandwich.repository.PersonJpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class PersonFactory implements PersonRepository{
+public class PersonFactory implements PersonJpaRepository {
     
     private List<Person> persons=new ArrayList<>();
 

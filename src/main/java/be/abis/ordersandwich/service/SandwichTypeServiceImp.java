@@ -4,7 +4,7 @@ import be.abis.ordersandwich.exception.SandwichTypeAlreadyExistsException;
 import be.abis.ordersandwich.exception.SandwichTypeNotFoundException;
 import be.abis.ordersandwich.model.SandwichType;
 import be.abis.ordersandwich.model.Shop;
-import be.abis.ordersandwich.repository.SandwichTypeRepository;
+import be.abis.ordersandwich.repository.SandwichTypeJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,7 @@ import java.util.List;
 public class SandwichTypeServiceImp implements SandwichTypeService {
 
     @Autowired
-    public SandwichTypeRepository sandwichTypeRepository;
+    public SandwichTypeJpaRepository sandwichTypeRepository;
 
     @Override
     public void setShop(Shop shop){

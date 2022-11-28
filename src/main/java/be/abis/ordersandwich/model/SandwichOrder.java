@@ -9,12 +9,20 @@ public class     SandwichOrder {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "seqGen")
     @Column(name="id")
     private int id;
+    @ManyToOne
+    @JoinColumn (name="sandwichtype_id")
     private SandwichType sandwichType;
+    @Column(name="rauwkost")
     private boolean rauwkost;
+    @Column(name="grilledvegs")
     private boolean grilledVegs;
     //    private boolean noButter;
+    @Column(name="white")
     private boolean white;
+    @Column(name="comment")
     private String comment;
+    @ManyToOne
+    @JoinColumn (name="person_id")
     private Person person;
 
     public SandwichOrder() {

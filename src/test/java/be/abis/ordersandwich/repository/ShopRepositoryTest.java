@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class ShopRepositoryTest {
 
     @Autowired
-    ShopRepository shopRepository;
+    ShopJpaRepository shopRepository;
 
     @Test
     @Order(1)

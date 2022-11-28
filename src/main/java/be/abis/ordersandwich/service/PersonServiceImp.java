@@ -1,16 +1,12 @@
 package be.abis.ordersandwich.service;
 
 import be.abis.ordersandwich.exception.*;
-import be.abis.ordersandwich.model.OrderToday;
 import be.abis.ordersandwich.model.Person;
-import be.abis.ordersandwich.model.SandwichOrder;
-import be.abis.ordersandwich.repository.PersonRepository;
+import be.abis.ordersandwich.repository.PersonJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 @Service
 public class PersonServiceImp implements PersonService{
@@ -18,7 +14,7 @@ public class PersonServiceImp implements PersonService{
     @Autowired
     OrderTodayService orderTodayService;
     @Autowired
-    PersonRepository personRepository;
+    PersonJpaRepository personRepository;
 
 
     @Override

@@ -5,8 +5,8 @@ import be.abis.ordersandwich.exception.PersonAlreadyInSessionException;
 import be.abis.ordersandwich.exception.PersonNotInSessionException;
 import be.abis.ordersandwich.model.Person;
 import be.abis.ordersandwich.model.Session;
-import be.abis.ordersandwich.repository.PersonRepository;
-import be.abis.ordersandwich.repository.SessionRepository;
+import be.abis.ordersandwich.repository.PersonJpaRepository;
+import be.abis.ordersandwich.repository.SessionJpaRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,9 +21,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SessionTest {
     @Autowired
-    SessionRepository sessionRepository;
+    SessionJpaRepository sessionRepository;
     @Autowired
-    PersonRepository personRepository;
+    PersonJpaRepository personRepository;
     List<Person> personList=new ArrayList<>();
 
     List<Session> sessionList=new ArrayList<>();

@@ -1,7 +1,8 @@
-package be.abis.ordersandwich.repository;
+package be.abis.ordersandwich.vintage;
 
 import be.abis.ordersandwich.exception.SessionNotFoundException;
 import be.abis.ordersandwich.model.Session;
+import be.abis.ordersandwich.repository.SessionJpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.io.*;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Repository
-public class FileSessionRepository implements SessionRepository {
+public class FileSessionRepository implements SessionJpaRepository {
 
     private List<Session> sessions = new ArrayList<>();
     private String fileName = "src/main/resources/SessionRepository.csv";

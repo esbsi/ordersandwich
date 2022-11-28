@@ -4,22 +4,19 @@ import be.abis.ordersandwich.exception.NullInputException;
 import be.abis.ordersandwich.exception.PersonAlreadyInSessionException;
 import be.abis.ordersandwich.exception.PersonNotInSessionException;
 import be.abis.ordersandwich.exception.SessionNotFoundException;
-import be.abis.ordersandwich.model.OrderToday;
 import be.abis.ordersandwich.model.Person;
-import be.abis.ordersandwich.model.SandwichOrder;
 import be.abis.ordersandwich.model.Session;
-import be.abis.ordersandwich.repository.SessionRepository;
+import be.abis.ordersandwich.repository.SessionJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public class SessionServiceImp implements SessionService{
 
     @Autowired
-    SessionRepository sessionRepository;
+    SessionJpaRepository sessionRepository;
 
 
 

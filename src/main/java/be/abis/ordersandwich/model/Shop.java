@@ -1,10 +1,7 @@
 package be.abis.ordersandwich.model;
 
-import be.abis.ordersandwich.repository.FileSandwichTypeRepository;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+
 @Entity
 @Table(name="shops")
 public class Shop {

@@ -1,10 +1,10 @@
-package be.abis.ordersandwich.repository;
+package be.abis.ordersandwich.vintage;
 
 import be.abis.ordersandwich.exception.SandwichTypeAlreadyExistsException;
 import be.abis.ordersandwich.exception.SandwichTypeNotFoundException;
-import be.abis.ordersandwich.exception.ShopAlreadyExistsException;
 import be.abis.ordersandwich.model.SandwichType;
 import be.abis.ordersandwich.model.Shop;
+import be.abis.ordersandwich.repository.SandwichTypeJpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.io.*;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class FileSandwichTypeRepository implements SandwichTypeRepository{
+public class FileSandwichTypeRepository {
 
     private Shop shop;
     private String fileDirectory;

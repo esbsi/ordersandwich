@@ -1,15 +1,16 @@
-package be.abis.ordersandwich.repository;
+package be.abis.ordersandwich.vintage;
 
 import be.abis.ordersandwich.exception.ShopAlreadyExistsException;
 import be.abis.ordersandwich.exception.ShopNotFoundException;
 import be.abis.ordersandwich.model.Shop;
+import be.abis.ordersandwich.repository.ShopJpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class ShopFactory implements ShopRepository{
+public class ShopFactory implements ShopJpaRepository {
 
     private List<Shop> shops = new ArrayList<>();
 

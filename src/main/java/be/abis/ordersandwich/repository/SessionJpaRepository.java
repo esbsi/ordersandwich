@@ -1,12 +1,14 @@
 package be.abis.ordersandwich.repository;
 
 import be.abis.ordersandwich.exception.SessionNotFoundException;
+import be.abis.ordersandwich.model.OrderToday;
 import be.abis.ordersandwich.model.Session;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public interface SessionRepository {
+public interface SessionJpaRepository extends JpaRepository<Session, Integer> {
 
     void addSession(Session session);
 

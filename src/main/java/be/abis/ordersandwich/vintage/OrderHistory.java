@@ -1,7 +1,8 @@
-package be.abis.ordersandwich.repository;
+package be.abis.ordersandwich.vintage;
 
 import be.abis.ordersandwich.exception.OrderTodayNotFoundException;
 import be.abis.ordersandwich.model.OrderToday;
+import be.abis.ordersandwich.repository.OrderJpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Repository
-public class OrderHistory implements OrderRepository{
+public class OrderHistory implements OrderJpaRepository {
 
     private List<OrderToday> orderHistory = new ArrayList<>();
 

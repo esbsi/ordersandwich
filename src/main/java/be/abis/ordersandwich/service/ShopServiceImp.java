@@ -3,7 +3,7 @@ package be.abis.ordersandwich.service;
 import be.abis.ordersandwich.exception.ShopAlreadyExistsException;
 import be.abis.ordersandwich.exception.ShopNotFoundException;
 import be.abis.ordersandwich.model.Shop;
-import be.abis.ordersandwich.repository.ShopRepository;
+import be.abis.ordersandwich.repository.ShopJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ import java.util.List;
 public class ShopServiceImp implements ShopService {
 
     @Autowired
-    ShopRepository shopRepository;
+    ShopJpaRepository shopRepository;
 
     @Override
     public void addShop(Shop shop) throws ShopAlreadyExistsException{

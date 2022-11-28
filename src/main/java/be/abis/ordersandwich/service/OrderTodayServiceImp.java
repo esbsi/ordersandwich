@@ -5,8 +5,8 @@ import be.abis.ordersandwich.model.OrderToday;
 import be.abis.ordersandwich.model.Person;
 import be.abis.ordersandwich.model.SandwichOrder;
 import be.abis.ordersandwich.model.Session;
-import be.abis.ordersandwich.repository.OrderRepository;
-import be.abis.ordersandwich.repository.SandwichTypeRepository;
+import be.abis.ordersandwich.repository.OrderJpaRepository;
+import be.abis.ordersandwich.repository.SandwichTypeJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +24,9 @@ import java.util.stream.Collectors;
 public class OrderTodayServiceImp implements OrderTodayService{
 
     @Autowired
-    SandwichTypeRepository sandwichTypeRepository;
+    SandwichTypeJpaRepository sandwichTypeRepository;
     @Autowired
-    OrderRepository orderHistory;
+    OrderJpaRepository orderHistory;
     OrderToday orderToday;
 
 
