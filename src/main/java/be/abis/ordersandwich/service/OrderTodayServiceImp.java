@@ -102,7 +102,7 @@ public class OrderTodayServiceImp implements OrderTodayService{
         if(orderHistory==null || orderToday== null) throw new NullInputException("some of the inputs are null");
         this.totalPrice();
         orderToday.getTotalPrice();
-        orderToday.setNow(LocalDateTime.now());
+        orderToday.setDate(LocalDate.now());
         orderHistory.addToOrderHistory(orderToday);
         toFile(orderToday.toString(),false);
 

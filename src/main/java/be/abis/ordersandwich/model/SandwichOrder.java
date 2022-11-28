@@ -10,11 +10,8 @@ public class SandwichOrder {
     private boolean white;
     private String comment;
     private Person person;
-    private static int count;
 
     public SandwichOrder() {
-        count++;
-        id=count;
     }
 
     public SandwichOrder(Person person){

@@ -14,20 +14,16 @@ import java.time.LocalDateTime;
 
 public class OrderToday {
 
-    static int count;
     private int id;
     private List<SandwichOrder> order = new ArrayList<>();
     private double totalPrice;
     private Shop shop;
 
-
-    private LocalDateTime now = LocalDateTime.now();
-    private LocalDate date=LocalDate.now();
-    private LocalTime closingTime=LocalTime.now();
+    private LocalDate date = LocalDate.now();
+    private LocalTime closingTime;
 
     public OrderToday() {
-        count++;
-        id=count;}
+    }
 
     public OrderToday(Shop shop) {
         this();
@@ -62,13 +58,7 @@ public class OrderToday {
     }
 
 
-
     // getset
-
-
-    public LocalDateTime getNow() {
-        return now;
-    }
 
     public Shop getShop() {
         return shop;
@@ -80,11 +70,6 @@ public class OrderToday {
 
     public void setShop(Shop shop) {
         this.shop = shop;
-    }
-
-
-    public void setNow(LocalDateTime now) {
-        this.now = now;
     }
 
     public List<SandwichOrder> getOrder() {

@@ -3,6 +3,7 @@ package be.abis.ordersandwich.model;
 public class SandwichType {
 
     private int id;
+    private Shop shop;
     private String name;
     private Double price;
     private String category;
@@ -91,5 +92,13 @@ public class SandwichType {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Shop getShop() {
+        return shop;
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
     }
 }
