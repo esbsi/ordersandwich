@@ -104,17 +104,17 @@ insert into PERSONS (firstname, lastname) values ('Jietse', 'Molenaers') ;
 insert into SESSIONS (session_name, startdate, enddate) values ('Intro SQL', '2022-12-01', '2022-12-04');
 insert into SESSIONS (session_name, startdate, enddate) values ('Intro UML', '2022-12-12', '2022-12-14');
 
-insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian) VALUES (1, 'Americain', '4.56', 'Vlees', 'f');
-insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian) VALUES (1, 'Boulette', '3.56', 'Vlees', 'f');
-insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian) VALUES (1, 'Pastrami', '5.56', 'Vlees', 'f');
-insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian) VALUES (1, 'Kaas', '3.45', 'Veggie', 't');
-insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian) VALUES (1, 'Brie', '3.45', 'Veggie', 't');
-insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian, description) VALUES (1, 'Carolina', '3.45', 'Specials', 'f', 'Eiersalade, spek, tuinkers');
-insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian, description) VALUES (1, 'Provence', '3.45', 'Specials', 't', 'Feta, zongedroogde tomaat, rucola');
+insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian) VALUES (1, 'Americain', '4.56', 'Vlees', 'F');
+insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian) VALUES (1, 'Boulette', '3.56', 'Vlees', 'F');
+insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian) VALUES (1, 'Pastrami', '5.56', 'Vlees', 'F');
+insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian) VALUES (1, 'Kaas', '3.45', 'Veggie', 'T');
+insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian) VALUES (1, 'Brie', '3.45', 'Veggie', 'T');
+insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian, description) VALUES (1, 'Carolina', '3.45', 'Specials', 'F', 'Eiersalade, spek, tuinkers');
+insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian, description) VALUES (1, 'Provence', '3.45', 'Specials', 'T', 'Feta, zongedroogde tomaat, rucola');
 
-insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian) VALUES (2, 'Hesp', '5.00', 'Vlees', 'f');
-insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian) VALUES (2, 'Rosbief', '5.50', 'Vlees', 'f');
-insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian) VALUES (2, 'Brie', '4.50', 'Kaas', 't');
+insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian) VALUES (2, 'Hesp', '5.00', 'Vlees', 'F');
+insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian) VALUES (2, 'Rosbief', '5.50', 'Vlees', 'F');
+insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian) VALUES (2, 'Brie', '4.50', 'Kaas', 'T');
 insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian, description) VALUES (2, 'Smos', '4.60', 'Specialiteiten', 'false', 'Club met kaas en hesp');
 insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian, description) VALUES (2, 'Mozarella', '5.20', 'Specialiteiten', 'true', 'Olijfolie, zout, peper, basilicum, tomaat');
 
@@ -122,8 +122,8 @@ insert into sessionparticipants (session_id, person_id) values (1, 1);
 insert into sessionparticipants (session_id, person_id) values (1, 2);
 insert into sessionparticipants (session_id, person_id) values (2, 1);
 
-insert into sandwichorders (sandwichtype_id, rauwkost, grilledvegs, white, comment, person_id) values (1, 't', 'f', 't', 'geen mayo aub', 1);
-insert into sandwichorders (sandwichtype_id, rauwkost, grilledvegs, white, comment, person_id) values (3, 't', 'f', 't', 'geen boter aub', 2);
+insert into sandwichorders (sandwichtype_id, rauwkost, grilledvegs, white, comment, person_id) values (1, 'T', 'F', 'T', 'geen mayo aub', 1);
+insert into sandwichorders (sandwichtype_id, rauwkost, grilledvegs, white, comment, person_id) values (3, 'T', 'F', 'T', 'geen boter aub', 2);
 
 insert into sandwichorderstoday (sandwichorder_id, orderhistory_id) VALUES (1, 1);
 insert into sandwichorderstoday (sandwichorder_id, orderhistory_id) VALUES (2, 1);
