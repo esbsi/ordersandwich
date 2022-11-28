@@ -74,7 +74,7 @@ create table sandwichorders
     constraint boolean_grilledvegs check ( grilledvegs in ('T', 'F') ),
     white           varchar(1),
     constraint boolean_white check ( white in ('T', 'F') ),
-    comment         varchar(1000),
+    note         varchar(1000),
     person_id       int,
     constraint FK_person foreign key (person_id) references PERSONS
 );
@@ -124,8 +124,8 @@ insert into sessionparticipants (session_id, person_id) values (2, 1);
 
 insert into orderHistory (shop_id, senddate, closingtime) VALUES (1, '2022-11-27', '12:00:00');
 
-insert into sandwichorders (sandwichtype_id, rauwkost, grilledvegs, white, comment, person_id) values (1, 'T', 'F', 'T', 'geen mayo aub', 1);
-insert into sandwichorders (sandwichtype_id, rauwkost, grilledvegs, white, comment, person_id) values (3, 'T', 'F', 'T', 'geen boter aub', 2);
+insert into sandwichorders (sandwichtype_id, rauwkost, grilledvegs, white, note, person_id) values (1, 'T', 'F', 'T', 'geen mayo aub', 1);
+insert into sandwichorders (sandwichtype_id, rauwkost, grilledvegs, white, note, person_id) values (3, 'T', 'F', 'T', 'geen boter aub', 2);
 
 insert into sandwichorderstoday (sandwichorder_id, orderhistory_id) VALUES (1, 1);
 insert into sandwichorderstoday (sandwichorder_id, orderhistory_id) VALUES (2, 1);

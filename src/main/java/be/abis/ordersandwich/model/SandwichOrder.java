@@ -19,8 +19,8 @@ public class     SandwichOrder {
     //    private boolean noButter;
     @Column(name="white")
     private boolean white;
-    @Column(name="comment")
-    private String comment;
+    @Column(name="note")
+    private String note;
     @ManyToOne
     @JoinColumn (name="person_id")
     private Person person;
@@ -33,13 +33,13 @@ public class     SandwichOrder {
         this.person = person;
     }
 
-    public SandwichOrder(SandwichType sandwichType, boolean rauwkost, boolean grilledVegs, boolean white, String comment, Person person) {
+    public SandwichOrder(SandwichType sandwichType, boolean rauwkost, boolean grilledVegs, boolean white, String note, Person person) {
         this(person);
         this.sandwichType = sandwichType;
         this.rauwkost = rauwkost;
         this.grilledVegs = grilledVegs;
         this.white = white;
-        this.comment = comment;
+        this.note = note;
 
     }
 
@@ -71,11 +71,11 @@ public class     SandwichOrder {
     }
 
     public String getComment() {
-        return comment;
+        return note;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setComment(String note) {
+        this.note = note;
     }
 
     public Person getPerson() {

@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface OrderTodayService {
 
-    void orderSandwich(int i, boolean club, boolean grilledVegs, boolean white, String comment, Person person) throws TooManySandwichesException, TooLateException, NullInputException, SandwichTypeNotFoundException;
+    void orderSandwich(int i, boolean club, boolean grilledVegs, boolean white, String note, Person person) throws TooManySandwichesException, TooLateException, NullInputException, SandwichTypeNotFoundException;
 
     void noOrder(Person person) throws TooManySandwichesException, TooLateException, NullInputException;
     void removeOrder(SandwichOrder sandwichOrder) throws TooLateException, NullInputException;

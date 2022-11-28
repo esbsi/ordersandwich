@@ -11,7 +11,7 @@ public class SandwichOrderModel {
     private boolean grilledVegs;
     //    private boolean noButter;
     private boolean white;
-    private String comment;
+    private String note;
     private Person person;
 
     public SandwichOrderModel() {}
@@ -20,12 +20,12 @@ public class SandwichOrderModel {
         this.person = person;
     }
 
-    public SandwichOrderModel(SandwichType sandwichType, boolean rauwkost, boolean grilledVegs, boolean white, String comment, Person person) {
+    public SandwichOrderModel(SandwichType sandwichType, boolean rauwkost, boolean grilledVegs, boolean white, String note, Person person) {
 
         this.rauwkost = rauwkost;
         this.grilledVegs = grilledVegs;
         this.white = white;
-        this.comment = comment;
+        this.note = note;
         this.person = person;
     }
 
@@ -58,11 +58,11 @@ public class SandwichOrderModel {
     }
 
     public String getComment() {
-        return comment;
+        return note;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setComment(String note) {
+        this.note = note;
     }
 
     public Person getPerson() {
