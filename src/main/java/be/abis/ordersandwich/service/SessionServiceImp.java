@@ -30,17 +30,19 @@ public class SessionServiceImp implements SessionService{
 
     @Override
     public List<Session> getSessions(){
-        return sessionRepository.getSessions();
+        return sessionRepository.findAll();
     }
 
     @Override
+    // to do
     public Session findMostRecentSession(String sessionName) throws SessionNotFoundException{
-        return sessionRepository.findMostRecentSession(sessionName);
+        return null;
     }
 
     @Override
+    //to do
     public void addSession(Session session){
-        sessionRepository.addSession(session);
+        sessionRepository.save(session);
     }
 
     @Override
@@ -58,7 +60,9 @@ public class SessionServiceImp implements SessionService{
 
     @Override
     public Session findSession(int id) throws SessionNotFoundException {
-        return sessionRepository.findSession(id);
+        Session s= sessionRepository.findSessionById(id);
+        if (s==null) throw new SessionNotFoundException("session not found");
+        return s;
     }
 
 }

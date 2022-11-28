@@ -16,7 +16,7 @@ public class FinancialManagerImp implements FinancialManager{
    OrderJpaRepository history;
 
     public double getMonthlyPrice(Shop shop, Month month, int year){
-        List<OrderToday> orderHistory=history.getOrderHistory();
+        List<OrderToday> orderHistory=history.findAll();
         double price=0;
         LocalDate dt= LocalDate.of(year,month,1);
         for (int i =0;i<orderHistory.size();i++){
@@ -32,7 +32,7 @@ public class FinancialManagerImp implements FinancialManager{
     }
 
     public int getAmountOfSandwichesOrdered(Shop shop, Month month,int year){
-        List<OrderToday> orderHistory=history.getOrderHistory();
+        List<OrderToday> orderHistory=history.findAll();
         int totalSandwiches=0;
         LocalDate dt= LocalDate.of(year,month,1);
         for (int i =0;i<orderHistory.size();i++){

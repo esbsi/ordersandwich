@@ -11,15 +11,12 @@ import java.util.List;
 
 public interface SandwichTypeJpaRepository extends JpaRepository<SandwichType, Integer> {
 
-    void setShop(Shop shop);
-    Shop getShop();
-    List<SandwichType> getSandwichTypes();
 
-    void addSandwichType(SandwichType sandwichType) throws SandwichTypeAlreadyExistsException;
+    List<SandwichType> getSandwichTypeByShop(Shop shop);
 
-    SandwichType findSandwichTypeById(int id) throws SandwichTypeNotFoundException;
 
-    SandwichType findSandwichType(String sandwichName) throws SandwichTypeNotFoundException;
-    void removeSandwichType(SandwichType sandwichType) throws SandwichTypeNotFoundException;
+    SandwichType findSandwichTypeById(int id);
+
+    SandwichType findSandwichTypeByName(String sandwichName) throws SandwichTypeNotFoundException;
 
 }

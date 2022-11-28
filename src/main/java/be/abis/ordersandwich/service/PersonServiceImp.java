@@ -19,28 +19,42 @@ public class PersonServiceImp implements PersonService{
 
     @Override
     public List<Person> getPersonList() {
-        return personRepository.getPersonList();
+        return personRepository.findAll();
     }
 
     @Override
-    public void addPerson(Person person) {
-        personRepository.addPerson(person);
+    public void addPerson(Person person) throws PersonAlreadyInExistException {
+        Person p=  personRepository.findPersonById(person.getId());
+        if (p!=null) throw new PersonAlreadyInExistException("Person with this id already exists");
+
+        personRepository.save(person);
     }
 
     @Override
     public void removePerson(Person person) throws PersonNotFoundException {
-        personRepository.removePerson(person);
+        findPerson(person.getId());
+        personRepository.delete(person);
 
     }
 
     @Override
     public Person findPerson(int id) throws PersonNotFoundException {
-        return  personRepository.findPersonById(id);
+        Person p=  personRepository.findPersonById(id);
+        if (p==null) throw new PersonNotFoundException("person not found");
+        return p;
     }
 
     @Override
-    public Person findPerson(String personName) throws PersonNotFoundException {
-        return personRepository.findPerson(personName);
+    public Person update(Person person) throws PersonNotFoundException {
+        findPerson(person.getId());
+        return personRepository.save(person);
+    }
+
+    @Override
+    public Person findPerson(String firstname,String lastname) throws PersonNotFoundException {
+        Person p= personRepository.findPersonByFirstNameAndLastName(firstname,lastname);
+        if (p==null ) throw new PersonNotFoundException("person not found");
+        return p;
     }
     /*
 

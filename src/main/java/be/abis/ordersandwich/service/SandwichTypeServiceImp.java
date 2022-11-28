@@ -16,24 +16,17 @@ public class SandwichTypeServiceImp implements SandwichTypeService {
     @Autowired
     public SandwichTypeJpaRepository sandwichTypeRepository;
 
-    @Override
-    public void setShop(Shop shop){
-        sandwichTypeRepository.setShop(shop);
-    }
-
-    @Override
-    public Shop getShop(){
-        return sandwichTypeRepository.getShop();
-    }
 
     @Override
     public List<SandwichType> getSandwichTypes(){
-        return sandwichTypeRepository.getSandwichTypes();
+        return sandwichTypeRepository.findAll();
     }
 
     @Override
-    public void addSandwichType(SandwichType sandwichType) throws SandwichTypeAlreadyExistsException {
-        sandwichTypeRepository.addSandwichType(sandwichType);
+    public SandwichType addSandwichType(SandwichType sandwichType) throws SandwichTypeAlreadyExistsException {
+        SandwichType s=sandwichTypeRepository.findSandwichTypeById(sandwichType.getId());
+        if (s!=null) throw new SandwichTypeAlreadyExistsException("sandwichtype with this Id already exists");
+        return sandwichTypeRepository.save(sandwichType);
     }
 
     @Override
@@ -43,12 +36,13 @@ public class SandwichTypeServiceImp implements SandwichTypeService {
 
     @Override
     public SandwichType findSandwichType(String sandwichName) throws SandwichTypeNotFoundException{
-        return sandwichTypeRepository.findSandwichType(sandwichName);
+        return sandwichTypeRepository.findSandwichTypeByName(sandwichName);
     }
 
     @Override
     public void removeSandwichType(SandwichType sandwichType) throws SandwichTypeNotFoundException{
-        sandwichTypeRepository.removeSandwichType(sandwichType);
+        findSandwichTypeById(sandwichType.getId());
+        sandwichTypeRepository.delete(sandwichType);
     }
 
 }

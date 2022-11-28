@@ -84,7 +84,7 @@ public class OrderTodayServiceTest {
 
     @Test
     void personrepo(){
-        personRepository.getPersonList();
+        personRepository.findAll();
     }
 
     @Test
@@ -173,7 +173,7 @@ public class OrderTodayServiceTest {
         orderTodayService.orderSandwich(2,true,false,true,"",person);
         orderTodayService.removeOrder(orderTodayService.getOrderToday().getOrder().get(0));
 
-        assertEquals(sandwichTypeRepository.getSandwichTypes().get(2),orderToday.getOrder().get(0).getSandwichType());
+        assertEquals(sandwichTypeRepository.getSandwichTypeByShop(orderToday.getShop()).get(2),orderToday.getOrder().get(0).getSandwichType());
     }
     @Test
     void totalPrice() throws NullInputException {

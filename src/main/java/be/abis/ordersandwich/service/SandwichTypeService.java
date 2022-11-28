@@ -8,13 +8,13 @@ import be.abis.ordersandwich.model.Shop;
 import java.util.List;
 
 public interface SandwichTypeService {
-    void setShop(Shop shop);
 
-    Shop getShop();
 
     List<SandwichType> getSandwichTypes();
 
-    void addSandwichType(SandwichType sandwichType) throws SandwichTypeAlreadyExistsException;
+
+
+    SandwichType addSandwichType(SandwichType sandwichType) throws SandwichTypeAlreadyExistsException;
 
     SandwichType findSandwichTypeById(int id) throws SandwichTypeNotFoundException;
 

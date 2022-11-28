@@ -8,13 +8,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface PersonJpaRepository extends JpaRepository<Person, Integer> {
-    List<Person> getPersonList();
 
-    void addPerson(Person person);
 
-    void removePerson(Person person) throws PersonNotFoundException;
 
-    Person findPersonById(int id) throws PersonNotFoundException;
 
-    Person findPerson(String personName) throws PersonNotFoundException;
+
+    Person findPersonById(int id);
+    Person findPersonByFirstNameAndLastName(String firstname,String lastname);
+
+
 }

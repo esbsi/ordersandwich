@@ -31,8 +31,8 @@ public class SessionTest {
 
     @BeforeEach
     void setUp(){
-        personList=personRepository.getPersonList();
-        sessionList=sessionRepository.getSessions();
+        personList=personRepository.findAll();
+        sessionList=sessionRepository.findAll();
         session1=sessionList.get(0);
 
     }

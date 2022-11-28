@@ -6,6 +6,7 @@ import be.abis.ordersandwich.exception.SandwichTypeNotFoundException;
 import be.abis.ordersandwich.exception.ShopNotFoundException;
 import be.abis.ordersandwich.model.SandwichType;
 import be.abis.ordersandwich.model.Shop;
+import be.abis.ordersandwich.service.OrderTodayService;
 import be.abis.ordersandwich.service.SandwichTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -28,14 +29,17 @@ public class SandwichTypeController {
     @Autowired
     SandwichTypeService sandwichTypeService;
 
+    @Autowired
+    OrderTodayService orderTodayService;
+
     @GetMapping("currentshop")
     public Shop getShop(){
-        return sandwichTypeService.getShop();
+        return orderTodayService.getOrderToday().getShop();
     }
 
     @PostMapping("currentshop")
     public void setShop(@RequestBody Shop shop){
-        sandwichTypeService.setShop(shop);
+        orderTodayService.getOrderToday().setShop(shop);
     }
 
     @GetMapping("{id}")

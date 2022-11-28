@@ -10,6 +10,7 @@ import be.abis.ordersandwich.repository.SandwichTypeJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -29,6 +30,10 @@ public class OrderTodayServiceImp implements OrderTodayService{
     OrderJpaRepository orderHistory;
     OrderToday orderToday;
 
+    @PostConstruct
+    public void init(){
+        //
+    }
 
     // business
 
@@ -50,10 +55,10 @@ public class OrderTodayServiceImp implements OrderTodayService{
 
             throw new TooManySandwichesException("you already ordered");
         }
-        sandwichTypeRepository.setShop(orderToday.getShop());
 
-        if (i>sandwichTypeRepository.getSandwichTypes().size()-1) throw new SandwichTypeNotFoundException("index too high");
-        SandwichOrder sandwichOrder = new SandwichOrder(sandwichTypeRepository.getSandwichTypes().get(i), club, grilledVegs, white, comment, person);
+
+        if (i>sandwichTypeRepository.getSandwichTypeByShop(orderToday.getShop()).size()-1) throw new SandwichTypeNotFoundException("index too high");
+        SandwichOrder sandwichOrder = new SandwichOrder(sandwichTypeRepository.getSandwichTypeByShop(orderToday.getShop()).get(i), club, grilledVegs, white, comment, person);
         orderToday.getOrder().add(sandwichOrder);
     }
 
@@ -102,7 +107,7 @@ public class OrderTodayServiceImp implements OrderTodayService{
         this.totalPrice();
         orderToday.getTotalPrice();
         orderToday.setDate(LocalDate.now());
-        orderHistory.addToOrderHistory(orderToday);
+        orderHistory.save(orderToday);
         toFile(orderToday.toString(),false);
 
 

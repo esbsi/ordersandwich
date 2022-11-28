@@ -46,7 +46,7 @@ public class PersonController {
     public Person findByName(@RequestBody Name name ) throws PersonNotFoundException {
 
 
-        return service.findPerson(name.getName());
+        return null;
     }
 
 

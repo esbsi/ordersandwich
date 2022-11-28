@@ -12,12 +12,12 @@ public interface PersonService {
 
     List<Person> getPersonList();
 
-    void addPerson(Person person);
+    void addPerson(Person person) throws PersonAlreadyInExistException;
 
     void removePerson(Person person) throws PersonNotFoundException;
     Person findPerson(int id ) throws PersonNotFoundException;
+    Person update(Person person) throws PersonNotFoundException;
 
-
-    Person findPerson(String personName) throws PersonNotFoundException;
+    Person findPerson(String firstname,String lastname) throws PersonNotFoundException;
 
     }

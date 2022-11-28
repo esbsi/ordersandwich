@@ -10,17 +10,19 @@ import java.util.List;
 
 public interface OrderJpaRepository extends JpaRepository<OrderToday, Integer> {
 
-    void addToOrderHistory(OrderToday orderToday);
+    //query
 
-    void removeOrderToday(OrderToday orderToday);
+    //OrderToday getLastOrderToday();
 
-    List<OrderToday> findOrdersToday(LocalDate localDate) throws OrderTodayNotFoundException;
+    List<OrderToday> findOrderTodayByDate(LocalDate localDate) throws OrderTodayNotFoundException;
 
-    OrderToday findOrderToday(int id) throws OrderTodayNotFoundException;
+    OrderToday findOrderTodayById(int id) throws OrderTodayNotFoundException;
 
-    OrderToday findLastOrderToday(LocalDate localDate) throws OrderTodayNotFoundException;
 
-    // should be removed?
-    List<OrderToday> getOrderHistory();
+    //query
+   // OrderToday findLastOrderToday(LocalDate localDate) throws OrderTodayNotFoundException;
+
+
+
 
 }
