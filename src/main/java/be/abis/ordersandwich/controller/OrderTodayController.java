@@ -55,6 +55,7 @@ public class OrderTodayController {
     @PostMapping("new/tomorrow")
     public void newOrderTomorrow(@RequestBody Shop shop) {
         OrderToday orderToday = new OrderToday(shop);
+        orderToday.setClosingTime(LocalTime.now());
         service.setOrderToday(orderToday);
     }
     @PostMapping("new/today")
