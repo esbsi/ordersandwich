@@ -8,13 +8,11 @@ import be.abis.ordersandwich.service.OrderTodayService;
 import be.abis.ordersandwich.service.PersonService;
 import be.abis.ordersandwich.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/order")
@@ -92,7 +90,7 @@ public class OrderTodayController {
                         .filter(x-> x.getId()==sandwichOrder.getId())
                         .findFirst().orElseThrow(()->new OrderNotFoundException("order not found"));
 
-        if(!sandwichOrder.getPerson().getName().equals(order.getPerson().getName())) throw new OrderNotFoundException("order not found");
+        if(!sandwichOrder.getPerson().getFirstName().equals(order.getPerson().getFirstName())) throw new OrderNotFoundException("order not found");
 
         service.removeOrder(order);
     }

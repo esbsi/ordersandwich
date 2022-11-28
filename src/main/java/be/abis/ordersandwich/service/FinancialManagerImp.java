@@ -22,13 +22,13 @@ public class FinancialManagerImp implements FinancialManager{
     public double getMonthlyPrice(Shop shop, Month month, int year){
         List<OrderToday> orderHistory=history.getOrderHistory();
         double price=0;
-        LocalDateTime dt= LocalDateTime.of(year,month,1,1,0);
+        LocalDate dt= LocalDate.of(year,month,1);
         for (int i =0;i<orderHistory.size();i++){
             OrderToday order= orderHistory.get(orderHistory.size()-i-1);
-            if (order.getNow().getMonth() == month && order.getNow().getYear() == year && order.getShop() == shop) {
+            if (order.getDate().getMonth() == month && order.getDate().getYear() == year && order.getShop() == shop) {
                 price += order.getTotalPrice();
             }
-            if (order.getNow().isBefore(dt)) {
+            if (order.getDate().isBefore(dt)) {
                 break;
             }
         }
@@ -38,17 +38,17 @@ public class FinancialManagerImp implements FinancialManager{
     public int getAmountOfSandwichesOrdered(Shop shop, Month month,int year){
         List<OrderToday> orderHistory=history.getOrderHistory();
         int totalSandwiches=0;
-        LocalDateTime dt= LocalDateTime.of(year,month,1,1,0);
+        LocalDate dt= LocalDate.of(year,month,1);
         for (int i =0;i<orderHistory.size();i++){
             OrderToday order= orderHistory.get(orderHistory.size()-i-1);
 
-            if (order.getNow().getMonth() == month && order.getNow().getYear() == year && order.getShop() == shop) {
+            if (order.getDate().getMonth() == month && order.getDate().getYear() == year && order.getShop() == shop) {
 
                 totalSandwiches += order.getOrder().stream().filter(x->x.getSandwichType()!=null).count();
 
 
             }
-            if (order.getNow().isBefore(dt)) {
+            if (order.getDate().isBefore(dt)) {
                 break;
             }
         }

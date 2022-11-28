@@ -1,13 +1,27 @@
 package be.abis.ordersandwich.model;
 
-public class SandwichType {
+import javax.persistence.*;
 
+@Entity
+@Table(name="sessions")
+public class SandwichType {
+    @SequenceGenerator(name="seqGen",sequenceName="sandwichtype_seq", allocationSize = 1)
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "seqGen")
+    @Column(name="id")
     private int id;
+    @ManyToOne
+    @JoinColumn(name="shop_id")
     private Shop shop;
+    @Column (name="sandwichtype_name")
     private String name;
+    @Column(name="price")
     private Double price;
+    @Column (name="sandwich_category")
     private String category;
+    @Column (name = "vegetarian")
     private Boolean vegetarian;
+    @Column(name="description")
     private String description;
 
 

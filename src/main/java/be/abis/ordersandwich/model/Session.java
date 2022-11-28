@@ -4,16 +4,26 @@ import be.abis.ordersandwich.exception.NullInputException;
 import be.abis.ordersandwich.exception.PersonAlreadyInSessionException;
 import be.abis.ordersandwich.exception.PersonNotInSessionException;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name="sessions")
 public class Session {
-
+    @SequenceGenerator(name="seqGen",sequenceName="session_seq", allocationSize = 1)
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "seqGen")
+    @Column(name="id")
     private int id;
+    @Column(name="name")
     private String name;
+    @Column(name="startdate")
     private LocalDate startDate;
+    @Column(name="enddate")
     private LocalDate endDate;
+    @OneToMany
     private List<Person> personList= new ArrayList<>();
 
     public Session() {
@@ -47,9 +57,9 @@ public class Session {
     public void addPerson(Person p) throws PersonAlreadyInSessionException, NullInputException {
         if(p==null)throw new NullInputException("input is null");
         if(personList.contains(p)) throw new PersonAlreadyInSessionException("person is already in the session");
-        if(personList.stream().map(per->per.getName()).anyMatch(x->x.equals(p.getName()))){
-            p.setName(p.getName()+"2");
-            System.out.println("2 is added to "+p.getName()+" because there are 2 people with the same name");
+        if(personList.stream().map(per->per.getFirstName()).anyMatch(x->x.equals(p.getFirstName()))){
+            p.setFirstName(p.getFirstName()+"2");
+            System.out.println("2 is added to "+p.getFirstName()+" because there are 2 people with the same name");
         }
         personList.add(p);
 
@@ -57,7 +67,7 @@ public class Session {
 
     public void removePerson(Person p) throws PersonNotInSessionException, NullInputException {
         if(p==null)throw new NullInputException("input is null");
-        if (!personList.contains(p)) throw new PersonNotInSessionException(p.getName()+" is not in this session");
+        if (!personList.contains(p)) throw new PersonNotInSessionException(p.getFirstName()+" is not in this session");
         personList.remove(p);
 
     }

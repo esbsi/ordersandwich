@@ -1,7 +1,13 @@
 package be.abis.ordersandwich.model;
 
-public class SandwichOrder {
-
+import javax.persistence.*;
+@Entity
+@Table(name="sessions")
+public class     SandwichOrder {
+    @SequenceGenerator(name="seqGen",sequenceName="session_seq", allocationSize = 1)
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "seqGen")
+    @Column(name="id")
     private int id;
     private SandwichType sandwichType;
     private boolean rauwkost;

@@ -2,11 +2,19 @@ package be.abis.ordersandwich.model;
 
 import be.abis.ordersandwich.repository.FileSandwichTypeRepository;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+@Entity
+@Table(name="shops")
 public class Shop {
 
+    @SequenceGenerator(name="seqGen",sequenceName="shop_seq", allocationSize = 1)
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "seqGen")
+    @Column(name="id")
     private int id;
+    @Column(name="shop_name")
     private String name;
 
     public Shop() {

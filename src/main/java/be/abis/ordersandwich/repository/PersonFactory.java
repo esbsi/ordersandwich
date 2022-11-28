@@ -1,7 +1,6 @@
 package be.abis.ordersandwich.repository;
 
 import be.abis.ordersandwich.exception.PersonNotFoundException;
-import be.abis.ordersandwich.model.Session;
 import be.abis.ordersandwich.model.Person;
 import org.springframework.stereotype.Repository;
 
@@ -60,7 +59,7 @@ public class PersonFactory implements PersonRepository{
     @Override
     public Person findPerson(String personName) throws PersonNotFoundException {
         return persons.stream()
-                .filter(person -> personName.equals(person.getName()))
+                .filter(person -> personName.equals(person.getFirstName()))
                 .findFirst().orElseThrow(PersonNotFoundException::new);
     }
 

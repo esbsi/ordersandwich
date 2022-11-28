@@ -1,22 +1,25 @@
 package be.abis.ordersandwich.model;
 
-import be.abis.ordersandwich.exception.TooLateException;
-import be.abis.ordersandwich.exception.TooManySandwichesException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.time.format.DateTimeFormatter;
-import java.time.LocalDateTime;
-
+@Entity
+@Table(name="orderhistory")
 public class OrderToday {
 
+    @SequenceGenerator(name="seqGen",sequenceName="orderhistory_seq", allocationSize = 1)
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "seqGen")
+    @Column(name="id")
     private int id;
+    @OneToMany
     private List<SandwichOrder> order = new ArrayList<>();
+    @Column (name="totalprice")
     private double totalPrice;
+    @ManyToOne
+    @JoinColumn (name="shop_id")
     private Shop shop;
 
     private LocalDate date = LocalDate.now();
@@ -40,11 +43,11 @@ public class OrderToday {
             if(sandwichOrder.getSandwichType()!=null) {
                 i += 1;
                 if (shop.getName().equals("Pinkys")) {
-                    orderStringBuilder.append(i + ". " + sandwichOrder.getSandwichType().getName() + (sandwichOrder.isRauwkost() ? " club" : "") + (sandwichOrder.isWhite() ? " wit" : " grijs") + ".\n " + sandwichOrder.getPerson().getName() + ((sandwichOrder.getComment().equals("") ? "" : (": " + sandwichOrder.getComment()))) + "\n\n");
+                    orderStringBuilder.append(i + ". " + sandwichOrder.getSandwichType().getName() + (sandwichOrder.isRauwkost() ? " club" : "") + (sandwichOrder.isWhite() ? " wit" : " grijs") + ".\n " + sandwichOrder.getPerson().getFirstName() + ((sandwichOrder.getComment().equals("") ? "" : (": " + sandwichOrder.getComment()))) + "\n\n");
                 } else if (shop.getName().equals("Vleugels")) {
-                    orderStringBuilder.append(i + ". " + sandwichOrder.getSandwichType().getName() + (sandwichOrder.isRauwkost() ? " rauwkost" : "") + (sandwichOrder.isGrilledVegs() ? " gegrilde groenten" : "") + (sandwichOrder.isWhite() ? " wit" : " grijs") + ".\n " + sandwichOrder.getPerson().getName() + ((sandwichOrder.getComment().equals("") ? "" : (": " + sandwichOrder.getComment()))) + "\n\n");
+                    orderStringBuilder.append(i + ". " + sandwichOrder.getSandwichType().getName() + (sandwichOrder.isRauwkost() ? " rauwkost" : "") + (sandwichOrder.isGrilledVegs() ? " gegrilde groenten" : "") + (sandwichOrder.isWhite() ? " wit" : " grijs") + ".\n " + sandwichOrder.getPerson().getFirstName() + ((sandwichOrder.getComment().equals("") ? "" : (": " + sandwichOrder.getComment()))) + "\n\n");
                 } else {
-                    orderStringBuilder.append(i + ". " + sandwichOrder.getSandwichType().getName() + (sandwichOrder.isRauwkost() ? " rauwkost" : "") + (sandwichOrder.isWhite() ? " wit" : " grijs") + ".\n " + sandwichOrder.getPerson().getName() + ((sandwichOrder.getComment().equals("") ? "" : (": " + sandwichOrder.getComment()))) + "\n\n");
+                    orderStringBuilder.append(i + ". " + sandwichOrder.getSandwichType().getName() + (sandwichOrder.isRauwkost() ? " rauwkost" : "") + (sandwichOrder.isWhite() ? " wit" : " grijs") + ".\n " + sandwichOrder.getPerson().getFirstName() + ((sandwichOrder.getComment().equals("") ? "" : (": " + sandwichOrder.getComment()))) + "\n\n");
                 }
             }
         } return orderStringBuilder.toString();

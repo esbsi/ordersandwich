@@ -15,7 +15,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -170,7 +169,7 @@ public class OrderTodayServiceImp implements OrderTodayService{
         String string="";
         if ( personList.size()>0){
             for(Person person : personList){
-                string+=session.getName() + ": " + person.getName() + " hasn't ordered." +"\n";
+                string+=session.getName() + ": " + person.getFirstName() + " hasn't ordered." +"\n";
             }
         }else {
             string+="All students in " + session.getName() + " session have ordered." +"\n";
