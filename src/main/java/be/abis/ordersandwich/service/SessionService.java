@@ -4,6 +4,7 @@ import be.abis.ordersandwich.exception.*;
 import be.abis.ordersandwich.model.Person;
 import be.abis.ordersandwich.model.Session;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface SessionService {
@@ -19,4 +20,8 @@ public interface SessionService {
 
 
     List<Session> findSessionsByName(String name) throws SessionNotFoundException;
+
+    List<Session> findSessionsDuring(LocalDate fromDate, LocalDate untilDate) throws SessionNotFoundException;
+
+    List<Session> findSessionsDuring(LocalDate fromDate) throws SessionNotFoundException;
 }

@@ -7,6 +7,7 @@ import be.abis.ordersandwich.repository.SessionJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -45,7 +46,6 @@ public class SessionServiceImp implements SessionService{
     @Override
     public List<Person> getAllPersonsFromSession(Session session) throws SessionNotFoundException {
         Session session2=findSession(session.getId());
-
         return session2.getPersonList();
     }
 
@@ -69,4 +69,19 @@ public class SessionServiceImp implements SessionService{
         return sessions;
     }
 
+    @Override
+    public List<Session> findSessionsDuring(LocalDate fromDate, LocalDate untilDate) throws SessionNotFoundException {
+        List<Session> sessions = sessionRepository.findSessionsDuring(fromDate, untilDate);
+        if (sessions == null) throw new SessionNotFoundException("No sessions found.");
+        return sessions;
+    }
+
+    @Override
+    public List<Session> findSessionsDuring(LocalDate fromDate) throws SessionNotFoundException {
+        List<Session> sessions = sessionRepository.findSessionsDuring(fromDate);
+        if (sessions == null) throw new SessionNotFoundException("No sessions found.");
+        return sessions;
+    }
+
 }
+
