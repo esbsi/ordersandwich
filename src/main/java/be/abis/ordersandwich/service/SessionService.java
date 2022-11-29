@@ -16,11 +16,11 @@ public interface SessionService {
     // repository methods
     void addPersonToSession(Session session, Person person) throws PersonAlreadyInSessionException, NullInputException;
     List<Session> getSessions();
-    Session findMostRecentSession(String sessionName) throws SessionNotFoundException;
     void addSession(Session session);
     List<Person> getAllPersonsFromSession(Session session) throws SessionNotFoundException;
     Person findPersonInSession(Session session, int id) throws PersonNotInSessionException, SessionNotFoundException;
     Session findSession(int id) throws SessionNotFoundException;
 
 
+    List<Session> findSessionsByName(String name) throws SessionNotFoundException;
 }

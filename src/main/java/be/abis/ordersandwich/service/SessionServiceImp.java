@@ -19,8 +19,6 @@ public class SessionServiceImp implements SessionService{
     SessionJpaRepository sessionRepository;
 
 
-
-
     // repository methods
 
     @Override
@@ -34,13 +32,7 @@ public class SessionServiceImp implements SessionService{
     }
 
     @Override
-    // to do
-    public Session findMostRecentSession(String sessionName) throws SessionNotFoundException{
-        return null;
-    }
-
-    @Override
-    //to do
+    //todo
     public void addSession(Session session){
         sessionRepository.save(session);
     }
@@ -63,6 +55,13 @@ public class SessionServiceImp implements SessionService{
         Session s= sessionRepository.findSessionById(id);
         if (s==null) throw new SessionNotFoundException("session not found");
         return s;
+    }
+
+    @Override
+    public List<Session> findSessionsByName(String name) throws SessionNotFoundException {
+        List<Session> sessions = sessionRepository.findSessionsByName(name);
+        if (sessions == null) throw new SessionNotFoundException("session not found");
+        return sessions;
     }
 
 }

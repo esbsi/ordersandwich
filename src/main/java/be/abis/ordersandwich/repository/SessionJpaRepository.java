@@ -16,10 +16,8 @@ public interface SessionJpaRepository extends JpaRepository<Session, Integer> {
     Session findSessionById(int id);
 
     Session findSessionByNameAndStartDate(String sessionName, LocalDate startDate) ;
-    //Session findMostRecentSession(String sessionName) throws SessionNotFoundException;
     List<Session> findSessionsByName(String sessionName) ;
     List<Session> findSessionsByStartDate(LocalDate localDate) ;
     //List<Session> getSessions();
-
 
 }

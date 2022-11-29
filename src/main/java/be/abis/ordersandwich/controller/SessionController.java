@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/session")
@@ -37,9 +39,9 @@ public class SessionController {
 
     @PostMapping("name")
     public Session findByName(@RequestBody Name name ) throws  SessionNotFoundException {
-
-
-        return service.findMostRecentSession(name.getName());
+        return service.findSessionsByName(name.getName()).stream()
+                .sorted(Comparator.comparing(Session::getEndDate).reversed())
+                .findFirst().orElseThrow(SessionNotFoundException::new);
     }
 
     @PostMapping("add")
