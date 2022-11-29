@@ -57,7 +57,7 @@ public class ShopServiceTest {
     @Test
     void removeShopShouldThrowDataIntegrityViolationException() throws ShopNotFoundException {
         shopService.removeShop(shopService.findShop("Vleugels"));
- //       assertThrows(DataIntegrityViolationException.class, () -> shopService.removeShop(shopService.findShop("Vleugels")));
+ //ToDo: doesn't throw.       assertThrows(DataIntegrityViolationException.class, () -> shopService.removeShop(shopService.findShop("Vleugels")));
     }
 
 }
