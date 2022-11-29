@@ -4,6 +4,7 @@ import be.abis.ordersandwich.exception.OrderTodayNotFoundException;
 import be.abis.ordersandwich.model.OrderToday;
 import org.springframework.core.annotation.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -11,8 +12,8 @@ import java.util.List;
 public interface OrderJpaRepository extends JpaRepository<OrderToday, Integer> {
 
     //query
-
-    //OrderToday getLastOrderToday();
+    @Query( value = "select * from orderhistory order by id limit 1",nativeQuery = true)
+    List<OrderToday> getLastOrderToday();
 
     List<OrderToday> findOrderTodayByDate(LocalDate localDate) throws OrderTodayNotFoundException;
 

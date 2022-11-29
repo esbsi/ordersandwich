@@ -56,7 +56,7 @@ public class Session {
 
 
     // business
-
+    //todo : send to database
     public void addPerson(Person p) throws PersonAlreadyInSessionException, NullInputException {
         if(p==null)throw new NullInputException("input is null");
         if(personList.contains(p)) throw new PersonAlreadyInSessionException("person is already in the session");

@@ -4,9 +4,9 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity(name="sandwichorder")
-@Table(name="sessions")
+@Table(name="sandwichorders")
 public class     SandwichOrder {
-    @SequenceGenerator(name="seqGen",sequenceName="session_seq", allocationSize = 1)
+    @SequenceGenerator(name="seqGen",sequenceName="sandwichorder_seq", allocationSize = 1)
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "seqGen")
     @Column(name="id")
