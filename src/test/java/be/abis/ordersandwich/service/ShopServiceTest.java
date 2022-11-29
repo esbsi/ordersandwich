@@ -6,6 +6,7 @@ import be.abis.ordersandwich.model.Shop;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,11 +18,17 @@ public class ShopServiceTest {
     @Autowired
     ShopService shopService;
 
+    @Test
+    void findShopShouldThrowNotFound(){
+        assertThrows(ShopNotFoundException.class, () -> shopService.findShop("Johannesbrood"));
+    }
+
     @Transactional
     @Test
-    void shouldAddShop() throws ShopAlreadyExistsException {
-        Shop shop = new Shop("Johannesbrood.");
+    void shouldAddShop() throws ShopAlreadyExistsException, ShopNotFoundException {
+        Shop shop = new Shop("Johannesbrood");
         shopService.addShop(shop);
+        assertEquals("Johannesbrood", shopService.findShop("Johannesbrood").getName());
     }
 
     @Transactional
@@ -38,9 +45,19 @@ public class ShopServiceTest {
 
     @Transactional
     @Test
-    void removeShopShouldLeave1() throws ShopNotFoundException {
-        shopService.removeShop(shopService.findShopById(1));
-        assertEquals(1, shopService.getShops().size());
+    void removeShopShouldLeave2() throws ShopNotFoundException, ShopAlreadyExistsException {
+        Shop shop = new Shop("Johannesbrood");
+        shopService.addShop(shop);
+        shopService.removeShop(shopService.findShop("Johannesbrood"));
+        assertEquals(2, shopService.getShops().size());
+    }
+
+    //It is currently impossible to remove a shop, if existing sandwichtypes or orderTodays have this shop. This may be desirable.
+    @Transactional
+    @Test
+    void removeShopShouldThrowDataIntegrityViolationException() throws ShopNotFoundException {
+        shopService.removeShop(shopService.findShop("Vleugels"));
+ //       assertThrows(DataIntegrityViolationException.class, () -> shopService.removeShop(shopService.findShop("Vleugels")));
     }
 
 }

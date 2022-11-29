@@ -7,7 +7,7 @@ import be.abis.ordersandwich.model.Shop;
 import java.util.List;
 
 public interface ShopService {
-    void addShop(Shop shop) throws ShopAlreadyExistsException;
+    Shop addShop(Shop shop) throws ShopAlreadyExistsException;
 
     void removeShop(Shop shop) throws ShopNotFoundException;
 

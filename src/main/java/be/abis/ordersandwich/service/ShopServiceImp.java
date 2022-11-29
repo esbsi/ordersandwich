@@ -5,6 +5,7 @@ import be.abis.ordersandwich.exception.ShopNotFoundException;
 import be.abis.ordersandwich.model.Shop;
 import be.abis.ordersandwich.repository.ShopJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,18 +17,20 @@ public class ShopServiceImp implements ShopService {
     ShopJpaRepository shopRepository;
 
     @Override
-    public void addShop(Shop shop) throws ShopAlreadyExistsException{
-        Shop foundShop = null;
-        try {foundShop = shopRepository.findShopByName(shop.getName());
+    public Shop addShop(Shop shop) throws ShopAlreadyExistsException{
+        try {findShop(shop.getName());
         } catch (ShopNotFoundException e) {
-            shopRepository.save(shop);
-        } if (foundShop != null) throw new ShopAlreadyExistsException("Shop already exists.");
+            return shopRepository.save(shop);
+        } throw new ShopAlreadyExistsException("Shop already exists.");
     }
 
     @Override
-    public void removeShop(Shop shop) throws ShopNotFoundException{
+    public void removeShop(Shop shop) throws ShopNotFoundException, DataIntegrityViolationException {
         findShopById(shop.getId());
-        shopRepository.delete(shop);
+        try{shopRepository.delete(shop);}
+        catch (DataIntegrityViolationException e){
+            throw new DataIntegrityViolationException("It is impossible to remove a shop, if sandwichtypes or orders are tied to this shop.");
+        }
     }
 
     @Override
