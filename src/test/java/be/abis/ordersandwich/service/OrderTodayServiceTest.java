@@ -58,10 +58,10 @@ public class OrderTodayServiceTest {
         orderTodayService.setOrderToday(orderToday);
         orderToday.setClosingTime(LocalTime.parse("19:00:00"));
 
-        person=new Person("sim");
-        person2=new Person("claus");
-        person3=new Person("jana");
-        person4=new Person("esben");
+        person=new Person("sim","fksdjl");
+        person2=new Person("claus","sqdf");
+        person3=new Person("jana","sdqfs");
+        person4=new Person("esben","sdfxc");
         session=sessionService.getSessions().get(0);
         session2=sessionService.getSessions().get(1);
 
@@ -235,6 +235,17 @@ public class OrderTodayServiceTest {
 
 
         assertTrue(orderTodayService.checkAllOrderedString(session2).startsWith(session2.getName()));
+    }
+
+    @Test
+    void checkOrdersOtherSessionPersons() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
+
+        orderTodayService.orderSandwich(1,true,false,true,"",person);
+        orderTodayService.orderSandwich(1,true,false,true,"",person2);
+        orderTodayService.orderSandwich(1,true,false,true,"",person3);
+
+
+        assertTrue(orderTodayService.checkAllOrderedPersons(session).size()==2);
     }
 
 

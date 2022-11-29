@@ -15,6 +15,7 @@ public interface PersonService {
     void addPerson(Person person) throws PersonAlreadyInExistException;
 
     void removePerson(Person person) throws PersonNotFoundException;
+    void removePerson(int id) throws PersonNotFoundException;
     Person findPerson(int id ) throws PersonNotFoundException;
     Person update(Person person) throws PersonNotFoundException;
 
