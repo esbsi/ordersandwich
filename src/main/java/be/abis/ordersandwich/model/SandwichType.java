@@ -10,7 +10,7 @@ public class SandwichType {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "seqGen")
     @Column(name="id")
     private int id;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="shop_id")
     private Shop shop;
     @Column (name="sandwich_name")

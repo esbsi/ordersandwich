@@ -51,9 +51,7 @@ public class PersonServiceTest {
         orderTodayService.orderSandwich(1,true,false,true,"",person);
         orderTodayService.orderSandwich(1,true,false,true,"",person2);
         orderTodayService.orderSandwich(1,true,false,true,"",person);
-        List<Integer> integerList=new ArrayList<>();
-        integerList.add(0);
-        integerList.add(2);
+
 
         assertEquals(2,orderTodayService.checkMyOrderToday(person).size());
 

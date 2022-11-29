@@ -15,7 +15,7 @@ public class OrderToday {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "seqGen")
     @Column(name="id")
     private int id;
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(name="sandwichorderstoday",
             joinColumns = @JoinColumn(name = "orderhistory_id"),
             inverseJoinColumns = @JoinColumn(name = "sandwichorder_id"))
@@ -23,7 +23,7 @@ public class OrderToday {
     private List<SandwichOrder> order = new ArrayList<>();
     @Column (name="totalprice")
     private double totalPrice;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn (name="shop_id")
     private Shop shop;
     @Column(name="senddate")

@@ -23,7 +23,7 @@ public class     SandwichOrder {
     private boolean white;
     @Column(name="note")
     private String note;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn (name="person_id")
     private Person person;
 

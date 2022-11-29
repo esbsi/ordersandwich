@@ -88,7 +88,7 @@ public class OrderTodayServiceImp implements OrderTodayService{
             throw new TooLateException("too late, order is closed");
         }
         orderToday.getOrder().remove(sandwichOrder);
-        orderHistory.save(orderToday);
+       orderHistory.save(orderToday);
     }
 
     @Override
@@ -110,7 +110,7 @@ public class OrderTodayServiceImp implements OrderTodayService{
         this.totalPrice();
         orderToday.getTotalPrice();
         orderToday.setDate(LocalDate.now());
-        orderHistory.save(orderToday);
+       // orderHistory.save(orderToday);
         toFile(orderToday.toString(),false);
 
 
