@@ -1,5 +1,6 @@
 package be.abis.ordersandwich.model;
 
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -14,7 +15,11 @@ public class OrderToday {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "seqGen")
     @Column(name="id")
     private int id;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="sandwichorderstoday",
+            joinColumns = @JoinColumn(name = "orderhistory_id"),
+            inverseJoinColumns = @JoinColumn(name = "sandwichorder_id"))
+
     private List<SandwichOrder> order = new ArrayList<>();
     @Column (name="totalprice")
     private double totalPrice;

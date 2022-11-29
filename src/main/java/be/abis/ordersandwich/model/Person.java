@@ -1,6 +1,9 @@
 package be.abis.ordersandwich.model;
 
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity(name="person")
@@ -15,6 +18,8 @@ public class Person {
     private String firstName;
     @Column(name="lastname")
     private String lastName;
+
+
 
     public Person() {}
 
@@ -57,6 +62,8 @@ public class Person {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+
 
     @Override
     public boolean equals(Object o) {

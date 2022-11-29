@@ -1,7 +1,9 @@
 package be.abis.ordersandwich.model;
 
 import javax.persistence.*;
-@Entity
+import java.util.Objects;
+
+@Entity(name="sandwichorder")
 @Table(name="sessions")
 public class     SandwichOrder {
     @SequenceGenerator(name="seqGen",sequenceName="session_seq", allocationSize = 1)
@@ -100,5 +102,18 @@ public class     SandwichOrder {
 
     public void setGrilledVegs(boolean grilledVegs) {
         this.grilledVegs = grilledVegs;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SandwichOrder that = (SandwichOrder) o;
+        return id == that.id && Objects.equals(person, that.person);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, person);
     }
 }

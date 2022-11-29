@@ -23,7 +23,10 @@ public class Session {
     private LocalDate startDate;
     @Column(name="enddate")
     private LocalDate endDate;
-    @ManyToMany(fetch=FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="sessionparticipants",
+     joinColumns = @JoinColumn(name = "session_id"),
+     inverseJoinColumns = @JoinColumn(name = "person_id"))
     private List<Person> personList= new ArrayList<>();
 
     public Session() {
