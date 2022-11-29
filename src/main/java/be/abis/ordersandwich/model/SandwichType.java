@@ -3,7 +3,7 @@ package be.abis.ordersandwich.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name="sessions")
+@Table(name="sandwichtypes")
 public class SandwichType {
     @SequenceGenerator(name="seqGen",sequenceName="sandwichtype_seq", allocationSize = 1)
     @Id

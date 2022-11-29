@@ -23,7 +23,7 @@ public class Session {
     private LocalDate startDate;
     @Column(name="enddate")
     private LocalDate endDate;
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER)
     private List<Person> personList= new ArrayList<>();
 
     public Session() {

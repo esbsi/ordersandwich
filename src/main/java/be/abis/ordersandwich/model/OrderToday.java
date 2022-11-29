@@ -21,8 +21,9 @@ public class OrderToday {
     @ManyToOne
     @JoinColumn (name="shop_id")
     private Shop shop;
-
+    @Column(name="senddate")
     private LocalDate date = LocalDate.now();
+    @Column(name="closingtime")
     private LocalTime closingTime;
 
     public OrderToday() {
