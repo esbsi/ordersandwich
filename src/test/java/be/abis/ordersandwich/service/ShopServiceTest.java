@@ -52,12 +52,12 @@ public class ShopServiceTest {
         assertEquals(2, shopService.getShops().size());
     }
 
-    //It is currently impossible to remove a shop, if existing sandwichtypes or orderTodays have this shop. This may be desirable.
+    //It is currently (should be?) impossible to remove a shop, if existing sandwichtypes or orderTodays have this shop.
+    //ToDo: doesn't throw, while it should (and previously did).
     @Transactional
     @Test
     void removeShopShouldThrowDataIntegrityViolationException() throws ShopNotFoundException {
-        shopService.removeShop(shopService.findShop("Vleugels"));
- //ToDo: doesn't throw.       assertThrows(DataIntegrityViolationException.class, () -> shopService.removeShop(shopService.findShop("Vleugels")));
+       assertThrows(DataIntegrityViolationException.class, () -> shopService.removeShop(shopService.findShop("Vleugels")));
     }
 
 }

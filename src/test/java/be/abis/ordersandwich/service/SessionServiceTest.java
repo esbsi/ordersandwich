@@ -7,12 +7,14 @@ import be.abis.ordersandwich.model.Session;
 import be.abis.ordersandwich.model.Shop;
 import be.abis.ordersandwich.repository.ShopJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class SessionServiceTest {
@@ -24,6 +26,27 @@ public class SessionServiceTest {
     @Autowired
     ShopJpaRepository shopRepository;
 
+    @Test
+    void getSessionsSizeShouldBe2(){
+        assertEquals(2, sessionService.getSessions().size());
+    }
+
+    @Test
+    void findSessionsDuringSizeShouldBe1() throws SessionNotFoundException {
+        assertEquals(1, sessionService.findSessionsDuring(LocalDate.parse("2022-12-14")).size());
+    }
+
+    @Test
+    void findSessionsDuringSizeShouldBe2() throws SessionNotFoundException {
+        assertEquals(2, sessionService.findSessionsDuring(LocalDate.parse("2022-11-01"), LocalDate.parse("2022-12-14")).size());
+    }
+
+    @Test
+    void findSessionsDuringSizeShouldThrowNotFound() throws SessionNotFoundException {
+        assertThrows(SessionNotFoundException.class, () -> sessionService.findSessionsDuring(LocalDate.parse("2022-11-01"), LocalDate.parse("2022-11-14")).size());
+    }
+
+/*
     Person person=new Person("sim");
 
     Person person2=new Person("claus");
@@ -53,7 +76,7 @@ public class SessionServiceTest {
         session2.addPerson(person4);
 
     }
-
+*/
 
 
 
