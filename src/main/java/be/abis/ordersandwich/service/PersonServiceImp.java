@@ -43,6 +43,15 @@ public class PersonServiceImp implements PersonService{
     }
 
     @Override
+    public void removePerson(int id) throws PersonNotFoundException {
+        Person p =findPerson(id);
+        if (p==null) throw new PersonNotFoundException("Person with this id doesn't exists");
+
+        personRepository.delete(p);
+
+    }
+
+    @Override
     public Person findPerson(int id) throws PersonNotFoundException {
         Person p=  personRepository.findPersonById(id);
         if (p==null) throw new PersonNotFoundException("person not found");

@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.transaction.Transactional;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +24,8 @@ public class PersonServiceTest {
     @Autowired
     ShopJpaRepository shopRepository;
 
-    Person person=new Person("sim");
-    Person person2=new Person("esben");
+    Person person=new Person("sim","sdfsdf");
+    Person person2=new Person("esben","sdqfqs");
     @Autowired
     OrderTodayService orderTodayService;
 
@@ -45,20 +46,14 @@ public class PersonServiceTest {
         orderToday.setClosingTime(LocalTime.MAX);
     }
 
-    @Test
-    void checkOrder() throws TooLateException, TooManySandwichesException, NullInputException, SandwichTypeNotFoundException, PersonNotFoundException {
-
-        orderTodayService.orderSandwich(1,true,false,true,"",person);
-        orderTodayService.orderSandwich(1,true,false,true,"",person2);
-        orderTodayService.orderSandwich(1,true,false,true,"",person);
-
-
-        assertEquals(2,orderTodayService.checkMyOrderToday(person).size());
-
-    }
 
     @Test
-    void addPerson(){
+    @Transactional
+    void addPerson() throws PersonAlreadyInExistException, PersonNotFoundException {
+
+        ps.addPerson(person);
+
+        assertEquals(person,ps.findPerson(person.getFirstName() , person.getLastName()));
 
 
     }
@@ -68,8 +63,9 @@ public class PersonServiceTest {
 
     }
     @Test
-    void findPerson(){
-
+    void findPerson() throws PersonNotFoundException {
+        Person p= ps.findPerson(2);
+        assertEquals("Jietse",p.getFirstName());
     }
 
 
