@@ -31,8 +31,8 @@ public class OrderTodayServiceImp implements OrderTodayService{
     OrderToday orderToday;
 
     @PostConstruct
-    public void init(){
-        //
+    public void init() {
+        orderToday=orderHistory.getLastOrderToday().get(0);
     }
 
     // business
@@ -60,6 +60,7 @@ public class OrderTodayServiceImp implements OrderTodayService{
         if (i>sandwichTypeRepository.getSandwichTypeByShop(orderToday.getShop()).size()-1) throw new SandwichTypeNotFoundException("index too high");
         SandwichOrder sandwichOrder = new SandwichOrder(sandwichTypeRepository.getSandwichTypeByShop(orderToday.getShop()).get(i), club, grilledVegs, white, note, person);
         orderToday.getOrder().add(sandwichOrder);
+        orderHistory.save(orderToday);
     }
 
     @Override
@@ -76,6 +77,7 @@ public class OrderTodayServiceImp implements OrderTodayService{
         SandwichOrder sandwichOrder = new SandwichOrder(person);
         orderToday.add(sandwichOrder);
         //System.out.println(sandwichOrder);
+        orderHistory.save(orderToday);
     }
 
     @Override
@@ -86,6 +88,7 @@ public class OrderTodayServiceImp implements OrderTodayService{
             throw new TooLateException("too late, order is closed");
         }
         orderToday.getOrder().remove(sandwichOrder);
+        orderHistory.save(orderToday);
     }
 
     @Override
@@ -118,6 +121,7 @@ public class OrderTodayServiceImp implements OrderTodayService{
             toFile(sessionService.checkAllOrdered(orderToday, session),true);
         }
  */
+
     }
 
     @Override
@@ -216,6 +220,8 @@ public class OrderTodayServiceImp implements OrderTodayService{
     }
 
     @Override
+    //todo everything id saved now otherwise  you cant  get it back after a restart
+    //so a new thing for the set method is needed to delete the last one if neccesarry
     public void setOrderToday(OrderToday orderToday) {
         this.orderToday = orderToday;
     }

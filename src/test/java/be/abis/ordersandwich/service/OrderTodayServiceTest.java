@@ -5,10 +5,7 @@ import be.abis.ordersandwich.model.OrderToday;
 import be.abis.ordersandwich.model.Person;
 import be.abis.ordersandwich.model.Session;
 import be.abis.ordersandwich.model.Shop;
-import be.abis.ordersandwich.repository.PersonJpaRepository;
-import be.abis.ordersandwich.repository.SandwichTypeJpaRepository;
-import be.abis.ordersandwich.repository.SessionJpaRepository;
-import be.abis.ordersandwich.repository.ShopJpaRepository;
+import be.abis.ordersandwich.repository.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,6 +22,8 @@ public class OrderTodayServiceTest {
 
     @Autowired
     OrderTodayService orderTodayService;
+    @Autowired
+    OrderJpaRepository orderHistory;
     @Autowired
     ShopJpaRepository shopRepository;
     @Autowired
@@ -57,7 +56,7 @@ public class OrderTodayServiceTest {
         shop=shopRepository.findShopByName("Vleugels");
         orderToday=new OrderToday(shop);
         orderTodayService.setOrderToday(orderToday);
-        orderToday.setClosingTime(LocalTime.parse("18:00:00"));
+        orderToday.setClosingTime(LocalTime.parse("19:00:00"));
 
         person=new Person("sim");
         person2=new Person("claus");
@@ -106,11 +105,18 @@ public class OrderTodayServiceTest {
     }
 
     @Test
-    void orderToolate() throws TooLateException, TooManySandwichesException {
+    void orderTooLate() throws TooLateException, TooManySandwichesException {
         orderToday.setClosingTime(LocalTime.MIN);
 
 
         assertThrows(TooLateException.class,()->orderTodayService.orderSandwich(1,true,false,true,"", person));
+    }
+    @Test
+    void noOrderTooLate() throws TooLateException, TooManySandwichesException {
+        orderToday.setClosingTime(LocalTime.MIN);
+
+
+        assertThrows(TooLateException.class,()->orderTodayService.noOrder( person));
     }
 
     @Test
@@ -153,6 +159,11 @@ public class OrderTodayServiceTest {
         orderTodayService.noOrder(person);
         orderTodayService.orderSandwich(1,true,false,true,"",person);
         assertEquals(1,orderToday.getOrder().size());
+    }
+
+    @Test
+    void getLastHistoryorder() throws TooLateException, TooManySandwichesException, NullInputException, SandwichTypeNotFoundException {
+        orderToday= orderHistory.getLastOrderToday().get(0);
     }
     // weird cases van noorder kunnen nog gecheckt worden
 
@@ -207,6 +218,9 @@ public class OrderTodayServiceTest {
         orderTodayService.orderSandwich(1,true,false,true,"",person);
         orderTodayService.orderSandwich(1,true,false,true,"",person2);
         orderTodayService.orderSandwich(1,true,false,true,"",person3);
+        orderTodayService.orderSandwich(1,true,false,true,"",session.getPersonList().get(0));
+        orderTodayService.orderSandwich(1,true,false,true,"",session.getPersonList().get(1 ));
+
         System.out.println(orderTodayService.checkAllOrderedString(session));
 
         assertTrue(orderTodayService.checkAllOrderedString(session).startsWith("All"));

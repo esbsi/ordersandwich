@@ -26,15 +26,20 @@ public class PersonServiceImp implements PersonService{
     public void addPerson(Person person) throws PersonAlreadyInExistException {
         Person p=  personRepository.findPersonById(person.getId());
         if (p!=null) throw new PersonAlreadyInExistException("Person with this id already exists");
-
+       Person person1 = personRepository.findPersonByFirstNameAndLastName(person.getFirstName(), person.getLastName());
+        if (person1!=null) throw new PersonAlreadyInExistException("Person with this name already exists");
         personRepository.save(person);
     }
 
     @Override
     public void removePerson(Person person) throws PersonNotFoundException {
-        findPerson(person.getId());
-        personRepository.delete(person);
-
+        Person p =findPerson(person.getId());
+        if (p==null) throw new PersonNotFoundException("Person with this id doesn't exists");
+        Person person1 = personRepository.findPersonByFirstNameAndLastName(person.getFirstName(), person.getLastName());
+        if (person1==null) throw new PersonNotFoundException("Person with this name doesn't exists");
+        if (p.equals(person1)) {
+            personRepository.delete(person);
+        }else{throw new PersonNotFoundException("id and name don't match");}
     }
 
     @Override
@@ -56,6 +61,9 @@ public class PersonServiceImp implements PersonService{
         if (p==null ) throw new PersonNotFoundException("person not found");
         return p;
     }
+
+
+
     /*
 
     public void removeMyOrder(Person person, OrderToday orderToday) throws TooLateException, NullInputException {

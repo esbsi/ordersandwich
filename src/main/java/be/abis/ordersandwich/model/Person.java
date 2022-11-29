@@ -31,6 +31,11 @@ public class Person {
         this.id = id;
         this.firstName = name;
     }
+    public Person(String firstName, String lastName) {
+
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     @Override
     public String toString() {
@@ -64,17 +69,16 @@ public class Person {
     }
 
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
-        return id == person.id && firstName.equals(person.firstName);
+        return firstName.equals(person.firstName) && Objects.equals(lastName, person.lastName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName);
+        return Objects.hash(firstName, lastName);
     }
 }
