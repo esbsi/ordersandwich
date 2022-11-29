@@ -13,7 +13,7 @@ public class SandwichType {
     @ManyToOne
     @JoinColumn(name="shop_id")
     private Shop shop;
-    @Column (name="sandwichtype_name")
+    @Column (name="sandwich_name")
     private String name;
     @Column(name="price")
     private Double price;
