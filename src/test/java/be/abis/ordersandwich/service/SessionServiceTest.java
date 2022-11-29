@@ -42,7 +42,7 @@ public class SessionServiceTest {
     }
 
     @Test
-    void findSessionsDuringSizeShouldThrowNotFound() throws SessionNotFoundException {
+    void findSessionsDuringShouldThrowNotFound() throws SessionNotFoundException {
         assertThrows(SessionNotFoundException.class, () -> sessionService.findSessionsDuring(LocalDate.parse("2022-11-01"), LocalDate.parse("2022-11-14")).size());
     }
 
