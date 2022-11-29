@@ -41,9 +41,10 @@ public class SessionServiceTest {
         assertEquals(2, sessionService.findSessionsDuring(LocalDate.parse("2022-11-01"), LocalDate.parse("2022-12-14")).size());
     }
 
+    //todo
     @Test
     void findSessionsDuringShouldThrowNotFound() throws SessionNotFoundException {
-        assertThrows(SessionNotFoundException.class, () -> sessionService.findSessionsDuring(LocalDate.parse("2022-11-01"), LocalDate.parse("2022-11-14")).size());
+        assertThrows(SessionNotFoundException.class, () -> sessionService.findSessionsDuring(LocalDate.parse("2022-11-01"), LocalDate.parse("2022-11-14")));
     }
 
 /*

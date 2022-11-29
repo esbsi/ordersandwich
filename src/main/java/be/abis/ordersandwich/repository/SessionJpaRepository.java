@@ -20,7 +20,7 @@ public interface SessionJpaRepository extends JpaRepository<Session, Integer> {
     Session findSessionByNameAndStartDate(String sessionName, LocalDate startDate) ;
     List<Session> findSessionsByName(String sessionName) ;
     List<Session> findSessionsByStartDate(LocalDate localDate) ;
-    @Query("select s from Session s where s.startDate <= :fromDate and s.endDate >= :untilDate")
+    @Query("select s from Session s where s.startDate <= :untilDate and s.endDate >= :fromDate")
     List<Session> findSessionsDuring(@Param("fromDate") LocalDate fromDate, @Param("untilDate") LocalDate untilDate);
     @Query("select s from Session s where s.startDate <= :fromDate and s.endDate >= :fromDate")
     List<Session> findSessionsDuring(@Param("fromDate") LocalDate fromDate);
