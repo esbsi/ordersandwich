@@ -17,7 +17,11 @@ public class ShopServiceImp implements ShopService {
 
     @Override
     public void addShop(Shop shop) throws ShopAlreadyExistsException{
-        shopRepository.save(shop);
+        Shop foundShop = null;
+        try {foundShop = shopRepository.findShopByName(shop.getName());
+        } catch (ShopNotFoundException e) {
+            shopRepository.save(shop);
+        } if (foundShop != null) throw new ShopAlreadyExistsException("Shop already exists.");
     }
 
     @Override
