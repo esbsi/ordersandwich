@@ -1,9 +1,6 @@
 package be.abis.ordersandwich.service;
 
-import be.abis.ordersandwich.exception.NullInputException;
-import be.abis.ordersandwich.exception.PersonAlreadyInSessionException;
-import be.abis.ordersandwich.exception.PersonNotInSessionException;
-import be.abis.ordersandwich.exception.SessionNotFoundException;
+import be.abis.ordersandwich.exception.*;
 import be.abis.ordersandwich.model.Person;
 import be.abis.ordersandwich.model.Session;
 import be.abis.ordersandwich.repository.SessionJpaRepository;
@@ -31,10 +28,18 @@ public class SessionServiceImp implements SessionService{
         return sessionRepository.findAll();
     }
 
-    @Override
     //todo
-    public void addSession(Session session){
-        sessionRepository.save(session);
+    @Override
+    public Session addSession(Session session) throws SessionAlreadyExistsException {
+        List<Session> sessions;
+        try {sessions = findSessionsByName(session.getName());
+        } catch (SessionNotFoundException e){
+            return sessionRepository.save(session);
+        } for (Session s : sessions){
+            if (session.equals(s)){
+                throw new SessionAlreadyExistsException("Session already exists.");
+            }
+        } return sessionRepository.save(session);
     }
 
     @Override

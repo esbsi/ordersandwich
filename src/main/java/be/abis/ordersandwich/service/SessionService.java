@@ -1,10 +1,6 @@
 package be.abis.ordersandwich.service;
 
-import be.abis.ordersandwich.exception.NullInputException;
-import be.abis.ordersandwich.exception.PersonAlreadyInSessionException;
-import be.abis.ordersandwich.exception.PersonNotInSessionException;
-import be.abis.ordersandwich.exception.SessionNotFoundException;
-import be.abis.ordersandwich.model.OrderToday;
+import be.abis.ordersandwich.exception.*;
 import be.abis.ordersandwich.model.Person;
 import be.abis.ordersandwich.model.Session;
 
@@ -16,7 +12,7 @@ public interface SessionService {
     // repository methods
     void addPersonToSession(Session session, Person person) throws PersonAlreadyInSessionException, NullInputException;
     List<Session> getSessions();
-    void addSession(Session session);
+    Session addSession(Session session) throws SessionAlreadyExistsException;
     List<Person> getAllPersonsFromSession(Session session) throws SessionNotFoundException;
     Person findPersonInSession(Session session, int id) throws PersonNotInSessionException, SessionNotFoundException;
     Session findSession(int id) throws SessionNotFoundException;

@@ -54,6 +54,19 @@ public class Session {
         return name;
     }
 
+    @Override
+    public int hashCode(){
+        return name.length();
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if (!(o instanceof Session)) return false;
+        return this.name.equals(((Session) o).getName())
+                && this.startDate.equals(((Session) o).getStartDate())
+                && this.endDate.equals(((Session) o).getEndDate());
+    }
+
 
     // business
 
