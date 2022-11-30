@@ -1,24 +1,17 @@
 package be.abis.ordersandwich.controller;
 
-import be.abis.ordersandwich.error.ApiError;
 import be.abis.ordersandwich.exception.SandwichTypeAlreadyExistsException;
 import be.abis.ordersandwich.exception.SandwichTypeNotFoundException;
-import be.abis.ordersandwich.exception.ShopNotFoundException;
 import be.abis.ordersandwich.model.SandwichType;
 import be.abis.ordersandwich.model.Shop;
 import be.abis.ordersandwich.service.OrderTodayService;
 import be.abis.ordersandwich.service.SandwichTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
 
-import javax.net.ssl.SSLEngineResult;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -49,8 +42,8 @@ public class SandwichTypeController {
     }
 
     @GetMapping("query")
-    public ResponseEntity<?> findSandwichType(@RequestParam String name) throws SandwichTypeNotFoundException{
-        SandwichType sandwichType = sandwichTypeService.findSandwichType(name);
+    public ResponseEntity<?> findSandwichType(@RequestParam String name, @RequestParam int shopId) throws SandwichTypeNotFoundException{
+        SandwichType sandwichType = sandwichTypeService.findSandwichType(name, shopId);
         return new ResponseEntity<>(sandwichType, HttpStatus.OK);
     }
 

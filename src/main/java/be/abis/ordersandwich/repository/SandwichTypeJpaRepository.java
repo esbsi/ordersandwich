@@ -17,6 +17,6 @@ public interface SandwichTypeJpaRepository extends JpaRepository<SandwichType, I
 
     SandwichType findSandwichTypeById(int id);
 
-    SandwichType findSandwichTypeByName(String sandwichName) throws SandwichTypeNotFoundException;
+    SandwichType findSandwichTypeByNameAndShop_Id(String sandwichName, int shopId) throws SandwichTypeNotFoundException;
 
 }

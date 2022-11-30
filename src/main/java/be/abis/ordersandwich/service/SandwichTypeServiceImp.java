@@ -3,7 +3,6 @@ package be.abis.ordersandwich.service;
 import be.abis.ordersandwich.exception.SandwichTypeAlreadyExistsException;
 import be.abis.ordersandwich.exception.SandwichTypeNotFoundException;
 import be.abis.ordersandwich.model.SandwichType;
-import be.abis.ordersandwich.model.Shop;
 import be.abis.ordersandwich.repository.SandwichTypeJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,20 +22,25 @@ public class SandwichTypeServiceImp implements SandwichTypeService {
     }
 
     @Override
-    public SandwichType addSandwichType(SandwichType sandwichType) throws SandwichTypeAlreadyExistsException {
-        SandwichType s=sandwichTypeRepository.findSandwichTypeById(sandwichType.getId());
-        if (s!=null) throw new SandwichTypeAlreadyExistsException("sandwichtype with this Id already exists");
-        return sandwichTypeRepository.save(sandwichType);
-    }
-
-    @Override
     public SandwichType findSandwichTypeById(int id) throws SandwichTypeNotFoundException{
-        return sandwichTypeRepository.findSandwichTypeById(id);
+        SandwichType sandwichType = sandwichTypeRepository.findSandwichTypeById(id);
+        if (null == sandwichType) throw new SandwichTypeNotFoundException("Sandwich type not found.");
+        return sandwichType;
     }
 
     @Override
-    public SandwichType findSandwichType(String sandwichName) throws SandwichTypeNotFoundException{
-        return sandwichTypeRepository.findSandwichTypeByName(sandwichName);
+    public SandwichType findSandwichType(String sandwichName, int shopId) throws SandwichTypeNotFoundException{
+        SandwichType sandwichType = sandwichTypeRepository.findSandwichTypeByNameAndShop_Id(sandwichName, shopId);
+        if (null == sandwichType) throw new SandwichTypeNotFoundException("Sandwich type not found.");
+        return sandwichType;
+    }
+
+    @Override
+    public SandwichType addSandwichType(SandwichType sandwichType) throws SandwichTypeAlreadyExistsException {
+        try {SandwichType s = findSandwichType(sandwichType.getName(), sandwichType.getShop().getId());
+            if (s!=null) throw new SandwichTypeAlreadyExistsException("sandwichtype with this Id already exists");
+        } catch (SandwichTypeNotFoundException e){}
+        return sandwichTypeRepository.save(sandwichType);
     }
 
     @Override
