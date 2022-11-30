@@ -60,7 +60,7 @@ public class PersonServiceImp implements PersonService{
 
     @Override
     public Person update(Person person) throws PersonNotFoundException {
-       Person p= findPerson(person.getId());
+        Person p= findPerson(person.getId());
 
         return personRepository.save(person);
     }

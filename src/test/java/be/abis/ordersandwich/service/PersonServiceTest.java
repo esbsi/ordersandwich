@@ -15,8 +15,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class PersonServiceTest {
@@ -133,6 +132,24 @@ public class PersonServiceTest {
 
 
         assertThrows(PersonNotFoundException.class,()-> ps.removePerson(98908));
+    }
+
+    @Test
+    @Transactional
+
+    void update() throws PersonAlreadyInExistException, PersonNotFoundException {
+        Person p =new Person(3,"kjsddf","sqdf");
+        ps.update(p);
+        assertEquals(ps.findPerson(3).getFirstName(),"kjsddf");
+    }
+
+    @Test
+    @Transactional
+
+    void updateWrongId() throws PersonAlreadyInExistException, PersonNotFoundException {
+        Person p =new Person(38908,"kjsddf","sqdf");
+
+        assertThrows(PersonNotFoundException.class,()-> ps.update(p));
     }
     @Test
     void findPersonID() throws PersonNotFoundException {
