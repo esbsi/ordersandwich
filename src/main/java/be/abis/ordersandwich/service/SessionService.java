@@ -24,4 +24,8 @@ public interface SessionService {
     List<Session> findSessionsDuring(LocalDate fromDate, LocalDate untilDate) throws SessionNotFoundException;
 
     List<Session> findSessionsDuring(LocalDate fromDate) throws SessionNotFoundException;
+
+    void removeSession(int id) throws SessionNotFoundException;
+
+    void removeSession(Session session) throws SessionNotFoundException;
 }

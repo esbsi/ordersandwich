@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -41,11 +42,58 @@ public class SessionServiceTest {
         assertEquals(2, sessionService.findSessionsDuring(LocalDate.parse("2022-11-01"), LocalDate.parse("2022-12-14")).size());
     }
 
-    //todo
     @Test
     void findSessionsDuringShouldThrowNotFound() throws SessionNotFoundException {
         assertThrows(SessionNotFoundException.class, () -> sessionService.findSessionsDuring(LocalDate.parse("2022-11-01"), LocalDate.parse("2022-11-14")));
     }
+
+    @Test
+    void findSessionShouldBeIntroSQL() throws SessionNotFoundException {
+        assertEquals("Intro SQL", sessionService.findSession(1).getName());
+    }
+
+    @Test
+    void findSessionsByNameShouldBe1() throws SessionNotFoundException {
+        assertEquals(1, sessionService.findSessionsByName("Intro SQL")
+                .stream().findFirst().orElseThrow(SessionNotFoundException::new).getId());
+    }
+
+    @Transactional
+    @Test
+    void addSessionSizeShouldBe3() throws SessionAlreadyExistsException {
+        Session session = new Session("Carbon Aware SDK", LocalDate.parse("2023-11-01"), LocalDate.parse("2023-11-01"));
+        sessionService.addSession(session);
+        assertEquals(3, sessionService.getSessions().size());
+    }
+
+    @Transactional
+    @Test
+    void addSessionShouldThrowExists() throws SessionAlreadyExistsException {
+        Session session = new Session("Carbon Aware SDK", LocalDate.parse("2023-11-01"), LocalDate.parse("2023-11-01"));
+        sessionService.addSession(session);
+        assertThrows(SessionAlreadyExistsException.class, () -> sessionService.addSession(session));
+    }
+
+    @Transactional
+    @Test
+    void removeSessionById() throws SessionNotFoundException {
+        sessionService.removeSession(1);
+        assertEquals(1, sessionService.getSessions().size());
+    }
+
+    @Transactional
+    @Test
+    void removeSession() throws SessionNotFoundException {
+        sessionService.removeSession(sessionService.findSession(1));
+        assertEquals(1, sessionService.getSessions().size());
+    }
+
+    @Transactional
+    @Test
+    void removeSessionByIdShouldThrowNotFound() throws SessionNotFoundException {
+        assertThrows(SessionNotFoundException.class, () -> sessionService.removeSession(99999999));
+    }
+
 
 /*
     Person person=new Person("sim");
