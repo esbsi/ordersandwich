@@ -44,6 +44,15 @@ public class SandwichType {
         this.vegetarian = vegetarian;
     }
 
+    public SandwichType(Shop shop, String name, Double price, String category, Boolean vegetarian, String description) {
+        this.shop = shop;
+        this.name = name;
+        this.price = price;
+        this.category = category;
+        this.vegetarian = vegetarian;
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return name;

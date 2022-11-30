@@ -2,6 +2,7 @@ package be.abis.ordersandwich.service;
 
 import be.abis.ordersandwich.exception.SandwichTypeAlreadyExistsException;
 import be.abis.ordersandwich.exception.SandwichTypeNotFoundException;
+import be.abis.ordersandwich.exception.ShopNotFoundException;
 import be.abis.ordersandwich.model.SandwichType;
 import be.abis.ordersandwich.model.Shop;
 
@@ -16,9 +17,9 @@ public interface SandwichTypeService {
 
     SandwichType addSandwichType(SandwichType sandwichType) throws SandwichTypeAlreadyExistsException;
 
-    List<SandwichType> findSandwichtypesByShop(Shop shop) throws SandwichTypeNotFoundException;
+    List<SandwichType> findSandwichTypesByShop(Shop shop) throws SandwichTypeNotFoundException, ShopNotFoundException;
 
     SandwichType findSandwichTypeById(int id) throws SandwichTypeNotFoundException;
 
-    void removeSandwichType(SandwichType sandwichType) throws SandwichTypeNotFoundException;
+    void removeSandwichType(int id) throws SandwichTypeNotFoundException;
 }

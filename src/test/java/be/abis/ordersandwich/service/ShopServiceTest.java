@@ -52,8 +52,8 @@ public class ShopServiceTest {
         assertEquals(2, shopService.getShops().size());
     }
 
-    //It is currently (should be?) impossible to remove a shop, if existing sandwichtypes or orderTodays have this shop.
-    //ToDo: doesn't throw, while it should (and previously did).
+    //It is currently (and should be?) impossible to remove a shop, if existing sandwichtypes or orderTodays have this shop.
+    //ToDo: doesn't throw, while it should (and previously did). Same issue in SandwichTypeServiceTest.
     @Transactional
     @Test
     void removeShopShouldThrowDataIntegrityViolationException() throws ShopNotFoundException {

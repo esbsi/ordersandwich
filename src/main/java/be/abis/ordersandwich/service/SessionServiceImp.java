@@ -81,7 +81,6 @@ public class SessionServiceImp implements SessionService{
         } return sessionRepository.save(session);
     }
 
-    //todo: more exceptions? (modify methods may not be needed if our app should only read schools session repository.)
     @Override
     public void removeSession(int id) throws SessionNotFoundException {
         try{sessionRepository.deleteById(id);}

@@ -2,10 +2,14 @@ package be.abis.ordersandwich.service;
 
 import be.abis.ordersandwich.exception.SandwichTypeAlreadyExistsException;
 import be.abis.ordersandwich.exception.SandwichTypeNotFoundException;
+import be.abis.ordersandwich.exception.SessionNotFoundException;
+import be.abis.ordersandwich.exception.ShopNotFoundException;
 import be.abis.ordersandwich.model.SandwichType;
 import be.abis.ordersandwich.model.Shop;
 import be.abis.ordersandwich.repository.SandwichTypeJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +18,9 @@ import java.util.List;
 public class SandwichTypeServiceImp implements SandwichTypeService {
 
     @Autowired
-    public SandwichTypeJpaRepository sandwichTypeRepository;
+    SandwichTypeJpaRepository sandwichTypeRepository;
+    @Autowired
+    ShopService shopService;
 
 
     @Override
@@ -23,9 +29,10 @@ public class SandwichTypeServiceImp implements SandwichTypeService {
     }
 
     @Override
-    public List<SandwichType> findSandwichtypesByShop(Shop shop) throws SandwichTypeNotFoundException {
-        List<SandwichType> sandwichTypes = sandwichTypeRepository.getSandwichTypeByShop(shop);
-        if (0 == sandwichTypes.size()) throw new SandwichTypeNotFoundException("Sandwich type not found.");
+    public List<SandwichType> findSandwichTypesByShop(Shop shop) throws SandwichTypeNotFoundException, ShopNotFoundException {
+        Shop s = shopService.findShop(shop.getName());
+        List<SandwichType> sandwichTypes = sandwichTypeRepository.getSandwichTypeByShop(s);
+        if (0 == sandwichTypes.size()) throw new SandwichTypeNotFoundException("No sandwich types found.");
         return sandwichTypes;
     }
 
@@ -52,9 +59,13 @@ public class SandwichTypeServiceImp implements SandwichTypeService {
     }
 
     @Override
-    public void removeSandwichType(SandwichType sandwichType) throws SandwichTypeNotFoundException{
-        findSandwichTypeById(sandwichType.getId());
-        sandwichTypeRepository.delete(sandwichType);
+    public void removeSandwichType(int id) throws SandwichTypeNotFoundException{
+        try{sandwichTypeRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e){
+            throw new SandwichTypeNotFoundException("Failed to delete. Sandwich type may not exist.");
+        } catch (DataIntegrityViolationException e){
+            throw new DataIntegrityViolationException("It is impossible to remove a sandwich type, if orders are tied to it.");
+        }
     }
 
 }
