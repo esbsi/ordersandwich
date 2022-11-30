@@ -3,6 +3,7 @@ package be.abis.ordersandwich.service;
 import be.abis.ordersandwich.exception.SandwichTypeAlreadyExistsException;
 import be.abis.ordersandwich.exception.SandwichTypeNotFoundException;
 import be.abis.ordersandwich.model.SandwichType;
+import be.abis.ordersandwich.model.Shop;
 import be.abis.ordersandwich.repository.SandwichTypeJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,13 @@ public class SandwichTypeServiceImp implements SandwichTypeService {
     @Override
     public List<SandwichType> getSandwichTypes(){
         return sandwichTypeRepository.findAll();
+    }
+
+    @Override
+    public List<SandwichType> findSandwichtypesByShop(Shop shop) throws SandwichTypeNotFoundException {
+        List<SandwichType> sandwichTypes = sandwichTypeRepository.getSandwichTypeByShop(shop);
+        if (0 == sandwichTypes.size()) throw new SandwichTypeNotFoundException("Sandwich type not found.");
+        return sandwichTypes;
     }
 
     @Override
