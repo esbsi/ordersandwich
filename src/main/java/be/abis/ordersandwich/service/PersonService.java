@@ -12,7 +12,7 @@ public interface PersonService {
 
     List<Person> getPersonList();
 
-    void addPerson(Person person) throws PersonAlreadyInExistException;
+    Person addPerson(Person person) throws PersonAlreadyInExistException;
 
     void removePerson(Person person) throws PersonNotFoundException;
     void removePerson(int id) throws PersonNotFoundException;

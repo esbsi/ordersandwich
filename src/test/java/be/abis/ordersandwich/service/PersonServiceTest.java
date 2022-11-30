@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 public class PersonServiceTest {
@@ -57,15 +58,105 @@ public class PersonServiceTest {
 
 
     }
-
     @Test
-    void removePerson(){
+    @Transactional
+    void addPersonSameId() throws PersonAlreadyInExistException, PersonNotFoundException {
+        Person p = new Person(2,"jkdfjsl","sdfsf");
+        ps.addPerson(person);
+
+        assertThrows(PersonAlreadyInExistException.class,()-> ps.addPerson(p));
+
 
     }
     @Test
-    void findPerson() throws PersonNotFoundException {
+    @Transactional
+    void addPersonSameName() throws PersonAlreadyInExistException, PersonNotFoundException {
+
+        Person p = new Person("Jietse","Molenaers");
+        ps.addPerson(person);
+
+        assertThrows(PersonAlreadyInExistException.class,()-> ps.addPerson(p));
+
+
+    }
+
+    @Test
+    @Transactional
+    void removePerson() throws PersonAlreadyInExistException, PersonNotFoundException {
+       Person p= ps.addPerson(person);
+        ps.removePerson(p);
+    }
+
+    @Test
+    @Transactional
+    void removePersonWrongName() throws PersonAlreadyInExistException, PersonNotFoundException {
+        Person p= ps.addPerson(person);
+        Person per=new Person(p.getId(),p.getFirstName(),p.getLastName());
+        per.setFirstName("kjfsqdlk");
+        assertThrows(PersonNotFoundException.class,()-> ps.removePerson(per));
+
+    }
+
+    @Test
+    @Transactional
+
+    void removePersonWrongId() throws PersonAlreadyInExistException, PersonNotFoundException {
+        Person p= new Person(8987,"kjsdlkfjds","fkqsdjkfqsdj");
+
+
+        assertThrows(PersonNotFoundException.class,()-> ps.removePerson(p));
+    }
+
+    @Test
+    @Transactional
+
+    void removePersonDontMatch() throws PersonAlreadyInExistException, PersonNotFoundException {
+
+        Person per= ps.findPerson(1);
+        Person p= new Person(3, per.getFirstName(),per.getLastName());
+        assertThrows(PersonNotFoundException.class,()-> ps.removePerson(p));
+    }
+
+    @Test
+    @Transactional
+
+    void removeByID() throws PersonAlreadyInExistException, PersonNotFoundException {
+        int a=ps.getPersonList().size();
+         ps.removePerson(3);
+         assertEquals(a-1,ps.getPersonList().size());
+    }
+
+    @Test
+    @Transactional
+
+    void removeBYIDWrong() throws PersonAlreadyInExistException, PersonNotFoundException {
+
+
+        assertThrows(PersonNotFoundException.class,()-> ps.removePerson(98908));
+    }
+    @Test
+    void findPersonID() throws PersonNotFoundException {
         Person p= ps.findPerson(2);
         assertEquals("Jietse",p.getFirstName());
+    }
+
+
+    @Test
+    void findPersonIDPersonNoFound() throws PersonNotFoundException {
+
+        assertThrows(PersonNotFoundException.class,()->ps.findPerson(897897));
+    }
+    @Test
+    void findPersonName() throws PersonNotFoundException {
+        Person p= ps.findPerson("Jietse","Molenaers");
+        assertEquals("Jietse",p.getFirstName());
+    }
+
+
+    @Test
+    void findPersonNamePersonNoFound() throws PersonNotFoundException {
+
+        assertThrows(PersonNotFoundException.class,()->ps.findPerson("Jietse","Molenasdfers"));
     }
 
 

@@ -23,12 +23,12 @@ public class PersonServiceImp implements PersonService{
     }
 
     @Override
-    public void addPerson(Person person) throws PersonAlreadyInExistException {
+    public Person addPerson(Person person) throws PersonAlreadyInExistException {
         Person p=  personRepository.findPersonById(person.getId());
         if (p!=null) throw new PersonAlreadyInExistException("Person with this id already exists");
        Person person1 = personRepository.findPersonByFirstNameAndLastName(person.getFirstName(), person.getLastName());
         if (person1!=null) throw new PersonAlreadyInExistException("Person with this name already exists");
-        personRepository.save(person);
+        return personRepository.save(person);
     }
 
     @Override
@@ -60,7 +60,8 @@ public class PersonServiceImp implements PersonService{
 
     @Override
     public Person update(Person person) throws PersonNotFoundException {
-        findPerson(person.getId());
+       Person p= findPerson(person.getId());
+
         return personRepository.save(person);
     }
 

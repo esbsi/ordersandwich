@@ -28,5 +28,6 @@ public interface OrderTodayService {
     void overWriteOrder(Shop shop);
 
     void delete(int id) throws OrderTodayNotFoundException;
+    OrderToday findById(int id)throws OrderTodayNotFoundException;
 
 }

@@ -238,4 +238,11 @@ public class OrderTodayServiceImp implements OrderTodayService{
         if(o==null) throw new OrderTodayNotFoundException("order not found");
         orderHistory.delete(o);
     }
+
+    @Override
+    public OrderToday findById(int id) throws OrderTodayNotFoundException {
+        OrderToday o=    orderHistory.findOrderTodayById(id);
+        if(o==null) throw new OrderTodayNotFoundException("order not found");
+        return o;
+    }
 }
