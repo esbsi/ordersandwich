@@ -10,6 +10,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.transaction.Transactional;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,15 +59,15 @@ public class OrderTodayServiceTest {
         orderTodayService.setOrderToday(orderToday);
         orderToday.setClosingTime(LocalTime.parse("19:00:00"));
 
-        person=new Person("sim","fksdjl");
-        person2=new Person("claus","sqdf");
-        person3=new Person("jana","sdqfs");
-        person4=new Person("esben","sdfxc");
+        person=personRepository.findPersonById(1);
+        person2=personRepository.findPersonById(2);
+        person3=personRepository.findPersonById(3);
+        person4=personRepository.findPersonById(4);
         session=sessionService.getSessions().get(0);
         session2=sessionService.getSessions().get(1);
 
-        session.addPerson(person);
-        session.addPerson(person2);
+        //session.addPerson(person);
+        //session.addPerson(person2);
         session.addPerson(person3);
         session2.addPerson(person4);
 
@@ -92,8 +93,9 @@ public class OrderTodayServiceTest {
         orderTodayService.orderSandwich(1,true,false,true,"", person);
         orderTodayService.orderSandwich(1,true,false,true,"", person2);
         orderTodayService.orderSandwich(1,true,false,true,"", person2);
+        System.out.println(orderToday.getOrder());
 
-        assertEquals(4,orderToday.getOrder().size());
+        assertEquals(4,orderTodayService.getOrderToday().getOrder().size());
     }
 
     @Test
@@ -133,7 +135,7 @@ public class OrderTodayServiceTest {
     @Order(2)
     void noOrder() throws TooLateException, TooManySandwichesException, NullInputException {
         orderTodayService.noOrder(person);
-        assertEquals(1,orderToday.getOrder().size());
+        assertEquals(1,orderTodayService.getOrderToday().getOrder().size());
     }
 
     @Test
@@ -158,7 +160,7 @@ public class OrderTodayServiceTest {
     void OrderAfterNoOrder() throws TooLateException, TooManySandwichesException, NullInputException, SandwichTypeNotFoundException {
         orderTodayService.noOrder(person);
         orderTodayService.orderSandwich(1,true,false,true,"",person);
-        assertEquals(1,orderToday.getOrder().size());
+        assertEquals(1,orderTodayService.getOrderToday().getOrder().size());
     }
 
     @Test
@@ -174,7 +176,7 @@ public class OrderTodayServiceTest {
         orderTodayService.orderSandwich(2,true,false,true,"",person);
         orderTodayService.removeOrder(orderTodayService.getOrderToday().getOrder().get(1));
 
-        assertEquals(1,orderToday.getOrder().size());
+        assertEquals(1,orderTodayService.getOrderToday().getOrder().size());
     }
 
     @Test
@@ -184,7 +186,7 @@ public class OrderTodayServiceTest {
         orderTodayService.orderSandwich(2,true,false,true,"",person);
         orderTodayService.removeOrder(orderTodayService.getOrderToday().getOrder().get(0));
 
-        assertEquals(sandwichTypeRepository.getSandwichTypeByShop(orderToday.getShop()).get(2),orderToday.getOrder().get(0).getSandwichType());
+        assertEquals(sandwichTypeRepository.getSandwichTypeByShop(orderTodayService.getOrderToday().getShop()).get(2),orderTodayService.getOrderToday().getOrder().get(0).getSandwichType());
     }
     @Test
     void totalPrice() throws NullInputException {
@@ -202,6 +204,7 @@ public class OrderTodayServiceTest {
     }
 
     @Test
+    @Transactional
     void checkOrdersNobody() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
         orderTodayService.orderSandwich(1,true,false,true,"",person);
         orderTodayService.orderSandwich(1,true,false,true,"",person2);
@@ -212,7 +215,7 @@ public class OrderTodayServiceTest {
     }
 
     @Test
-    @Order(1)
+    @Transactional
     void checkOrders() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
 
         orderTodayService.orderSandwich(1,true,false,true,"",person);
@@ -245,7 +248,7 @@ public class OrderTodayServiceTest {
         orderTodayService.orderSandwich(1,true,false,true,"",person3);
 
 
-        assertTrue(orderTodayService.checkAllOrderedPersons(session).size()==2);
+        assertEquals(orderTodayService.checkAllOrderedPersons(session).size(),0);
     }
 
 

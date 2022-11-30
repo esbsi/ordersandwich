@@ -102,7 +102,7 @@ public class OrderTodayController {
 
     @PostMapping("send")
     public void send() throws NullInputException {
-        service.sendOrder();
+        service.sendOrder(new Shop());
     }
 
     @PostMapping("check/all")

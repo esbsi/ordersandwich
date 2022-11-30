@@ -46,7 +46,7 @@ public class OrderTodayServiceTest2 {
     @Test
     void sendOrder() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
         //orderTodayService.orderSandwich(1,true,true,"",person);
-        orderTodayService.sendOrder();
+        orderTodayService.sendOrder(shop);
     }
 
     @Test

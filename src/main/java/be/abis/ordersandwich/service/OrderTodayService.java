@@ -1,10 +1,7 @@
 package be.abis.ordersandwich.service;
 
 import be.abis.ordersandwich.exception.*;
-import be.abis.ordersandwich.model.OrderToday;
-import be.abis.ordersandwich.model.Person;
-import be.abis.ordersandwich.model.SandwichOrder;
-import be.abis.ordersandwich.model.Session;
+import be.abis.ordersandwich.model.*;
 
 import java.time.LocalTime;
 import java.util.List;
@@ -17,7 +14,7 @@ public interface OrderTodayService {
     void removeOrder(SandwichOrder sandwichOrder) throws TooLateException, NullInputException;
     double totalPrice() throws NullInputException;
 
-    void sendOrder() throws NullInputException;
+    void sendOrder(Shop shop) throws NullInputException;
 
     List<SandwichOrder> checkMyOrderToday(Person person) throws NullInputException, PersonNotFoundException;
 
@@ -28,5 +25,7 @@ public interface OrderTodayService {
     void setOrderToday(OrderToday orderToday);
     String checkAllOrderedString( Session session);
     List<Person> checkAllOrderedPersons( Session session);
+
+    void delete(int id) throws OrderTodayNotFoundException;
 
 }

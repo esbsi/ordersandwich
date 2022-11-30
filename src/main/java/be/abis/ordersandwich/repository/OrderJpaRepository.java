@@ -12,7 +12,7 @@ import java.util.List;
 public interface OrderJpaRepository extends JpaRepository<OrderToday, Integer> {
 
     //query
-    @Query( value = "select * from orderhistory order by id limit 1",nativeQuery = true)
+    @Query( value = "select * from orderhistory order by id desc limit 1",nativeQuery = true)
     List<OrderToday> getLastOrderToday();
 
     List<OrderToday> findOrderTodayByDate(LocalDate localDate) throws OrderTodayNotFoundException;

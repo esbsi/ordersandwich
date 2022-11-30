@@ -1,16 +1,14 @@
 package be.abis.ordersandwich.service;
 
 import be.abis.ordersandwich.exception.*;
-import be.abis.ordersandwich.model.OrderToday;
-import be.abis.ordersandwich.model.Person;
-import be.abis.ordersandwich.model.SandwichOrder;
-import be.abis.ordersandwich.model.Session;
+import be.abis.ordersandwich.model.*;
 import be.abis.ordersandwich.repository.OrderJpaRepository;
 import be.abis.ordersandwich.repository.SandwichTypeJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import javax.transaction.Transactional;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -38,20 +36,21 @@ public class OrderTodayServiceImp implements OrderTodayService{
     // business
 
     @Override
+    @Transactional
     public void orderSandwich(int i, boolean club, boolean grilledVegs, boolean white, String note, Person person) throws TooManySandwichesException, TooLateException, NullInputException, SandwichTypeNotFoundException {
         if (person==null || orderToday==null ) throw new NullInputException("null input");
         if (LocalTime.now().compareTo(orderToday.getClosingTime())>0 && orderToday.getDate().equals(LocalDate.now())){
 
             throw new TooLateException("too late, order is closed");
         }
-        if (orderToday.getOrder().stream().filter(x -> x.getPerson() == person).collect(Collectors.toList()).size()>0) {
-            SandwichOrder sandwichOrder =orderToday.getOrder().stream().filter(x -> x.getPerson() == person).findFirst().get();
+        if (orderToday.getOrder().stream().filter(x -> x.getPerson().equals(person)).collect(Collectors.toList()).size()>0) {
+            SandwichOrder sandwichOrder =orderToday.getOrder().stream().filter(x -> x.getPerson().equals(person)).findFirst().get();
             if (sandwichOrder.getSandwichType()== null ) {
                 orderToday.remove(sandwichOrder);
 
             }
         }
-        if (orderToday.getOrder().stream().filter(x->x.getPerson()==person).count()>1) {
+        if (orderToday.getOrder().stream().filter(x->x.getPerson().equals(person)).count()>1) {
 
             throw new TooManySandwichesException("you already ordered");
         }
@@ -61,6 +60,7 @@ public class OrderTodayServiceImp implements OrderTodayService{
         SandwichOrder sandwichOrder = new SandwichOrder(sandwichTypeRepository.getSandwichTypeByShop(orderToday.getShop()).get(i), club, grilledVegs, white, note, person);
         orderToday.getOrder().add(sandwichOrder);
         orderHistory.save(orderToday);
+        orderToday=orderHistory.getLastOrderToday().get(0);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class OrderTodayServiceImp implements OrderTodayService{
 
             throw new TooLateException("too late, order is closed");
         }
-        if(orderToday.getOrder().stream().anyMatch(x->x.getPerson()==person)) {
+        if(orderToday.getOrder().stream().anyMatch(x->x.getPerson().equals(person))) {
 
             throw new TooManySandwichesException("you already ordered");
         }
@@ -78,6 +78,7 @@ public class OrderTodayServiceImp implements OrderTodayService{
         orderToday.add(sandwichOrder);
         //System.out.println(sandwichOrder);
         orderHistory.save(orderToday);
+        orderToday=orderHistory.getLastOrderToday().get(0);
     }
 
     @Override
@@ -88,7 +89,8 @@ public class OrderTodayServiceImp implements OrderTodayService{
             throw new TooLateException("too late, order is closed");
         }
         orderToday.getOrder().remove(sandwichOrder);
-       orderHistory.save(orderToday);
+        orderHistory.save(orderToday);
+        orderToday=orderHistory.getLastOrderToday().get(0);
     }
 
     @Override
@@ -105,13 +107,14 @@ public class OrderTodayServiceImp implements OrderTodayService{
     }
 
     @Override
-    public void sendOrder() throws NullInputException {
+    public void sendOrder(Shop shop) throws NullInputException {
         if(orderHistory==null || orderToday== null) throw new NullInputException("some of the inputs are null");
         this.totalPrice();
         orderToday.getTotalPrice();
         orderToday.setDate(LocalDate.now());
-       // orderHistory.save(orderToday);
+        orderHistory.save(orderToday);
         toFile(orderToday.toString(),false);
+        setOrderToday(new OrderToday(shop));
 
 
 
@@ -194,7 +197,7 @@ public class OrderTodayServiceImp implements OrderTodayService{
         for (Person person : session.getPersonList()) {
             boolean personOrdered = false;
             for (SandwichOrder sandwichOrder : orderToday.getOrder()){
-                if (sandwichOrder.getPerson() == person){
+                if (sandwichOrder.getPerson().equals(person)){
                     personOrdered = true;
                 }
             } if (!personOrdered){
@@ -224,5 +227,15 @@ public class OrderTodayServiceImp implements OrderTodayService{
     //so a new thing for the set method is needed to delete the last one if neccesarry
     public void setOrderToday(OrderToday orderToday) {
         this.orderToday = orderToday;
+        orderHistory.save(orderToday);
+    }
+    public void overWriteOrder(Shop shop){
+        orderHistory.delete(orderToday);
+        setOrderToday(new OrderToday(shop));
+    }
+    public void delete(int id) throws OrderTodayNotFoundException {
+        OrderToday o=    orderHistory.findOrderTodayById(id);
+        if(o==null) throw new OrderTodayNotFoundException("order not found");
+        orderHistory.delete(o);
     }
 }

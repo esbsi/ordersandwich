@@ -23,7 +23,7 @@ public class Session {
     private LocalDate startDate;
     @Column(name="enddate")
     private LocalDate endDate;
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name="sessionparticipants",
      joinColumns = @JoinColumn(name = "session_id"),
      inverseJoinColumns = @JoinColumn(name = "person_id"))
@@ -69,7 +69,7 @@ public class Session {
 
 
     // business
-    //todo : send to database
+    //todo : send to database, moet naar de service layer
     public void addPerson(Person p) throws PersonAlreadyInSessionException, NullInputException {
         if(p==null)throw new NullInputException("input is null");
         if(personList.contains(p)) throw new PersonAlreadyInSessionException("person is already in the session");
