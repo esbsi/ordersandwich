@@ -23,7 +23,7 @@ public class OrderToday {
     private List<SandwichOrder> order = new ArrayList<>();
     @Column (name="totalprice")
     private double totalPrice;
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn (name="shop_id")
     private Shop shop;
     @Column(name="senddate")

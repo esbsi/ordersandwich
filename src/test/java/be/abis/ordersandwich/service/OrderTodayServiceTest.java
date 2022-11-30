@@ -250,6 +250,25 @@ public class OrderTodayServiceTest {
 
         assertEquals(orderTodayService.checkAllOrderedPersons(session).size(),0);
     }
+    @Test
+    void createNew() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
+
+        orderTodayService.overWriteOrder(shop);
+
+
+
+    }
+/*
+    @Test
+    void delete() throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException, OrderTodayNotFoundException {
+
+        orderTodayService.delete(6);
+
+
+
+    }
+
+ */
 
 
 

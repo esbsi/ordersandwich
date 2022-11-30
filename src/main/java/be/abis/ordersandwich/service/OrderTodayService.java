@@ -25,6 +25,7 @@ public interface OrderTodayService {
     void setOrderToday(OrderToday orderToday);
     String checkAllOrderedString( Session session);
     List<Person> checkAllOrderedPersons( Session session);
+    void overWriteOrder(Shop shop);
 
     void delete(int id) throws OrderTodayNotFoundException;
 
