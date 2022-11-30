@@ -103,6 +103,17 @@ public class RestResponseEntityExceptionHandler
         return new ResponseEntity<ApiError>(err, responseHeaders, status);
     }
 
+    @ExceptionHandler(value = PersonAlreadyInExistException.class)
+    protected ResponseEntity<? extends Object> personInSession
+            (PersonAlreadyInExistException ance, WebRequest request) {
+        HttpStatus status = HttpStatus.CONFLICT;
+        ApiError err = new ApiError("Person is already exists", status.value(), ance.getMessage());
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add("content-type",
+                MediaType.APPLICATION_PROBLEM_JSON_VALUE);
+        return new ResponseEntity<ApiError>(err, responseHeaders, status);
+    }
+
 
     @ExceptionHandler(value = ShopNotFoundException.class)
     protected ResponseEntity<?> handleShopNotFound

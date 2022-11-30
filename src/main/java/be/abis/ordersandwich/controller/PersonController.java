@@ -21,32 +21,40 @@ public class PersonController {
     @Autowired
     PersonService service;
 
-//naar orderToday verplaatsen
-    @PostMapping("check")
-    public void check(@RequestBody SandwichOrderModel model) throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
 
 
-    }
     @GetMapping("")
     public List<Person> allPersons( )  {
         return service.getPersonList();
     }
 
-    /*
+
     @PostMapping("add")
-    public void add(@RequestBody Person person )  {
+    public void add(@RequestBody Person person ) throws PersonAlreadyInExistException {
          service.addPerson(person);
     }
     @DeleteMapping("")
     public void delete( @RequestBody Person person) throws PersonNotFoundException {
          service.removePerson(person);
     }
-     */
+
+    @DeleteMapping("{id}")
+    public void deleteById( @PathVariable int id ) throws PersonNotFoundException {
+        service.removePerson(id);
+    }
+
     @PostMapping("name")
     public Person findByName(@RequestBody Name name ) throws PersonNotFoundException {
 
 
-        return null;
+        return service.findPerson(name.getFirstName(), name.getLastName());
+    }
+
+    @PostMapping("{id}")
+    public Person findById(@PathVariable  int id ) throws PersonNotFoundException {
+
+
+        return service.findPerson(id);
     }
 
 

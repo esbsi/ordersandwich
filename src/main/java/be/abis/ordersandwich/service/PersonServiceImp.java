@@ -38,7 +38,7 @@ public class PersonServiceImp implements PersonService{
         Person person1 = personRepository.findPersonByFirstNameAndLastName(person.getFirstName(), person.getLastName());
         if (person1==null) throw new PersonNotFoundException("Person with this name doesn't exists");
         if (p.equals(person1)) {
-            personRepository.delete(person);
+            personRepository.delete(p);
         }else{throw new PersonNotFoundException("id and name don't match");}
     }
 
