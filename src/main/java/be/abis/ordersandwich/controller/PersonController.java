@@ -50,7 +50,7 @@ public class PersonController {
         return service.findPerson(name.getFirstName(), name.getLastName());
     }
 
-    @PostMapping("{id}")
+    @GetMapping("{id}")
     public Person findById(@PathVariable  int id ) throws PersonNotFoundException {
 
 

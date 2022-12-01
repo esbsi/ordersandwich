@@ -1,0 +1,10 @@
+ String baseUrl="http://localhost:8080/ordersandwich/api/finance";
+ shops should always have excact atributes from database
+
+ Post "monthlyprice"  body=financemodel shop is not needed gives back the total price spent on sandwiches for the given month
+ Post "monthlyprice/shop"   body=financemodel gives back the total price spent on sandwiches for the given month for ashop
+ Post "amountofsandwiches"   body=financemodel shop is not needed gives back the total Amount sandwiches for the given month
+ Post "amountofsandwiches/shop   body=financemodel gives back the total Amount sandwiches for the given month for a shop
+ Post "average"  body=financemodel average price of a sandwich
+
+

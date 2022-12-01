@@ -1,0 +1,16 @@
+ String baseUrl="http://localhost:8080/ordersandwich/api/persons";
+
+
+ get       ""    get list of all persons
+ post "add" body=person without id add a person to database
+ delete "{id}" delete from database based on id
+ delete "" body =person with id and name delete from database
+ post "name" body=name first and last  find person
+ get "{id}" find person on id
+
+
+
+
+
+
+
