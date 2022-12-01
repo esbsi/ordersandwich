@@ -21,7 +21,22 @@ public class FinancialManagerImp implements FinancialManager{
         LocalDate dt= LocalDate.of(year,month,1);
         for (int i =0;i<orderHistory.size();i++){
             OrderToday order= orderHistory.get(orderHistory.size()-i-1);
-            if (order.getDate().getMonth() == month && order.getDate().getYear() == year && order.getShop() == shop) {
+            if (order.getDate().getMonth() == month && order.getDate().getYear() == year && order.getShop().equals(shop)) {
+                price += order.getTotalPrice();
+            }
+            if (order.getDate().isBefore(dt)) {
+                break;
+            }
+        }
+        return price;
+    }
+    public double getMonthlyPrice(Month month, int year){
+        List<OrderToday> orderHistory=history.findAll();
+        double price=0;
+        LocalDate dt= LocalDate.of(year,month,1);
+        for (int i =0;i<orderHistory.size();i++){
+            OrderToday order= orderHistory.get(orderHistory.size()-i-1);
+            if (order.getDate().getMonth() == month && order.getDate().getYear() == year) {
                 price += order.getTotalPrice();
             }
             if (order.getDate().isBefore(dt)) {
@@ -38,7 +53,27 @@ public class FinancialManagerImp implements FinancialManager{
         for (int i =0;i<orderHistory.size();i++){
             OrderToday order= orderHistory.get(orderHistory.size()-i-1);
 
-            if (order.getDate().getMonth() == month && order.getDate().getYear() == year && order.getShop() == shop) {
+            if (order.getDate().getMonth() == month && order.getDate().getYear() == year && order.getShop().equals( shop)) {
+
+                totalSandwiches += order.getOrder().stream().filter(x->x.getSandwichType()!=null).count();
+
+
+            }
+            if (order.getDate().isBefore(dt)) {
+                break;
+            }
+        }
+        return totalSandwiches;
+    }
+
+    public int getAmountOfSandwichesOrdered( Month month,int year){
+        List<OrderToday> orderHistory=history.findAll();
+        int totalSandwiches=0;
+        LocalDate dt= LocalDate.of(year,month,1);
+        for (int i =0;i<orderHistory.size();i++){
+            OrderToday order= orderHistory.get(orderHistory.size()-i-1);
+
+            if (order.getDate().getMonth() == month && order.getDate().getYear() == year) {
 
                 totalSandwiches += order.getOrder().stream().filter(x->x.getSandwichType()!=null).count();
 

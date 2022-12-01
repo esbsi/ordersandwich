@@ -126,7 +126,8 @@ insert into sessionparticipants (session_id, person_id) values (1, 2);
 insert into sessionparticipants (session_id, person_id) values (3, 3);
 insert into sessionparticipants (session_id, person_id) values (2, 1);
 
-insert into orderHistory (shop_id, senddate, closingtime,totalprice) VALUES (1, '2022-11-27', '12:00:00',0);
+insert into orderHistory (shop_id, senddate, closingtime,totalprice) VALUES (1, '2022-11-27', '12:00:00',30);
+insert into orderHistory (shop_id, senddate, closingtime,totalprice) VALUES (1, '2022-11-27', '12:00:00',30);
 
 insert into sandwichorders (sandwichtype_id, rauwkost, grilledvegs, white, note, person_id) values (1, 'T', 'F', 'T', 'geen mayo aub', 1);
 insert into sandwichorders (sandwichtype_id, rauwkost, grilledvegs, white, note, person_id) values (3, 'T', 'F', 'T', 'geen boter aub', 2);
