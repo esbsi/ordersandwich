@@ -29,17 +29,17 @@ public class SessionServiceTest {
 
     @Test
     void getSessionsSizeShouldBe2(){
-        assertEquals(2, sessionService.getSessions().size());
+        assertEquals(3, sessionService.getSessions().size());
     }
 
     @Test
     void findSessionsDuringSizeShouldBe1() throws SessionNotFoundException {
-        assertEquals(1, sessionService.findSessionsDuring(LocalDate.parse("2022-12-14")).size());
+        assertEquals(2, sessionService.findSessionsDuring(LocalDate.parse("2022-12-14")).size());
     }
 
     @Test
     void findSessionsDuringSizeShouldBe2() throws SessionNotFoundException {
-        assertEquals(2, sessionService.findSessionsDuring(LocalDate.parse("2022-11-01"), LocalDate.parse("2022-12-14")).size());
+        assertEquals(3, sessionService.findSessionsDuring(LocalDate.parse("2022-11-01"), LocalDate.parse("2022-12-14")).size());
     }
 
     @Test
@@ -78,15 +78,15 @@ public class SessionServiceTest {
     @Transactional
     @Test
     void removeSessionById() throws SessionNotFoundException {
-        sessionService.removeSession(1);
-        assertEquals(1, sessionService.getSessions().size());
+        sessionService.removeSession(3);
+        assertEquals(2, sessionService.getSessions().size());
     }
 
     @Transactional
     @Test
     void removeSession() throws SessionNotFoundException {
-        sessionService.removeSession(sessionService.findSession(1));
-        assertEquals(1, sessionService.getSessions().size());
+        sessionService.removeSession(sessionService.findSession(3));
+        assertEquals(2, sessionService.getSessions().size());
     }
 
     @Transactional

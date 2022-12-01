@@ -139,12 +139,12 @@ public class OrderTodayServiceTest {
     }
 
     @Test
-    @Order(4)
+    @Transactional
     void personAlreadyIn() throws TooLateException, TooManySandwichesException, NullInputException, PersonAlreadyInSessionException {
 
-        Person pers= new Person("simson");
+        Person pers= new Person("simson","fdsqkljfd");
         session.addPerson(pers);
-        assertThrows(PersonAlreadyInSessionException.class,()->session.addPerson(pers) );
+        assertThrows(PersonAlreadyInSessionException.class,()->sessionService.addPersonToSession(session,pers) );
 
 
     }

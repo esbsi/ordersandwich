@@ -121,7 +121,7 @@ public class PersonServiceTest {
 
     void removeByID() throws PersonAlreadyInExistException, PersonNotFoundException {
         int a=ps.getPersonList().size();
-         ps.removePerson(3);
+         ps.removePerson(4);
          assertEquals(a-1,ps.getPersonList().size());
     }
 

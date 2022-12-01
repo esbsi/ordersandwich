@@ -40,6 +40,13 @@ public class FinancialManagerTest {
     }
 
     @Test
+    public void average() throws ShopNotFoundException {
+        Shop shop= shopService.findShopById(1);
+
+        assertEquals(30,financialManager.averagePriceSandwich(shop,Month.NOVEMBER,2022));
+    }
+
+    @Test
     public void monthlyPriceShouldBeXX() throws ShopNotFoundException {
         Shop shop= shopService.findShopById(2);
         System.out.println(financialManager.getMonthlyPrice(shop,Month.DECEMBER,2022));

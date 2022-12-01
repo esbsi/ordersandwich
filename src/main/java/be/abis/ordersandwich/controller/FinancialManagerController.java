@@ -18,11 +18,23 @@ public class FinancialManagerController {
     @PostMapping("monthlyprice")
     public double monthlyPrice(@RequestBody FinanceModel model)   {
 
+        return financialManager.getMonthlyPrice( model.getMonth(), model.getYear());
+    }
+
+    @PostMapping("monthlyprice/shop")
+    public double monthlyPriceShop(@RequestBody FinanceModel model)   {
+
         return financialManager.getMonthlyPrice(model.getShop(), model.getMonth(), model.getYear());
     }
 
     @PostMapping("amountofsandwiches")
-    public int amountOfSandiwiches(@RequestBody FinanceModel model)   {
+    public int amountOfSandwiches(@RequestBody FinanceModel model)   {
+
+        return financialManager.getAmountOfSandwichesOrdered( model.getMonth(), model.getYear());
+    }
+
+    @PostMapping("amountofsandwiches/shop")
+    public int amountOfSandwichesShop(@RequestBody FinanceModel model)   {
 
         return financialManager.getAmountOfSandwichesOrdered(model.getShop(), model.getMonth(), model.getYear());
     }

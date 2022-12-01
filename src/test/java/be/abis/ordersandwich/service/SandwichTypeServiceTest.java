@@ -45,6 +45,7 @@ public class SandwichTypeServiceTest {
     }
 
     @Test
+    @Transactional
     void findSandwichTypesByShopShouldThrowSandwichTypeNotFound() throws ShopAlreadyExistsException {
         shopService.addShop(testShop);
         assertThrows(SandwichTypeNotFoundException.class, () -> sandwichTypeService.findSandwichTypesByShop(testShop));
