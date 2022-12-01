@@ -115,32 +115,45 @@ public class SessionServiceTest {
 
     @Transactional
     @Test
-    void addPersonThatAlreadyExists(){
-
+    void addPersonThatAlreadyExists() throws PersonAlreadyInSessionException, NullInputException, SessionNotFoundException, PersonNotFoundException {
+        Session session = sessionService.findSession(2);
+        Person person = personService.findPerson(2);
+        sessionService.addPersonToSession(session, person);
+        assertThrows(PersonAlreadyInSessionException.class, ()-> sessionService.addPersonToSession(session, person));
     }
 
     @Transactional
     @Test
-    void removePerson(){
-
+    void addNullPerson() throws SessionNotFoundException, PersonAlreadyInSessionException, NullInputException {
+        Session session = sessionService.findSession(2);
+        Person person = null;
+        assertThrows(NullInputException.class, ()-> sessionService.addPersonToSession(session, person));
     }
 
     @Transactional
     @Test
-    void removePersonNotInList(){
-
+    void removePerson() throws NullInputException, PersonNotInSessionException, SessionNotFoundException, PersonNotFoundException {
+        Session session = sessionService.findSession(2);
+        int size = sessionService.getAllPersonsFromSession(session).size();
+        Person person = personService.findPerson(1);
+        sessionService.removePersonFromSession(session, person);
+        assertEquals(size-1, sessionService.getAllPersonsFromSession(session).size());
     }
 
     @Transactional
     @Test
-    void addNullPerson(){
-
+    void removePersonNotInList() throws SessionNotFoundException, PersonNotFoundException {
+        Session session = sessionService.findSession(2);
+        Person person = personService.findPerson(2);
+        assertThrows(PersonNotInSessionException.class, ()-> sessionService.removePersonFromSession(session, person));
     }
 
     @Transactional
     @Test
-    void removeNullPerson(){
-
+    void removeNullPerson() throws SessionNotFoundException {
+        Session session = sessionService.findSession(2);
+        Person person = null;
+        assertThrows(NullInputException.class, ()-> sessionService.removePersonFromSession(session, person));
     }
 
 
