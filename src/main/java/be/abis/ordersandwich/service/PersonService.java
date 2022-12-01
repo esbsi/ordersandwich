@@ -21,4 +21,6 @@ public interface PersonService {
 
     Person findPerson(String firstname,String lastname) throws PersonNotFoundException;
 
+    Person checkPerson(Person person)throws PersonNotFoundException;
+
     }

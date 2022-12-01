@@ -29,8 +29,10 @@ public class OrderTodayController {
     PersonService personService;
 
     @PostMapping("")
-    public void order(@RequestBody SandwichOrderModel model) throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException {
-         service.orderSandwich(model.getI(),model.isRauwkost(), model.isGrilledVegs(), model.isWhite(), model.getNote(), model.getPerson());
+    public void order(@RequestBody SandwichOrderModel model) throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException, PersonNotFoundException {
+        Person p=personService.checkPerson(model.getPerson());
+
+        service.orderSandwich(model.getI(),model.isRauwkost(), model.isGrilledVegs(), model.isWhite(), model.getNote(),p);
     }
 
     @PostMapping("none")

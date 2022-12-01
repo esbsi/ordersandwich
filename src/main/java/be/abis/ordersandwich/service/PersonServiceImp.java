@@ -33,13 +33,9 @@ public class PersonServiceImp implements PersonService{
 
     @Override
     public void removePerson(Person person) throws PersonNotFoundException {
-        Person p =findPerson(person.getId());
-        if (p==null) throw new PersonNotFoundException("Person with this id doesn't exists");
-        Person person1 = personRepository.findPersonByFirstNameAndLastName(person.getFirstName(), person.getLastName());
-        if (person1==null) throw new PersonNotFoundException("Person with this name doesn't exists");
-        if (p.equals(person1)) {
-            personRepository.delete(p);
-        }else{throw new PersonNotFoundException("id and name don't match");}
+       Person p= checkPerson(person);
+       personRepository.delete(p);
+
     }
 
     @Override
@@ -70,6 +66,18 @@ public class PersonServiceImp implements PersonService{
         Person p= personRepository.findPersonByFirstNameAndLastName(firstname,lastname);
         if (p==null ) throw new PersonNotFoundException("person not found");
         return p;
+    }
+
+    @Override
+    public Person checkPerson(Person person) throws PersonNotFoundException {
+        Person p =findPerson(person.getId());
+        if (p==null) throw new PersonNotFoundException("Person with this id doesn't exists");
+        Person person1 = personRepository.findPersonByFirstNameAndLastName(person.getFirstName(), person.getLastName());
+        if (person1==null) throw new PersonNotFoundException("Person with this name doesn't exists");
+        if (p.equals(person1)) {
+            return p;
+        }else{throw new PersonNotFoundException("id and name don't match");}
+
     }
 
 
