@@ -7,11 +7,14 @@ import be.abis.ordersandwich.model.*;
 import be.abis.ordersandwich.service.OrderTodayService;
 import be.abis.ordersandwich.service.PersonService;
 import be.abis.ordersandwich.service.SessionService;
+import be.abis.ordersandwich.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -28,6 +31,9 @@ public class OrderTodayController {
     @Autowired
     PersonService personService;
 
+    @Autowired
+    ShopService shopService;
+
     @PostMapping("")
     public void order(@RequestBody SandwichOrderModel model) throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException, PersonNotFoundException {
         Person p=personService.checkPerson(model.getPerson());
@@ -36,14 +42,10 @@ public class OrderTodayController {
     }
 
     @PostMapping("none")
-    public void noOrder(@RequestBody Person person) throws TooLateException, TooManySandwichesException, NullInputException {
-        /*
-        Person person2 = personService.findPerson(person.getId());
-        if(!person2.getName().equals(person2.getName())) throw new PersonNotFoundException("person not found");
+    public void noOrder(@RequestBody Person person) throws TooLateException, TooManySandwichesException, NullInputException, PersonNotFoundException {
+        Person p=personService.checkPerson(person);
+        service.noOrder(p);
 
-
- */
-        service.noOrder(person);
     }
 /*
     @PostMapping("closingtime")
@@ -52,14 +54,18 @@ public class OrderTodayController {
     }
 
  */
-    @PostMapping("new/tomorrow")
-    public void newOrderTomorrow(@RequestBody Shop shop) {
+    @PostMapping("new/tomorrow/{id}")
+    public void newOrderTomorrow(@PathVariable int id) throws ShopNotFoundException {
+
+        Shop shop=shopService.findShopById(id);
         OrderToday orderToday = new OrderToday(shop);
         orderToday.setClosingTime(LocalTime.now());
         service.setOrderToday(orderToday);
     }
-    @PostMapping("new/today")
-    public void newOrderToday(@RequestBody Shop shop) {
+    @PostMapping("new/today/{id}")
+    public void newOrderToday(@PathVariable int id) throws ShopNotFoundException {
+        Shop shop=shopService.findShopById(id);
+
         OrderToday orderToday = new OrderToday(shop);
         orderToday.setClosingTime(LocalTime.MAX);
         service.setOrderToday(orderToday);
@@ -79,10 +85,11 @@ public class OrderTodayController {
 
 
  */
+        Person p=personService.checkPerson(person);
 
 
 
-        return  service.checkMyOrderToday(person);
+        return  service.checkMyOrderToday(p);
 
     }
 // to do
@@ -102,24 +109,29 @@ public class OrderTodayController {
         return service.totalPrice();
     }
 
-    @PostMapping("send")
-    public void send() throws NullInputException {
-        service.sendOrder(new Shop());
+    @PostMapping("send/shop/{id}")
+    public void send(@PathVariable int id) throws NullInputException, ShopNotFoundException {
+
+        service.sendOrder(shopService.findShopById(id));
     }
 
     @PostMapping("check/all")
-    public String checkallorderString(@RequestBody Session session ) throws SessionNotFoundException {
-        Session session2;
-        session2 = sessionService.findSession(session.getId());
-        if(!session2.getName().equals(session.getName())) throw new SessionNotFoundException("session not found");
-        return  service.checkAllOrderedString(session);
-
+    public String checkallorderString( ) throws SessionNotFoundException {
+        List<Session> sessionList= sessionService.findSessionsDuring(LocalDate.now());
+        String r ="";
+        for(Session session:sessionList) {
+           r+= service.checkAllOrderedString(session);
+        }
+        return r;
     }
     @PostMapping("check/allperson")
-    public List<Person> checkallorderPersons(@RequestBody Session session ) throws SessionNotFoundException {
-        Session session2= sessionService.findSession(session.getId());
-        if(!session2.getName().equals(session.getName())) throw new SessionNotFoundException("session not found");
-        return  service.checkAllOrderedPersons(session);
+    public List<Person> checkallorderPersons( ) throws SessionNotFoundException {
+        List<Session> sessionList= sessionService.findSessionsDuring(LocalDate.now());
+        List<Person> personList= new ArrayList<>();
+        for(Session session:sessionList) {
+            personList.addAll( service.checkAllOrderedPersons(session));
+        }
+        return personList;
 
     }
 

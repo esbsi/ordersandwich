@@ -70,6 +70,7 @@ public class PersonServiceImp implements PersonService{
 
     @Override
     public Person checkPerson(Person person) throws PersonNotFoundException {
+        if(person==null) throw new PersonNotFoundException("person is null");
         Person p =findPerson(person.getId());
         if (p==null) throw new PersonNotFoundException("Person with this id doesn't exists");
         Person person1 = personRepository.findPersonByFirstNameAndLastName(person.getFirstName(), person.getLastName());
