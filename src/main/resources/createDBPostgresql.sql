@@ -105,6 +105,7 @@ insert into PERSONS (firstname, lastname) values ('Jef', 'Jeweet') ;
 
 insert into SESSIONS (session_name, startdate, enddate) values ('Intro SQL', '2022-12-01', '2022-12-04');
 insert into SESSIONS (session_name, startdate, enddate) values ('Intro UML', '2022-12-12', '2022-12-14');
+insert into SESSIONS (session_name, startdate, enddate) values ('Intro python', '2022-12-01', '2022-12-14');
 
 insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian) VALUES (1, 'Americain', '4.56', 'Vlees', 'F');
 insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian) VALUES (1, 'Boulette', '3.56', 'Vlees', 'F');
@@ -122,6 +123,7 @@ insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, veg
 
 insert into sessionparticipants (session_id, person_id) values (1, 1);
 insert into sessionparticipants (session_id, person_id) values (1, 2);
+insert into sessionparticipants (session_id, person_id) values (3, 3);
 insert into sessionparticipants (session_id, person_id) values (2, 1);
 
 insert into orderHistory (shop_id, senddate, closingtime,totalprice) VALUES (1, '2022-11-27', '12:00:00',0);

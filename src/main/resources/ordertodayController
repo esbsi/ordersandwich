@@ -1,0 +1,30 @@
+ String baseUrl="http://localhost:8080/ordersandwich/api/order";
+ persons should always have excact atributes from database
+
+ POST                   body=sandwichordermodel  orders a sandwich
+ POST   "none"          body=person  says that aperson doesn't want to order today
+ POST  "new/tomorrow/{id}"  body=none  id is the shop id for the new orderToday, nobody can order today after this
+ POST  "new/today/{id}"  body=none  id is the shop id for the new orderToday, everybody can order today after this
+ GET                 body= none get orderToday
+ Post  "check/person"  body=person gives back a list of sandwichorders of the person from today if the order wasn't sent yet
+ delete               body=sandwichorder  delete a sandwichorder from the ordertoday  id and name of person must be correct
+ get  "price"   body=none gives the totalprice ofcurrent ordertoday
+
+ POST  send/shop/{id} body=none send order and set shop for next ordertoday with shop id
+ Get "check/all" body=none get a string back of all people who haven"t ordered today but are in a course that happens today
+ Get "check/allpersons" body=none get a List of persons back of all people who haven"t ordered today but are in a course that happens today
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -78,7 +78,7 @@ public class OrderTodayController {
     }
     @PostMapping("check/person")
     public List<SandwichOrder> check(@RequestBody Person person ) throws NullInputException, PersonNotFoundException {
-        System.out.println("hey");
+
 /*
         Person person2 = personService.findPerson(person.getId());
         if(!person2.getName().equals(person2.getName())) throw new PersonNotFoundException("person not found");
@@ -115,7 +115,7 @@ public class OrderTodayController {
         service.sendOrder(shopService.findShopById(id));
     }
 
-    @PostMapping("check/all")
+    @GetMapping("check/all")
     public String checkallorderString( ) throws SessionNotFoundException {
         List<Session> sessionList= sessionService.findSessionsDuring(LocalDate.now());
         String r ="";
@@ -124,7 +124,7 @@ public class OrderTodayController {
         }
         return r;
     }
-    @PostMapping("check/allperson")
+    @GetMapping("check/allpersons")
     public List<Person> checkallorderPersons( ) throws SessionNotFoundException {
         List<Session> sessionList= sessionService.findSessionsDuring(LocalDate.now());
         List<Person> personList= new ArrayList<>();
