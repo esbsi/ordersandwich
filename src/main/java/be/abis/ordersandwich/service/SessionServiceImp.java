@@ -56,7 +56,6 @@ public class SessionServiceImp implements SessionService{
         List<Session> sessions = null;
         try {sessions = findSessionsByName(session.getName());
         } catch (SessionNotFoundException e){
-//            return sessionRepository.save(session);
         } for (Session s : sessions){
             if (session.equals(s)){
                 throw new SessionAlreadyExistsException("Session already exists.");
@@ -93,7 +92,7 @@ public class SessionServiceImp implements SessionService{
 
     @Override
     public Session addPersonToSession(Session session, Person person) throws PersonAlreadyInSessionException, NullInputException, SessionNotFoundException {
-        if (person == null) throw new NullInputException("Person passed is null");
+        if (person == null) throw new NullInputException("Person input is null");
         List<Person> personList = getAllPersonsFromSession(session);
         if(personList.contains(person)) throw new PersonAlreadyInSessionException("person is already in the session");
         personList.add(person);
@@ -103,9 +102,9 @@ public class SessionServiceImp implements SessionService{
 
     @Override
     public Session removePersonFromSession(Session session, Person person) throws NullInputException, SessionNotFoundException, PersonNotInSessionException {
-        if (person == null) throw new NullInputException("Person passed is null");
+        if (person == null) throw new NullInputException("Person input is null");
         List<Person> personList = getAllPersonsFromSession(session);
-        if(!personList.contains(person)) throw new PersonNotInSessionException("Person is not in this session.");
+        if(!personList.contains(person)) throw new PersonNotInSessionException(person.getFirstName() + " " + person.getLastName() + " is not in this session.");
         personList.remove(person);
         session.setPersonList(personList);
         return sessionRepository.save(session);

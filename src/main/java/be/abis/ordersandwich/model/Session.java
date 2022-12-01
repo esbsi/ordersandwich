@@ -68,27 +68,6 @@ public class Session {
     }
 
 
-    // business
-    //todo : send to database, moet naar de service layer
-    public void addPerson(Person p) throws PersonAlreadyInSessionException, NullInputException {
-        if(p==null)throw new NullInputException("input is null");
-        if(personList.contains(p)) throw new PersonAlreadyInSessionException("person is already in the session");
-        if(personList.stream().map(per->per.getFirstName()).anyMatch(x->x.equals(p.getFirstName()))){
-            p.setFirstName(p.getFirstName()+"2");
-            System.out.println("2 is added to "+p.getFirstName()+" because there are 2 people with the same name");
-        }
-        personList.add(p);
-
-    }
-
-    public void removePerson(Person p) throws PersonNotInSessionException, NullInputException {
-        if(p==null)throw new NullInputException("input is null");
-        if (!personList.contains(p)) throw new PersonNotInSessionException(p.getFirstName()+" is not in this session");
-        personList.remove(p);
-
-    }
-
-
     // getset
 
     public String getName() {
@@ -130,4 +109,10 @@ public class Session {
     public void setId(int id) {
         this.id = id;
     }
+
+    //Use SessionService.addPersonToSession(), which saves to database. (this is used in some tests)
+    public void addPerson(Person person){
+        personList.add(person);
+    }
+
 }

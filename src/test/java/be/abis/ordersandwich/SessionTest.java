@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SessionTest {
-    @Autowired
+/*    @Autowired
     SessionJpaRepository sessionRepository;
     @Autowired
     PersonJpaRepository personRepository;
@@ -75,5 +75,5 @@ public class SessionTest {
     void nullRemove(){
         assertThrows(NullInputException.class,()->session1.removePerson(null));
     }
-
+*/
 }

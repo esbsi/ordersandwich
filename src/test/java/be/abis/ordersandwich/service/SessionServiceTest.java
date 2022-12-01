@@ -25,7 +25,7 @@ public class SessionServiceTest {
     @Autowired
     OrderTodayService orderTodayService;
     @Autowired
-    ShopJpaRepository shopRepository;
+    PersonService personService;
 
     @Test
     void getSessionsSizeShouldBe2(){
@@ -60,10 +60,11 @@ public class SessionServiceTest {
 
     @Transactional
     @Test
-    void addSessionSizeShouldBe3() throws SessionAlreadyExistsException {
+    void addSessionSizeShouldBePlus1() throws SessionAlreadyExistsException {
+        int size = sessionService.getSessions().size();
         Session session = new Session("Carbon Aware SDK", LocalDate.parse("2023-11-01"), LocalDate.parse("2023-11-01"));
         sessionService.addSession(session);
-        assertEquals(3, sessionService.getSessions().size());
+        assertEquals(size+1, sessionService.getSessions().size());
     }
 
     @Transactional
@@ -92,6 +93,54 @@ public class SessionServiceTest {
     @Test
     void removeSessionByIdShouldThrowNotFound() throws SessionNotFoundException {
         assertThrows(SessionNotFoundException.class, () -> sessionService.removeSession(99999999));
+    }
+
+
+    //Participant list tests
+
+    @Test
+    void getAllPersonsFromSessionSizeShouldBe() throws SessionNotFoundException {
+        assertEquals(2, sessionService.getAllPersonsFromSession(sessionService.findSession(1)).size());
+    }
+
+    @Transactional
+    @Test
+    void addPerson() throws SessionNotFoundException, PersonNotFoundException, PersonAlreadyInSessionException, NullInputException {
+        Session session = sessionService.findSession(2);
+        int size = sessionService.getAllPersonsFromSession(session).size();
+        Person person = personService.findPerson(2);
+        sessionService.addPersonToSession(session, person);
+        assertEquals(size+1, sessionService.getAllPersonsFromSession(session).size());
+    }
+
+    @Transactional
+    @Test
+    void addPersonThatAlreadyExists(){
+
+    }
+
+    @Transactional
+    @Test
+    void removePerson(){
+
+    }
+
+    @Transactional
+    @Test
+    void removePersonNotInList(){
+
+    }
+
+    @Transactional
+    @Test
+    void addNullPerson(){
+
+    }
+
+    @Transactional
+    @Test
+    void removeNullPerson(){
+
     }
 
 
