@@ -3,6 +3,7 @@ package be.abis.ordersandwich.service;
 import be.abis.ordersandwich.exception.*;
 import be.abis.ordersandwich.model.Person;
 import be.abis.ordersandwich.model.Session;
+import be.abis.ordersandwich.repository.PersonJpaRepository;
 import be.abis.ordersandwich.repository.SessionJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -16,9 +17,9 @@ public class SessionServiceImp implements SessionService{
 
     @Autowired
     SessionJpaRepository sessionRepository;
+    @Autowired
+    PersonJpaRepository personRepository;
 
-
-    // repository methods
 
     @Override
     public List<Session> getSessions(){
@@ -95,6 +96,12 @@ public class SessionServiceImp implements SessionService{
         if (person == null) throw new NullInputException("Person input is null");
         List<Person> personList = getAllPersonsFromSession(session);
         if(personList.contains(person)) throw new PersonAlreadyInSessionException("person is already in the session");
+        //copied from PersonService.addPerson (rewrite to avoid duplicate code?)
+        Person p =  personRepository.findPersonById(person.getId());
+        if (p!=null) person = p;
+        Person person1 = personRepository.findPersonByFirstNameAndLastName(person.getFirstName(), person.getLastName());
+        if (person1!=null) person = person1;
+        //
         personList.add(person);
         session.setPersonList(personList);
         return sessionRepository.save(session);

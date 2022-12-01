@@ -53,13 +53,25 @@ public class SessionController {
                 .findFirst().orElseThrow(SessionNotFoundException::new);
     }
 
+    //todo delete this method?
     @PostMapping("add")
-    public void addPersonToSession(@RequestBody AddToSessionModel model ) throws SessionNotFoundException, PersonAlreadyInSessionException, NullInputException {
+    public void addPersonToSession2(@RequestBody AddToSessionModel model ) throws SessionNotFoundException, PersonAlreadyInSessionException, NullInputException {
          service.addPersonToSession(model.getSession(),model.getPerson());
     }
 
-    @PostMapping("{sessionid}/unsubscribe/{personid}")
-    public void removePersonFromSession(@PathVariable("sessionid") int sessionId, @PathVariable("personid") int personId) throws SessionNotFoundException, PersonAlreadyInSessionException, NullInputException, PersonNotFoundException, PersonNotInSessionException {
+    @PostMapping("{sessionid}/newperson")
+    public void addPersonToSession(@PathVariable("sessionid") int sessionId, @RequestBody Person person) throws SessionNotFoundException, PersonAlreadyInSessionException, NullInputException, PersonNotFoundException {
+        service.addPersonToSession(service.findSession(sessionId), person);
+    }
+
+    @PostMapping("{sessionid}/subscribe")
+    public void addPersonToSessionById(@PathVariable("sessionid") int sessionId, @RequestParam("personid") int personId) throws SessionNotFoundException, PersonAlreadyInSessionException, NullInputException, PersonNotFoundException {
+        Person person = personService.findPerson(personId);
+        service.addPersonToSession(service.findSession(sessionId), person);
+    }
+
+    @PostMapping("{sessionid}/unsubscribe")
+    public void removePersonFromSession(@PathVariable("sessionid") int sessionId, @RequestParam("personid") int personId) throws SessionNotFoundException, PersonAlreadyInSessionException, NullInputException, PersonNotFoundException, PersonNotInSessionException {
         service.removePersonFromSession(service.findSession(sessionId), personService.findPerson(personId));
     }
 
