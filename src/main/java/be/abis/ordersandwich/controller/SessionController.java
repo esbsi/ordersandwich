@@ -59,11 +59,13 @@ public class SessionController {
          service.addPersonToSession(model.getSession(),model.getPerson());
     }
 
+    //add a new person to the database (or find if exist), and subscribe to session.
     @PostMapping("{sessionid}/newperson")
     public void addPersonToSession(@PathVariable("sessionid") int sessionId, @RequestBody Person person) throws SessionNotFoundException, PersonAlreadyInSessionException, NullInputException, PersonNotFoundException {
         service.addPersonToSession(service.findSession(sessionId), person);
     }
 
+    //use this for existing persons.
     @PostMapping("{sessionid}/subscribe")
     public void addPersonToSessionById(@PathVariable("sessionid") int sessionId, @RequestParam("personid") int personId) throws SessionNotFoundException, PersonAlreadyInSessionException, NullInputException, PersonNotFoundException {
         Person person = personService.findPerson(personId);
