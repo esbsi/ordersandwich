@@ -48,8 +48,8 @@ public class SandwichTypeController {
     }
 
     @DeleteMapping("")
-    public void removeSandwichType(@RequestBody SandwichType sandwichType) throws SandwichTypeNotFoundException {
-        sandwichTypeService.removeSandwichType(sandwichType);
+    public void removeSandwichType(@RequestBody int id) throws SandwichTypeNotFoundException {
+        sandwichTypeService.removeSandwichType(id);
     }
 
     @PostMapping("")

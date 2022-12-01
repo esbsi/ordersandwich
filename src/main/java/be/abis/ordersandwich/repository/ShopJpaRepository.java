@@ -10,10 +10,7 @@ import java.util.List;
 
 public interface ShopJpaRepository extends JpaRepository<Shop, Integer> {
 
-
-
-    Shop findShopById(int id) throws ShopNotFoundException;
-
-    Shop findShopByName(String shopName) throws ShopNotFoundException;
+    Shop findShopById(int id);
+    Shop findShopByName(String shopName);
 
 }
