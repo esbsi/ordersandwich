@@ -2,15 +2,15 @@ package be.abis.ordersandwich.controller;
 
 import be.abis.ordersandwich.dto.AddToSessionModel;
 import be.abis.ordersandwich.dto.Name;
-import be.abis.ordersandwich.exception.NullInputException;
-import be.abis.ordersandwich.exception.PersonAlreadyInSessionException;
-import be.abis.ordersandwich.exception.SessionNotFoundException;
+import be.abis.ordersandwich.exception.*;
 import be.abis.ordersandwich.model.*;
+import be.abis.ordersandwich.service.PersonService;
 import be.abis.ordersandwich.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,22 +20,31 @@ import java.util.stream.Collectors;
 @Validated
 public class SessionController {
 
-
     @Autowired
     SessionService service;
-// willen hier wrsz iets andrs terug als een string
+    @Autowired
+    PersonService personService;
+
 
     @GetMapping("")
     public List<Session> getAll()  {
         return service.getSessions();
     }
-    /*
-    @PostMapping("add")
-    public void addsession(@RequestBody Session session)  {
-        service.addSession(session);
+
+    @GetMapping("today")
+    public List<Session> findSessionsToday() throws SessionNotFoundException {
+        return service.findSessionsDuring(LocalDate.now());
     }
 
-     */
+    @GetMapping("query")
+    public List<Session> findSessionsDuring(@RequestParam("from") LocalDate fromDate, @RequestParam("until") LocalDate untilDate) throws SessionNotFoundException {
+        return service.findSessionsDuring(fromDate, untilDate);
+    }
+
+    @GetMapping("{id}")
+    public Session findSessionById(@PathVariable("id") int id) throws SessionNotFoundException {
+        return service.findSession(id);
+    }
 
     @PostMapping("name")
     public Session findByName(@RequestBody Name name ) throws  SessionNotFoundException {
@@ -45,17 +54,33 @@ public class SessionController {
     }
 
     @PostMapping("add")
-    public void add(@RequestBody AddToSessionModel model ) throws SessionNotFoundException, PersonAlreadyInSessionException, NullInputException {
-
-
+    public void addPersonToSession(@RequestBody AddToSessionModel model ) throws SessionNotFoundException, PersonAlreadyInSessionException, NullInputException {
          service.addPersonToSession(model.getSession(),model.getPerson());
     }
 
+    @PostMapping("{sessionid}/unsubscribe/{personid}")
+    public void removePersonFromSession(@PathVariable("sessionid") int sessionId, @PathVariable("personid") int personId) throws SessionNotFoundException, PersonAlreadyInSessionException, NullInputException, PersonNotFoundException, PersonNotInSessionException {
+        service.removePersonFromSession(service.findSession(sessionId), personService.findPerson(personId));
+    }
+
     @PostMapping("persons")
-    public List<Person> persons(@RequestBody Session session ) throws SessionNotFoundException, PersonAlreadyInSessionException, NullInputException {
-
+    public List<Person> getPersonsInSession(@RequestBody Session session ) throws SessionNotFoundException {
         return  service.getAllPersonsFromSession(session);
+    }
 
+    @GetMapping("{id}/persons")
+    public List<Person> getPersonsInSession(@PathVariable("id") int id) throws SessionNotFoundException {
+        return service.findSession(id).getPersonList();
+    }
+
+    @PostMapping("")
+    public Session addSession(@RequestBody Session session) throws SessionAlreadyExistsException {
+        return service.addSession(session);
+    }
+
+    @DeleteMapping("{id}")
+    public void removeSession(@PathVariable("id") int id) throws SessionNotFoundException {
+        service.removeSession(id);
     }
 
 
