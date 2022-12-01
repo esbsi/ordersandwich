@@ -52,23 +52,6 @@ public class SessionServiceImp implements SessionService{
     }
 
     @Override
-    public List<Person> getAllPersonsFromSession(Session session) throws SessionNotFoundException {
-        Session session2=findSession(session.getId());
-        return session2.getPersonList();
-    }
-
-    @Override
-    public Person findPersonInSession(Session session,int id) throws PersonNotInSessionException, SessionNotFoundException {
-        Session session2=findSession(session.getId());
-        return session2.getPersonList().stream().filter(x->x.getId()==id).findFirst().orElseThrow(()->new PersonNotInSessionException("person not in this session"));
-    }
-
-    @Override
-    public void addPersonToSession(Session session, Person person) throws PersonAlreadyInSessionException, NullInputException {
-        session.addPerson(person);
-    }
-
-    @Override
     public Session addSession(Session session) throws SessionAlreadyExistsException {
         List<Session> sessions = null;
         try {sessions = findSessionsByName(session.getName());
@@ -92,6 +75,40 @@ public class SessionServiceImp implements SessionService{
     @Override
     public void removeSession(Session session) throws SessionNotFoundException {
         removeSession(session.getId());
+    }
+
+    @Override
+    public List<Person> getAllPersonsFromSession(Session session) throws SessionNotFoundException {
+        session = findSession(session.getId());
+        return session.getPersonList();
+    }
+
+    @Override
+    public Person findPersonInSession(Session session, int id) throws PersonNotInSessionException, SessionNotFoundException {
+        return getAllPersonsFromSession(session)
+                .stream()
+                .filter(x -> x.getId() == id)
+                .findFirst().orElseThrow(() -> new PersonNotInSessionException("person not in this session"));
+    }
+
+    @Override
+    public Session addPersonToSession(Session session, Person person) throws PersonAlreadyInSessionException, NullInputException, SessionNotFoundException {
+        if (person == null) throw new NullInputException("Person passed is null");
+        List<Person> personList = getAllPersonsFromSession(session);
+        if(personList.contains(person)) throw new PersonAlreadyInSessionException("person is already in the session");
+        personList.add(person);
+        session.setPersonList(personList);
+        return sessionRepository.save(session);
+    }
+
+    @Override
+    public Session removePersonFromSession(Session session, Person person) throws NullInputException, SessionNotFoundException, PersonNotInSessionException {
+        if (person == null) throw new NullInputException("Person passed is null");
+        List<Person> personList = getAllPersonsFromSession(session);
+        if(!personList.contains(person)) throw new PersonNotInSessionException("Person is not in this session.");
+        personList.remove(person);
+        session.setPersonList(personList);
+        return sessionRepository.save(session);
     }
 
 }

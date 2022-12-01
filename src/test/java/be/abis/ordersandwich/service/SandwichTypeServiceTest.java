@@ -97,8 +97,6 @@ public class SandwichTypeServiceTest {
         assertEquals(size-1, sandwichTypeService.getSandwichTypes().size());
     }
 
-    //ToDo: doesn't throw, while it should (and previously did). Same issue in ShopServiceTest.
-    @Transactional
     @Test
     void removeSandwichTypeShouldThrowDataIntegrityViolationException() throws SandwichTypeNotFoundException {
         assertThrows(DataIntegrityViolationException.class, () -> sandwichTypeService.removeSandwichType(1));

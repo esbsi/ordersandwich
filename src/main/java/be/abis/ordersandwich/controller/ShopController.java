@@ -34,9 +34,9 @@ public class ShopController {
         return new ResponseEntity<>(shop, HttpStatus.OK);
     }
 
-    @DeleteMapping("")
-    public ResponseEntity<?> removeShop(@RequestBody Shop shop) throws ShopNotFoundException {
-        shopService.removeShop(shop);
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> removeShop(@PathVariable int id) throws ShopNotFoundException {
+        shopService.removeShopById(id);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 

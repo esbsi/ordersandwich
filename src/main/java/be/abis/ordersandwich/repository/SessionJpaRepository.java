@@ -2,6 +2,7 @@ package be.abis.ordersandwich.repository;
 
 import be.abis.ordersandwich.exception.SessionNotFoundException;
 import be.abis.ordersandwich.model.OrderToday;
+import be.abis.ordersandwich.model.Person;
 import be.abis.ordersandwich.model.Session;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

@@ -25,9 +25,9 @@ public class ShopServiceImp implements ShopService {
     }
 
     @Override
-    public void removeShop(Shop shop) throws ShopNotFoundException, DataIntegrityViolationException {
-        findShopById(shop.getId());
-        try{shopRepository.delete(shop);}
+    public void removeShopById(int id) throws ShopNotFoundException, DataIntegrityViolationException {
+        findShopById(id);
+        try{shopRepository.deleteById(id);}
         catch (DataIntegrityViolationException e){
             throw new DataIntegrityViolationException("It is impossible to remove a shop, if sandwichtypes or orders are tied to this shop.");
         }
