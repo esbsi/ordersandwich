@@ -31,6 +31,7 @@ public class SessionController {
         return service.getSessions();
     }
 
+    @CrossOrigin(origins="http://localhost:4200")
     @GetMapping("today")
     public List<Session> findSessionsToday() throws SessionNotFoundException {
         return service.findSessionsDuring(LocalDate.now());
