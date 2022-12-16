@@ -2,10 +2,14 @@ package be.abis.ordersandwich.controller;
 
 
 import be.abis.ordersandwich.dto.FinanceModel;
+import be.abis.ordersandwich.exception.ShopNotFoundException;
 import be.abis.ordersandwich.service.FinancialManager;
+import be.abis.ordersandwich.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.Month;
 
 @RestController
 @RequestMapping("/finance")
@@ -14,35 +18,37 @@ public class FinancialManagerController {
 
     @Autowired
     FinancialManager financialManager;
+    @Autowired
+    ShopService shopService;
 
     @PostMapping("monthlyprice")
     public double monthlyPrice(@RequestBody FinanceModel model)   {
 
-        return financialManager.getMonthlyPrice( model.getMonth(), model.getYear());
+        return financialManager.getMonthlyPrice(Month.of(model.getMonth()), model.getYear());
     }
 
     @PostMapping("monthlyprice/shop")
-    public double monthlyPriceShop(@RequestBody FinanceModel model)   {
+    public double monthlyPriceShop(@RequestBody FinanceModel model) throws ShopNotFoundException {
 
-        return financialManager.getMonthlyPrice(model.getShop(), model.getMonth(), model.getYear());
+        return financialManager.getMonthlyPrice(shopService.findShopById(model.getShop()), Month.of(model.getMonth()), model.getYear());
     }
 
     @PostMapping("amountofsandwiches")
     public int amountOfSandwiches(@RequestBody FinanceModel model)   {
 
-        return financialManager.getAmountOfSandwichesOrdered( model.getMonth(), model.getYear());
+        return financialManager.getAmountOfSandwichesOrdered( Month.of(model.getMonth()), model.getYear());
     }
 
     @PostMapping("amountofsandwiches/shop")
-    public int amountOfSandwichesShop(@RequestBody FinanceModel model)   {
+    public int amountOfSandwichesShop(@RequestBody FinanceModel model) throws ShopNotFoundException {
 
-        return financialManager.getAmountOfSandwichesOrdered(model.getShop(), model.getMonth(), model.getYear());
+        return financialManager.getAmountOfSandwichesOrdered(shopService.findShopById(model.getShop()), Month.of(model.getMonth()), model.getYear());
     }
 
     @PostMapping("average")
-    public double average(@RequestBody FinanceModel model)   {
+    public double average(@RequestBody FinanceModel model) throws ShopNotFoundException {
 
-        return financialManager.averagePriceSandwich(model.getShop(), model.getMonth(), model.getYear());
+        return financialManager.averagePriceSandwich(shopService.findShopById(model.getShop()), Month.of(model.getMonth()), model.getYear());
     }
 
 

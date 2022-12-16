@@ -6,26 +6,26 @@ import java.time.Month;
 
 public class FinanceModel {
 
-    private Shop shop;
-    private Month month;
+    private int shop;
+    private int month;
     private int year;
 
     public FinanceModel() {
     }
 
-    public Shop getShop() {
+    public int getShop() {
         return shop;
     }
 
-    public void setShop(Shop shop) {
+    public void setShop(int shop) {
         this.shop = shop;
     }
 
-    public Month getMonth() {
+    public int getMonth() {
         return month;
     }
 
-    public void setMonth(Month month) {
+    public void setMonth(int month) {
         this.month = month;
     }
 
