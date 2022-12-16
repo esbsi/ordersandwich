@@ -19,6 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/sandwich")
 @Validated
+@CrossOrigin(origins="http://localhost:4200")
 public class SandwichTypeController {
 
     @Autowired
