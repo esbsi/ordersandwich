@@ -14,6 +14,7 @@ import java.time.Month;
 @RestController
 @RequestMapping("/finance")
 @Validated
+@CrossOrigin(origins="http://localhost:4200")
 public class FinancialManagerController {
 
     @Autowired
