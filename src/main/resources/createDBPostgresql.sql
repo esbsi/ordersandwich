@@ -107,19 +107,90 @@ insert into SESSIONS (session_name, startdate, enddate) values ('Intro SQL', '20
 insert into SESSIONS (session_name, startdate, enddate) values ('Intro UML', '2022-12-12', '2022-12-14');
 insert into SESSIONS (session_name, startdate, enddate) values ('Intro python', '2022-12-01', '2022-12-14');
 
-insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian) VALUES (1, 'Americain', '4.56', 'Vlees', 'F');
-insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian) VALUES (1, 'Boulette', '3.56', 'Vlees', 'F');
-insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian) VALUES (1, 'Pastrami', '5.56', 'Vlees', 'F');
-insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian) VALUES (1, 'Kaas', '3.45', 'Veggie', 'T');
-insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian) VALUES (1, 'Brie', '3.45', 'Veggie', 'T');
-insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian, description) VALUES (1, 'Carolina', '3.45', 'Specials', 'F', 'Eiersalade, spek, tuinkers');
-insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian, description) VALUES (1, 'Provence', '3.45', 'Specials', 'T', 'Feta, zongedroogde tomaat, rucola');
 
-insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian) VALUES (2, 'Hesp', '5.00', 'Vlees', 'F');
-insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian) VALUES (2, 'Rosbief', '5.50', 'Vlees', 'F');
-insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian) VALUES (2, 'Brie', '4.50', 'Kaas', 'T');
-insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian, description) VALUES (2, 'Smos', '4.60', 'Specialiteiten', 'F', 'Club met kaas en hesp');
-insert into SANDWICHTYPES (shop_id, sandwich_name, price, sandwich_category, vegetarian, description) VALUES (2, 'Mozarella', '5.20', 'Specialiteiten', 'T', 'Olijfolie, zout, peper, basilicum, tomaat');
+
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Americain',1,'vlees',5.00,null, 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Boulette',1,'vlees',5.00,null, 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Pastrami',1,'vlees',5.00,null, 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Hesp + kaas',1,'vlees',5.00,null, 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Martino',1,'vlees',5.00,null, 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Vleessalade',1,'vlees',5.00,null, 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Hesp',1,'vlees',5.00,null, 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Parmaham',1,'vlees',5.00,null, 'F');
+
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Kipfilet', 1, 'kip', 5.00, null, 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Spicy kip curry', 1, 'kip', 5.00, null, 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Kip Hawaii', 1, 'kip', 5.00, null, 'F');
+
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Tonijnsalade', 1, 'vis', 5.00, null, 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Tonijnsalade pikant', 1, 'vis', 5.00, null, 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Zalm(gemarineerd) + philadelphia', 1, 'vis', 5.00, null, 'F');
+
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Kaas', 1, 'veggie', 5.00, null, 'T');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Tomaat + mozzarella', 1, 'veggie', 5.00, null, 'T');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Eiersalade', 1, 'veggie', 5.00, null, 'T');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Brie', 1, 'veggie', 5.00, null, 'T');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Feta', 1, 'veggie', 5.00, null, 'T');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Geitenkaas', 1, 'veggie', 5.00, null, 'T');
+
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Wortelspread + sesam + tuinkers', 1, 'vegan', 5.00, null, 'T');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Hummus', 1, 'vegan', 5.00, null, 'T');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Vegan mayo', 1, 'vegan', 5.00, null, 'T');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Avocadospread', 1, 'vegan', 5.00, null, 'T');
+
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Carolina', 1, 'specials', 5.00, 'Eiersalade, spek, tuinkers', 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Parmigiano', 1, 'specials', 5.00, 'Americain, zongedroogde tomaat, rucola, pijnboompitten', 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Kip cocktail', 1, 'specials', 5.00, 'Kipfilet, cocktailsaus, perzik, tuinkers', 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('BBQ chicken', 1, 'specials', 5.00, 'Kip, barbecuesaus, spek, tomaat, sla', 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Flying brie', 1, 'specials', 5.00, 'Brie, honing, noot, rucola', 'T');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Provence', 1, 'specials', 5.00, 'Feta, zongedroogde tomaat, rucola', 'T');
+
+
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Hesp',2,'vlees',5.00,null, 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Rosbief',2,'vlees',5.00,null, 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Gebraad',2,'vlees',5.00,null, 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Gerookte Nootham',2,'vlees',5.00,null, 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Parma ham',2,'vlees',5.00,null, 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Salami',2,'vlees',5.00,null, 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Americain Preparé',2,'vlees',5.00,null, 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Gemend gehakt',2,'vlees',5.00,null, 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Martino',2,'vlees',5.00,null, 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Kip curry',2,'vlees',5.00,null, 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Kip zigeuner',2,'vlees',5.00,null, 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Kipsla',2,'vlees',5.00,null, 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Weense sla',2,'vlees',5.00,null, 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Vleessla',2,'vlees',5.00,null, 'F');
+
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Hollandse kaas', 2, 'kaas', 5.00, null, 'T');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Brie', 2, 'kaas', 5.00, null, 'T');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Kaassla', 2, 'kaas', 5.00, null, 'T');
+
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Tomaat garnaal', 2, 'vis', 5.00, null, 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Garnaalsla', 2, 'vis', 5.00, null, 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Tonijnsla', 2, 'vis', 5.00, null, 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Pikante tonijnsla', 2, 'vis', 5.00, null, 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Zalmsla', 2, 'vis', 5.00, null, 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Gerookte zalmsla', 2, 'vis', 5.00, null, 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Krabsla', 2, 'vis', 5.00, null, 'F');
+
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Eiersla', 2, 'ei', 5.00, null, 'T');
+
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Smos', 2, 'specials', 5.00, 'Club met kaas en hesp', 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Pinky', 2, 'specials', 5.00, 'Sla, tomaat, ei, haringfilet, tartaar', 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Mozzarella', 2, 'specials', 5.00, 'Olijfolie, zout, peper, basilicum, tomaat', 'T');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Special', 2, 'specials', 5.00, 'Sla, tomaat, ei, kipfilet, saus', 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Florida', 2, 'specials', 5.00, 'Sla, ananas, kipfilet, cocktailsaus', 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Primus', 2, 'specials', 5.00, 'Sla, perzik, tonijnsla', 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Apollo', 2, 'specials', 5.00, 'Rucola, ananas, gebraad, cocktailsaus', 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Milano', 2, 'specials', 5.00, 'Sla, tomaat, augurk, ei, salami, tartaar', 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Ardenne', 2, 'specials', 5.00, 'Rucola, tomaat, nootham, cocktailsaus', 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Gerookte zalm', 2, 'specials', 5.00, 'Sla, ui, gerookte zalm, cocktailsaus', 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Tweetybroodje', 2, 'specials', 5.00, 'Eiersla, salami', 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Lentebroodje', 2, 'specials', 5.00, 'Seldersla, geraspte wortels, ananas', 'T');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Hawaiibroodje', 2, 'specials', 5.00, 'Ananas, hesp, kaas, cocktailsaus', 'F');
+insert into SANDWICHTYPES (sandwich_name, shop_id, sandwich_category, price, description, vegetarian) values('Gezond', 2, 'specials', 5.00, 'Sla, tomaat, seldersla, geraspte wortelen, komkommer, ei, mayonaise', 'T');
+
+
 
 insert into sessionparticipants (session_id, person_id) values (1, 1);
 insert into sessionparticipants (session_id, person_id) values (1, 2);
