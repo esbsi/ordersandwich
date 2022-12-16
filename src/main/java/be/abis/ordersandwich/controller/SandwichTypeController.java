@@ -2,10 +2,12 @@ package be.abis.ordersandwich.controller;
 
 import be.abis.ordersandwich.exception.SandwichTypeAlreadyExistsException;
 import be.abis.ordersandwich.exception.SandwichTypeNotFoundException;
+import be.abis.ordersandwich.exception.ShopNotFoundException;
 import be.abis.ordersandwich.model.SandwichType;
 import be.abis.ordersandwich.model.Shop;
 import be.abis.ordersandwich.service.OrderTodayService;
 import be.abis.ordersandwich.service.SandwichTypeService;
+import be.abis.ordersandwich.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,19 +23,11 @@ public class SandwichTypeController {
 
     @Autowired
     SandwichTypeService sandwichTypeService;
-
     @Autowired
     OrderTodayService orderTodayService;
+    @Autowired
+    ShopService shopService;
 
-    @GetMapping("currentshop")
-    public Shop getShop(){
-        return orderTodayService.getOrderToday().getShop();
-    }
-
-    @PostMapping("currentshop")
-    public void setShop(@RequestBody Shop shop){
-        orderTodayService.getOrderToday().setShop(shop);
-    }
 
     @GetMapping("{id}")
     public ResponseEntity<?> findSandwichTypeById(@PathVariable int id) throws SandwichTypeNotFoundException {
@@ -41,14 +35,19 @@ public class SandwichTypeController {
         return new ResponseEntity<>(sandwichType, HttpStatus.OK);
     }
 
+    @GetMapping("shop/{id}")
+    public List<SandwichType> findSandwichTypesByShop(@PathVariable int id) throws ShopNotFoundException, SandwichTypeNotFoundException {
+        return sandwichTypeService.findSandwichTypesByShop(shopService.findShopById(id));
+    }
+
     @GetMapping("query")
-    public ResponseEntity<?> findSandwichType(@RequestParam String name, @RequestParam int shopId) throws SandwichTypeNotFoundException{
+    public ResponseEntity<?> findSandwichType(@RequestParam("name") String name, @RequestParam("shopid") int shopId) throws SandwichTypeNotFoundException, ShopNotFoundException {
         SandwichType sandwichType = sandwichTypeService.findSandwichType(name, shopId);
         return new ResponseEntity<>(sandwichType, HttpStatus.OK);
     }
 
-    @DeleteMapping("")
-    public void removeSandwichType(@RequestBody int id) throws SandwichTypeNotFoundException {
+    @DeleteMapping("{id}")
+    public void removeSandwichType(@PathVariable int id) throws SandwichTypeNotFoundException {
         sandwichTypeService.removeSandwichType(id);
     }
 
@@ -62,5 +61,7 @@ public class SandwichTypeController {
         List<SandwichType> sandwichTypes = sandwichTypeService.getSandwichTypes();
         return new ResponseEntity<>(sandwichTypes, HttpStatus.OK);
     }
+
+
 
 }
