@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/session")
 @Validated
+@CrossOrigin(origins="http://localhost:4200")
 public class SessionController {
 
     @Autowired
@@ -31,7 +32,7 @@ public class SessionController {
         return service.getSessions();
     }
 
-    @CrossOrigin(origins="http://localhost:4200")
+    //@CrossOrigin(origins="http://localhost:4200")
     @GetMapping("today")
     public List<Session> findSessionsToday() throws SessionNotFoundException {
         return service.findSessionsDuring(LocalDate.now());
