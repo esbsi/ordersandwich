@@ -16,7 +16,7 @@ public interface OrderTodayService {
 
     void sendOrder(Shop shop) throws NullInputException;
 
-    List<SandwichOrder> checkMyOrderToday(Person person) throws NullInputException, PersonNotFoundException;
+    List<SandwichOrder> checkMyOrderToday(Person person) throws NullInputException;
 
     void toFile(String writing, boolean bool);
 

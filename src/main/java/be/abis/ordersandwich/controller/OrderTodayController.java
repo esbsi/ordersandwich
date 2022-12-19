@@ -80,21 +80,14 @@ public class OrderTodayController {
     }
     @PostMapping("check/person")
     public List<SandwichOrder> check(@RequestBody Person person ) throws NullInputException, PersonNotFoundException {
-
-/*
-        Person person2 = personService.findPerson(person.getId());
+/*        Person person2 = personService.findPerson(person.getId());
         if(!person2.getName().equals(person2.getName())) throw new PersonNotFoundException("person not found");
-
-
  */
-        Person p=personService.checkPerson(person);
-
-
-
-        return  service.checkMyOrderToday(p);
-
+        Person p = personService.checkPerson(person);
+        return service.checkMyOrderToday(p);
     }
-// to do
+
+// todo
     @DeleteMapping("")
     public void remove(@RequestBody SandwichOrder sandwichOrder ) throws SandwichTypeNotFoundException, TooLateException, TooManySandwichesException, NullInputException, OrderNotFoundException {
         SandwichOrder order=service.getOrderToday().getOrder().stream()
