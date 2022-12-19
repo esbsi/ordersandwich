@@ -124,24 +124,17 @@ public class OrderTodayServiceImp implements OrderTodayService{
     }
 
     @Override
-    public List<SandwichOrder> checkMyOrderToday(Person person) throws NullInputException, PersonNotFoundException {
+    public List<SandwichOrder> checkMyOrderToday(Person person) throws NullInputException {
         System.out.println("hey");
         if (person==null || orderToday==null ) throw new NullInputException("null input");
-
         List<Person> personList=getOrderToday().getOrder().stream().map(x->x.getPerson()).collect(Collectors.toList());
-
-        if(!personList.contains(person)) throw new PersonNotFoundException("person not found in ordertoday");
-
-        List<SandwichOrder> orderList=new ArrayList<>();
-
+        List<SandwichOrder> orderList = new ArrayList<>();
+        if(!personList.contains(person)) return orderList;
         for(SandwichOrder order:orderToday.getOrder()){
             if(order.getPerson().equals(person)){
                 orderList.add(order);
-
             }
-
-        }
-        return orderList;
+        } return orderList;
     }
 
     @Override
