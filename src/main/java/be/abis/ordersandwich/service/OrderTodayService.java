@@ -30,4 +30,5 @@ public interface OrderTodayService {
     void delete(int id) throws OrderTodayNotFoundException;
     OrderToday findById(int id)throws OrderTodayNotFoundException;
 
+    String orderTodayToString() throws NullInputException;
 }

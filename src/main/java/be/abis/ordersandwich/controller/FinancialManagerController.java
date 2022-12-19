@@ -24,6 +24,9 @@ public class FinancialManagerController {
 
     @PostMapping("monthlyprice")
     public double monthlyPrice(@RequestBody FinanceModel model)   {
+        System.out.println(model.getShop());
+        System.out.println(model.getYear());
+        System.out.println(model.getMonth());
 
         return financialManager.getMonthlyPrice(Month.of(model.getMonth()), model.getYear());
     }

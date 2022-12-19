@@ -133,7 +133,11 @@ public class OrderTodayController {
             personList.addAll( service.checkAllOrderedPersons(session));
         }
         return personList;
+    }
 
+    @GetMapping("string")
+    public String orderTodayToString() throws NullInputException {
+        return service.orderTodayToString();
     }
 
 

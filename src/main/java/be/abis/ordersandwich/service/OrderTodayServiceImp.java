@@ -115,16 +115,12 @@ public class OrderTodayServiceImp implements OrderTodayService{
         orderHistory.save(orderToday);
         toFile(orderToday.toString(),false);
         setOrderToday(new OrderToday(shop));
-
-
-
 /*
         List<Session> sessionList =orderToday.getOrder().stream().map(p->p.getPerson().getSession()).distinct().collect(Collectors.toList());
         for (Session session : sessionList){
             toFile(sessionService.checkAllOrdered(orderToday, session),true);
         }
  */
-
     }
 
     @Override
@@ -245,4 +241,12 @@ public class OrderTodayServiceImp implements OrderTodayService{
         if(o==null) throw new OrderTodayNotFoundException("order not found");
         return o;
     }
+
+    @Override
+    public String orderTodayToString() throws NullInputException {
+        if(orderHistory==null || orderToday== null) throw new NullInputException("some of the inputs are null");
+        return orderToday.toString();
+        }
+
+
 }
