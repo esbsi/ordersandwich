@@ -2,6 +2,7 @@ package be.abis.ordersandwich.controller;
 
 
 import be.abis.ordersandwich.dto.SandwichOrderModel;
+import be.abis.ordersandwich.dto.Str;
 import be.abis.ordersandwich.exception.*;
 import be.abis.ordersandwich.model.*;
 import be.abis.ordersandwich.service.OrderTodayService;
@@ -136,8 +137,10 @@ public class OrderTodayController {
     }
 
     @GetMapping("string")
-    public String orderTodayToString() throws NullInputException {
-        return service.orderTodayToString();
+    public Str orderTodayToString() throws NullInputException {
+        Str str=new Str();
+        str.setString( service.orderTodayToString());
+        return str;
     }
 
 
