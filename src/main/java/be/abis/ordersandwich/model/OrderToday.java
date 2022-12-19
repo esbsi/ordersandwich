@@ -19,7 +19,6 @@ public class OrderToday {
     @JoinTable(name="sandwichorderstoday",
             joinColumns = @JoinColumn(name = "orderhistory_id"),
             inverseJoinColumns = @JoinColumn(name = "sandwichorder_id"))
-
     private List<SandwichOrder> order = new ArrayList<>();
     @Column (name="totalprice")
     private double totalPrice;
