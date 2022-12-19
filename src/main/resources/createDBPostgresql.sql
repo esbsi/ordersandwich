@@ -104,8 +104,8 @@ insert into PERSONS (firstname, lastname) values ('Sim', 'Haas') ;
 insert into PERSONS (firstname, lastname) values ('Jef', 'Jeweet') ;
 
 insert into SESSIONS (session_name, startdate, enddate) values ('Intro SQL', '2022-12-01', '2022-12-04');
-insert into SESSIONS (session_name, startdate, enddate) values ('Intro UML', '2022-12-12', '2022-12-14');
-insert into SESSIONS (session_name, startdate, enddate) values ('Intro python', '2022-12-01', '2022-12-14');
+insert into SESSIONS (session_name, startdate, enddate) values ('Intro UML', '2022-12-12', '2023-12-14');
+insert into SESSIONS (session_name, startdate, enddate) values ('Intro python', '2022-12-01', '2023-12-14');
 
 
 
