@@ -28,7 +28,7 @@ public class OrderToday {
     @Column(name="senddate")
     private LocalDate date = LocalDate.now();
     @Column(name="closingtime")
-    private LocalTime closingTime;
+    private LocalTime closingTime=LocalTime.now();
 
     public OrderToday() {
     }
