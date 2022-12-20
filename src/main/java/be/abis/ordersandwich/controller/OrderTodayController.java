@@ -67,7 +67,6 @@ public class OrderTodayController {
     @PostMapping("new/today/{id}")
     public void newOrderToday(@PathVariable int id) throws ShopNotFoundException {
         Shop shop=shopService.findShopById(id);
-
         OrderToday orderToday = new OrderToday(shop);
         orderToday.setClosingTime(LocalTime.MAX);
         service.setOrderToday(orderToday);
@@ -105,9 +104,9 @@ public class OrderTodayController {
     }
 
     @PostMapping("send/shop/{id}")
-    public void send(@PathVariable int id) throws NullInputException, ShopNotFoundException {
-
+    public void send(@PathVariable int id, @RequestParam String today) throws NullInputException, ShopNotFoundException {
         service.sendOrder(shopService.findShopById(id));
+        if (Boolean.parseBoolean(today)) {newOrderToday(id);}
     }
 
     @GetMapping("check/all")

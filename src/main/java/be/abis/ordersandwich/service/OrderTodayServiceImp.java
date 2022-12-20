@@ -38,26 +38,22 @@ public class OrderTodayServiceImp implements OrderTodayService{
     @Override
     @Transactional
     public void orderSandwich(int i, boolean club, boolean grilledVegs, boolean white, String note, Person person) throws TooManySandwichesException, TooLateException, NullInputException, SandwichTypeNotFoundException {
-        if (person==null || orderToday==null ) throw new NullInputException("null input");
+        if (person==null || orderToday==null ) {
+            throw new NullInputException("null input");
+        }
         if (LocalTime.now().compareTo(orderToday.getClosingTime())>0 && orderToday.getDate().equals(LocalDate.now())){
-
             throw new TooLateException("too late, order is closed");
         }
         if (orderToday.getOrder().stream().filter(x -> x.getPerson().equals(person)).collect(Collectors.toList()).size()>0) {
             SandwichOrder sandwichOrder =orderToday.getOrder().stream().filter(x -> x.getPerson().equals(person)).findFirst().get();
             if (sandwichOrder.getSandwichType()== null ) {
                 orderToday.remove(sandwichOrder);
-
             }
         }
         if (orderToday.getOrder().stream().filter(x->x.getPerson().equals(person)).count()>1) {
-
             throw new TooManySandwichesException("you already ordered");
         }
-
-
-        if (i>sandwichTypeRepository.getSandwichTypeByShop(orderToday.getShop()).size()-1) throw new SandwichTypeNotFoundException("index too high");
-        SandwichOrder sandwichOrder = new SandwichOrder(sandwichTypeRepository.getSandwichTypeByShop(orderToday.getShop()).get(i), club, grilledVegs, white, note, person);
+        SandwichOrder sandwichOrder = new SandwichOrder(sandwichTypeRepository.findSandwichTypeById(i), club, grilledVegs, white, note, person);
         orderToday.getOrder().add(sandwichOrder);
         orderHistory.save(orderToday);
         orderToday=orderHistory.getLastOrderToday().get(0);
