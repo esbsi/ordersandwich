@@ -58,18 +58,15 @@ public class OrderTodayController {
  */
     @PostMapping("new/tomorrow/{id}")
     public void newOrderTomorrow(@PathVariable int id) throws ShopNotFoundException {
-
         Shop shop=shopService.findShopById(id);
-        OrderToday orderToday = new OrderToday(shop);
-        orderToday.setClosingTime(LocalTime.now());
-        service.setOrderToday(orderToday);
+        service.overWriteOrder(shop);
     }
+
     @PostMapping("new/today/{id}")
     public void newOrderToday(@PathVariable int id) throws ShopNotFoundException {
         Shop shop=shopService.findShopById(id);
-        OrderToday orderToday = new OrderToday(shop);
-        orderToday.setClosingTime(LocalTime.MAX);
-        service.setOrderToday(orderToday);
+        service.overWriteOrder(shop);
+        service.getOrderToday().setClosingTime(LocalTime.MAX);
     }
 
     @GetMapping("")
@@ -105,6 +102,8 @@ public class OrderTodayController {
 
     @PostMapping("send/shop/{id}")
     public void send(@PathVariable int id, @RequestParam String today) throws NullInputException, ShopNotFoundException {
+        System.out.println("send: " + today);
+        System.out.println(id);
         service.sendOrder(shopService.findShopById(id));
         if (Boolean.parseBoolean(today)) {newOrderToday(id);}
     }
